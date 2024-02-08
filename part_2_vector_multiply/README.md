@@ -1,9 +1,9 @@
 # 6.192[6.175] Lab 1_a Part 2
 
 ## Introduction
-This part of the lab involves debugging and fixing a buggy version of a Vector [dot product](https://en.wikipedia.org/wiki/Dot_product). Given two vectors, the code should return $A\cdot B$, following a normal vector product method (i.e. $A_1*B_1+A_2*B_2+\dots+A_n*B_n$). 
+This part of the lab involves debugging and fixing a buggy version of a Vector [dot product](https://en.wikipedia.org/wiki/Dot_product). Given two vectors, the code should return $A\cdot B$, following a normal vector product method (i.e. `$A_1*B_1+A_2*B_2+\dots+A_n*B_n$`). 
 
-[non-LaTeX: A · B = a_1·b_1 + a_2·b_2 + ... + a_n·b_n ; where A, B are vectors of length n, and a_i and b_i are scalars.]
+[non-LaTeX: `A · B = a_1·b_1 + a_2·b_2 + ... + a_n·b_n` ; where A, B are vectors of length n, and a_i and b_i are scalars.]
 
 The buggy code is stored in `VectorDot.bsv`, with a provided test bench in `TbVD.bsv`.
 
