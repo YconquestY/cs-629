@@ -29,26 +29,6 @@ module mkTest(Empty);
             endaction
         action
             $display("Left barrel shifter test passed");
-         endaction
-         action 
-            ctr_fsm <= 0;
-         endaction
-         while (ctr_fsm < 16)
-            action 
-               ctr_fsm <= ctr_fsm + 1;
-               let test = tests.sub(truncate(ctr_fsm));
-               let shftAmnt = tpl_1(test);
-               let data = tpl_2(test);
-               let reference = naiveButterfly(data, shftAmnt);
-               let resStudent = barrelButterfly(data, shftAmnt);
-               if (reference != resStudent) begin
-                    $display("The reference design said:", fshow(data), " butterfly-exchanged by %d ", shftAmnt, "=", fshow(reference));
-                    $display("The design under test gave a result", fshow(resStudent));
-                    $finish(1);
-               end
-            endaction
-        action
-            $display("Butterfly-shuffler test passed");
             $finish(0);
         endaction
       endseq);

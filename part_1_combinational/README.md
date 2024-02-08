@@ -1,6 +1,6 @@
 # 6.192[6.175] Lab 1_a Part 1
 
-Complete the exercises below, answering the questions in the answers.txt file provided. Please also track how much time you spend on these exercises. We're hoping this Part will take no longer than 2 hours, and hopefully less.
+Complete the exercises below, answering the questions in the answers.txt file provided. Please also track how much time you spend on these exercises.
 
 ## Warmup: Arithmetic and Logic Unit
 
@@ -76,31 +76,8 @@ _Question:_ Count the number of selectors (and their size) of your barrel shifte
 
 ```
 make
-./ShifterTest    #This last command should print "Left barrel shifter test passed" and then fail on the test for the butterfly shifter
+./ShifterTest    # This last command should print "Left barrel shifter test passed" if it works
 ```
 
-## Butterfly-shuffler 
-
-A butterfly shuffle circuit is specified by: 
-
-```
-function Vector#(16, Word) naiveButterfly(Vector#(16, Word) in, Bit#(4) param);
-    Vector#(16, Word) resultVector = in; 
-    for (Integer i = 0; i < 16; i = i + 1) begin
-        Bit#(4) idx = fromInteger(i);
-        resultVector[i] = in[param^idx];   // <--- the ^ operator is XOR. This is the only difference with the left-shift operation
-    end
-    return resultVector;
-endfunction
-```
-
-_Question:_ If param is dynamic (nonconstant), count the number of selectors of naiveButterfly(in, param).
-_Question:_ If param is constant (for example 0b0100), count the number of selectors of naiveButterfly(in, param).
-
-_Implementation_: Adapt the "barrel" technique you learned and implemented in the barrel-shifter, to the butterfly case.
-
-_Curiosity question (not graded)_: 
-More generally, we can express both the butterfly and the left-shifter as performing a shuffle `resultVector[i] = in[f(param,i)]` for some `f` (`f` is respectively `xor` and `+` in the cases we studied so far). What key property of `f` allows us to implement the corresponding shuffling operation efficiently using the barrel trick?
-
-_Another curiosity question (not graded)_:
+_Curiosity question (not graded)_:
 You learned about modules in the second lecture when we covered sequential circuits. How do we decide when to use a module versus when to use a function?
