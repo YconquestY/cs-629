@@ -81,3 +81,7 @@ make
 
 _Curiosity question (not graded)_:
 You learned about modules in the second lecture when we covered sequential circuits. How do we decide when to use a module versus when to use a function?
+
+---
+
+Once you have finished this part, remember to move onto the second part. And be sure to record how much time you spent on this part.
