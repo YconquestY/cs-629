@@ -13,6 +13,8 @@ do in hardware than software. Let's find out!
 To find out if hardware design is easier than software for spatial computing, you decide to design a hardware module that can compute 16x16 matrix 
 multiplication ($C = A * B$) with 32-bit integer elements.
 
+***Ignore integer overflow in your design!\*\*\*
+
 You decide on the following interface for a simple matrix multiplication design.
 
 ```
