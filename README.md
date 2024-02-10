@@ -11,7 +11,7 @@ do in hardware than software. Let's find out!
 ## Hardware Specification
 
 To find out if hardware design is easier than software for spatial computing, you decide to design a hardware module that can compute 16x16 matrix 
-multiplication (C = A * B) with 32-bit integer elements.
+multiplication ($C = A * B$) with 32-bit integer elements.
 
 You decide on the following interface for a simple matrix multiplication design.
 
@@ -34,8 +34,8 @@ while calculating matrix C.
 the second row. On the 17th call it should return the first row again.
 
 For this sequential design, we recommend using 3 different BRAMs. 2 to hold the two input matrices, A & B, and 1 for the output matrix, C. We also recommend
-calculating matrix C by iterating over the elements of A & B. In other words, each cycle of your C matrix calculation rule should compute the value $c_ij,f = a_ik * b_kj + c_ij,i$, rather than $c_ij = $\sum_{k=1}^n a_ik * b_kj$.
-
+calculating matrix C by iterating over the elements of A & B. In other words, each cycle of your C matrix calculation rule should compute the value: $$c_{ij,f}
+= a_{ik} * b_{kj} + c_{ij,i}$$ **INSTEAD OF:** $$c_{ij} =\sum_{k=1}^n a_{ik} * b_{kj}$$
 
 The following diagram summarizes the specification of the hardware design:
 <img src="DesignBlueprint.png" alt="Matrix Multiply Design" width=600>
