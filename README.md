@@ -65,12 +65,8 @@ let resp <- a.portA.response.get();
 
 ## Design Verification
 
-To verify your design:
-
-```
-make
-./TbMM
-```
+To verify your design call `make` on your command line. It should automatically re-compile your design if there are updates and
+save the testbench output to the file `output.log`.
 
 There are 4 tests performed in sequence:
 - test0: Multiply the identity matrix with itself
@@ -78,10 +74,16 @@ There are 4 tests performed in sequence:
 - test2: Multiply two random matrices
 - test3: Multiply two other random matrices
 
+
 ## Reflection
 
 Do you think matrix multiplication is easier in software or hardware?
 
-What do you think are some of the advantages of your design over software?
+What are some of the advantages of your design over software?
 
-Why do you think companies produce custom hardware instead of using mass produced chips?
+Why do you think companies produce custom hardware instead of using mass-produced chips?
+
+## Submission
+
+To submit your completed lab we ask that you stage, commit, and push your changes to your repo. Please include your entire repo including the output
+files in your submission. For more guidance on how to do this please see our piazza post: https://piazza.com/class/lrgt0dgrtpz590/post/27.
