@@ -30,8 +30,8 @@ endinterface
   - For example, if `write_row_a` is called with arguments `row` = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] and `row_idx` = 5, then all of the
 elements of `row` should be written to BRAM A. All of the address(es) should correspond to the 6th row of the matrix.
 Note: There is more than one way to design and address the BRAMs  (More on this later).
-- Method `load_row_b` must do the same for BRAM B.
-- Method `start()` should start the matrix multiplication calculation. The guard of `load_row_a`, `load_row_b`, and `resp_row_c` should be false 
+- Method `write_row_b` must do the same for BRAM B.
+- Method `start()` should start the matrix multiplication calculation. The guard of `write_row_a`, `write_row_b`, and `resp_row_c` should be false 
 while calculating matrix C.
 - Method `resp_row_c` should return 1 row of matrix C. On the first call it should return the first row and on the second call it should return
 the second row. On the 17th call it should return the first row again.
