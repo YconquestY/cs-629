@@ -87,11 +87,11 @@ There are 4 tests performed in sequence:
 
 ## Reflection
 
-**Do you think matrix multiplication is easier in software or hardware?**
+**Do you think matrix multiplication is easier to design and implement in software or hardware?**
 
-**What are some of the advantages of your design over software?**
+**What are some of the advantages of your design over a software implementation?**
 
-**Why do you think companies produce custom hardware instead of using mass-produced chips?**
+**Why do you think a small minority of companies still design custom hardware (fpgas/asics/etc.) instead of using general CPUs (Desktop/Laptop processors)?**
 
 ## Submission
 
