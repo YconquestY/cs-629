@@ -10,13 +10,6 @@ do in hardware than software. Let's find out!
 
 ## Hardware Specification
 
-To find out if hardware design is easier than software for spatial computing, you decide to design a hardware module that can compute 16x16 matrix 
-multiplication ($C = A * B$) with 32-bit integer elements.
-
-***Ignore integer overflow in your design!\*\*\*
-
-You decide on the following interface for a simple matrix multiplication design.
-
 ```
 interface MM;
     method Action write_row_a(Vector#(16, Bit#(32)) row, Bit#(4) row_idx);
@@ -26,23 +19,37 @@ interface MM;
 endinterface
 ```
 
-- Method `write_row_a` must write each element of the 16 elements of size 32 bits Vector `row` into row specified by `row_idx` within BRAM A.
+To find out if hardware design is easier than software for spatial computing, you decide to design your own chip for spatial computation that can compute 16x16 matrix 
+multiplication ($C = A * B$) with 32-bit integer elements. To simulate the spatial computing chip, your chip needs to perform many matrix multiplications. You decide to encapsulate the matrix multiplication logic in a module mkMatrixMultiplyFolded that implements the above interface MM. You will need to implement this module.
+
+The module mkMatrixMultiplyFolded is instantiated inside your chip, and the chip can send and receive data from the module using its method calls. When the chip wants to do a matrix multiplication operation ($C = A * B$), it needs to first load the data into the module for the $A$ and $B$ matrices. It's impractical to load in all 16x16 32-bit values from the chip at once, so the chip writes in the data one row at a time. The chip will attempt to call methods `write_row_a` and `write_row_b` with the $A$ and $B$ matrices' data for each row until all the data is fed into the module. Once all the data is fed in, the chip will call `start `to initiate the matrix multiplication. After the chip starts the calculation, it will attempt to read the response using `resp_row_c`, which returns each row of the matrix product ($C$) one at a time. It will continue calling `resp_row_c` until the chip has collected all the rows (0-15). The module will need to use BRAMs to store the large amount of data for each matrix; BRAM $A$ and BRAM $B$ for the input matrices' data and BRAM $C$ for the output matrix data.
+
+The rest of your chip doesn't know how your module is implemented, so it will attempt to call the interface methods as soon as the outer logic is ready (which is likely sooner than the internal calculation logic will finish). You should use what you learned about guards to ensure that the module doesn't accept any interface method calls that the module isn't ready for.
+
+## Summary
+
+- Method `write_row_a` must write each element of the 16 elements of size 32 bits Vector `row` into the row specified by `row_idx` within BRAM $A$.
   - For example, if `write_row_a` is called with arguments `row` = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] and `row_idx` = 5, then all of the
-elements of `row` should be written to BRAM A. All of the address(es) should correspond to the 6th row of the matrix.
+elements of `row` should be written to BRAM $A$. All of the address(es) should correspond to the 6th row of the matrix.
 Note: There is more than one way to design and address the BRAMs  (More on this later).
 - Method `write_row_b` must do the same for BRAM B.
 - Method `start()` should start the matrix multiplication calculation. The guard of `write_row_a`, `write_row_b`, and `resp_row_c` should be false 
-while calculating matrix C.
-- Method `resp_row_c` should return 1 row of matrix C. On the first call it should return the first row and on the second call it should return
-the second row. On the 17th call it should return the first row again.
+while calculating matrix $C$.
+- Method `resp_row_c` should return 1 row of matrix $C$. On the first call, it should return the first row and on the second call, it should return
+the second row.
 
-For this sequential design, we recommend using 3 different BRAMs. 2 to hold the two input matrices, A & B, and 1 for the output matrix, C. We also recommend
-calculating matrix C by iterating over the elements of A & B. In other words, each cycle of your C matrix calculation rule should compute the value: $$c_{ij,f}
+## Design Notes
+
+- You may use the * operator to perform scalar multiplications, so there is no need to implement your own multiplier. Bluespec will instantiate a multiplier where you place the *. Because multipliers are expensive, you should not instantiate more than one.
+- Ignore integer overflow in your design
+- You may want to define an enum using a typedef enum for your module's states.
+- You may want to write out the procedure for matrix multiplication in pseudocode [though spoilers that it might be easier to write in software]
+- We recommend calculating matrix $C$ by iterating over the elements of $A$ & $B$. In other words, each cycle of your $C$ matrix calculation rule should compute the value: $$c_{ij,f}
 = a_{ik} * b_{kj} + c_{ij,i}$$ **INSTEAD OF:** $$c_{ij} =\sum_{k=1}^n a_{ik} * b_{kj}$$
 
 **How many cycles would this take for an NxN matrix and why do we suggest taking this approach?**
 
-The following diagram summarizes the specification of the hardware design:
+The following diagram summarizes the specifications of the hardware design:
 <img src="DesignBlueprint.png" alt="Matrix Multiply Design" width=600>
 
 ## BRAM Design & Usage
