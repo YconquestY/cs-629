@@ -84,15 +84,6 @@ There are 4 tests performed in sequence:
 - test2: Multiply two random matrices
 - test3: Multiply two other random matrices
 
-
-## Reflection
-
-**Do you think matrix multiplication is easier to design and implement in software or hardware?**
-
-**What are some of the advantages of your design over a software implementation?**
-
-**Why do you think a small minority of companies still design custom hardware (fpgas/asics/etc.) instead of using general CPUs (Desktop/Laptop processors)?**
-
 ## Submission
 
 To submit your completed lab we ask that you stage, commit, and push your changes to your repo. **Please include your entire working directory, including the output files, in your submission.**
