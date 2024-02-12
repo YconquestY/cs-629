@@ -88,7 +88,8 @@ let resp <- a.portA.response.get();
 ## Design Verification
 
 To verify your design call `make` on your command line. It should automatically re-compile your design if there are updates and
-save the testbench output to the file `output.log`.
+save the testbench output to the file `output.log`. It will also create a `mkTb.sched` file that you can inspect for the scheduling
+information we learned about in Lecture 3.
 
 There are 4 tests performed in sequence:
 - test0: Multiply the identity matrix with itself

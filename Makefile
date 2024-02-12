@@ -1,6 +1,6 @@
 BUILD_DIR=build
 BINARY_NAME=TbMM
-BSC_FLAGS=--aggressive-conditions -vdir $(BUILD_DIR) -bdir $(BUILD_DIR) -simdir $(BUILD_DIR) -o 
+BSC_FLAGS=--aggressive-conditions --show-schedule -vdir $(BUILD_DIR) -bdir $(BUILD_DIR) -simdir $(BUILD_DIR) -o 
 TOP_MODULE=mkTb
 BSV_FILES_TRACKED=TbMM.bsv
 
@@ -18,6 +18,7 @@ clean:
 	rm -rf $(BUILD_DIR)
 	rm -f $(BINARY_NAME)
 	rm -f *.so
+	rm -f *.sched
 
 submit: all
 	git add -A
