@@ -1,6 +1,8 @@
 import Vector::*;
 import BRAM::*;
 
+// Time Spent:
+
 interface MM;
     method Action write_row_a(Vector#(16, Bit#(32)) row, Bit#(4) row_idx);
     method Action write_row_b(Vector#(16, Bit#(32)) row, Bit#(4) row_idx);
