@@ -42,6 +42,7 @@ the second row.
 
 - You may use the * operator to perform scalar multiplications, so there is no need to implement your own multiplier. Bluespec will instantiate a multiplier where you place the *. Because multipliers are expensive, you should not instantiate more than one.
 - Ignore integer overflow in your design
+- To debug your code, we *highly* recommend using `$display();` statements throughout your code. `display();` functions similarly to `printf();`. Eg. `display("1+2=%d", 3);`.
 - You may want to define an enum using a typedef enum for your module's states.
 - You may want to write out the procedure for matrix multiplication in pseudocode [though spoilers that it might be easier to write in software]
 - We recommend calculating matrix $C$ by iterating over the elements of $A$ & $B$. In other words, each cycle of your $C$ matrix calculation rule should compute the value: $$c_{ij,f}
