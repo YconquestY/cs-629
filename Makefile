@@ -4,7 +4,7 @@ BSC_FLAGS=--aggressive-conditions -vdir $(BUILD_DIR) -bdir $(BUILD_DIR) -simdir 
 TOP_MODULE=mkTb
 BSV_FILES_TRACKED=TbMM.bsv
 
-.PHONY: clean all
+.PHONY: clean all submit
 
 all: $(BINARY_NAME)
 	./$(BINARY_NAME) 2>&1 | tee output.log
@@ -18,3 +18,8 @@ clean:
 	rm -rf $(BUILD_DIR)
 	rm -f $(BINARY_NAME)
 	rm -f *.so
+
+submit: all
+	git add -A
+	git commit -am "Save Changes & Submit"
+	git push
