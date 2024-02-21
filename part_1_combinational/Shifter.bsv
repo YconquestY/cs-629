@@ -14,5 +14,5 @@ endfunction
 
 function Vector#(16, Word) barrelLeft(Vector#(16, Word) in, Bit#(4) shftAmnt);
     return unpack(0);
-    // Implementation of a left barrel shifter, presented in recitation
+    // Implementation of a left barrel shifter
 endfunction
