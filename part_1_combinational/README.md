@@ -1,4 +1,4 @@
-# 6.192[6.175] Lab 1_a Part 1
+# Lab 1_a Part 1
 
 Complete the exercises below, answering the questions in the answers.txt file provided. Please also track how much time you spend on these exercises.
 
@@ -66,7 +66,9 @@ _Question:_ If `shftAmnt` is dynamic (nonconstant), count the number of selector
 
 _Question:_ If `shftAmnt` is constant (for example 0b0100), count the number of selectors (and their size) of `naiveShfl(in, shftAmnt)`.
 
-_Implementation_: Recall the concept of a [barrel shifter](https://en.wikipedia.org/wiki/Barrel_shifter), which contains several constant shifters and uses them based on `shftAmnt`. Implement a barrel shifter that shifts to the left in the body of `barrelLeft` in `Shift.bsv`.
+_Implementation_: Recall the concept of a [barrel shifter](https://en.wikipedia.org/wiki/Barrel_shifter), which contains several constant shifters and uses them based on `shftAmnt`. 
+Implement a barrel shifter that shifts to the left in the body of `barrelLeft` in `Shift.bsv`.
+You can use the `naiveShfl` function with a constant amount, or equivalently the `<<` function. 
 
 Note: For Vectors, indices increase to the right, as opposed to Bits where indices increase to the left.
 
