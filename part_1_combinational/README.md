@@ -66,11 +66,9 @@ _Question:_ If `shftAmnt` is dynamic (nonconstant), count the number of selector
 
 _Question:_ If `shftAmnt` is constant (for example 0b0100), count the number of selectors (and their size) of `naiveShfl(in, shftAmnt)`.
 
-_Implementation_: Recall from 6.191 the concept of a [barrel shifter](https://en.wikipedia.org/wiki/Barrel_shifter), which contains several constant shifters and uses them based on `shftAmnt`. Implement a barrel shifter that shifts to the left in the body of `barrelLeft` in `Shift.bsv`.
+_Implementation_: Recall the concept of a [barrel shifter](https://en.wikipedia.org/wiki/Barrel_shifter), which contains several constant shifters and uses them based on `shftAmnt`. Implement a barrel shifter that shifts to the left in the body of `barrelLeft` in `Shift.bsv`.
 
 Note: For Vectors, indices increase to the right, as opposed to Bits where indices increase to the left.
-
-Note: You may be accustomed to parametric functions in Minispec, which are used to reduce repetition in your code (e.g., so you can write one function that you can turn into 8-bit version, 16-bit version, etc.). Unfortunately, parametric functions in that syntax are a Minispec exclusive. The similar feature in Bluespec (polymorphism) is more complicated, so we ask that you not worry about repeating yourself for this exercise.
 
 _Question:_ Count the number of selectors (and their size) of your barrel shifter
 
@@ -78,9 +76,6 @@ _Question:_ Count the number of selectors (and their size) of your barrel shifte
 make
 ./ShifterTest    # This last command should print "Left barrel shifter test passed" if it works
 ```
-
-_Curiosity question (not graded)_:
-You learned about modules in the second lecture when we covered sequential circuits. How do we decide when to use a module versus when to use a function?
 
 ---
 
