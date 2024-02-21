@@ -8,4 +8,4 @@ This pre-lab has two parts: combinational exercises, and a sequential debugging 
 - In the second part, we provide you with a buggy module that implements a [dot product](https://en.wikipedia.org/wiki/Dot_product) between two vectors. We have declared the state elements at the top of the module for you, but there are some bugs in the rules and methods. We ask you to identify and fix them.
 
 
-`make submit` in the main directory will upload your code and run the autograder :)
+`make submit` in the main directory will locally run the tests and submit the log for simple autograding
