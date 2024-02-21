@@ -9,5 +9,3 @@ This pre-lab has two parts: combinational exercises, and a sequential debugging 
 
 
 `make submit` in the main directory will upload your code and run the autograder :)
-
-Although we're making them due the same day, please start early so we can help with any problems, and because we'll be releasing lab2 right after lab1 is due. 🙂
