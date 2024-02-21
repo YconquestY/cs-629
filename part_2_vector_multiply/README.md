@@ -1,4 +1,4 @@
-# 6.192[6.175] Lab 1_a Part 2
+# Lab 1_a Part 2
 
 ## Introduction
 This part of the lab involves debugging and fixing a buggy version of a Vector [dot product](https://en.wikipedia.org/wiki/Dot_product). Given two vectors, the code should return $A\cdot B$, following a normal vector product method (i.e. `$A_1*B_1+A_2*B_2+\dots+A_n*B_n$`). 
@@ -78,4 +78,4 @@ Once you have discovered, fixed, and annotated the bugs, refer back to the main 
 
 ## Getting Help
 
-As always post on piazza or come to office hours. This is a newly developed lab. While we hope we were thorough, there may be things we missed.
+As always post on piazza, or ask questions in class/labs. This is a newly developed lab. While we hope we were thorough, there may be things we missed.
