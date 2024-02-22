@@ -32,6 +32,7 @@ We provide a series of queues that are controlled with methods to send and recie
 
 We already provide the decode and execute functions. Reference `multicycle.bsv` for usage. 
 
+You will need to use konata (see below) to prove that your processor is pipelined correctly.
 
 ## Running tests
 
@@ -113,7 +114,7 @@ For the register file and the scoreboard, we advise you to use a vector of EHRs 
 
 # Submitting
 
-`make submit` will run the autograder and upload your code.
+`make submit` will run the autograder and upload your code. Please keep a konata screenshot inside your repository when you are done.
 
 Let us know on Piazza or OH if you need any help :)
 
