@@ -114,7 +114,7 @@ For the register file and the scoreboard, we advise you to use a vector of EHRs 
 
 # Submitting
 
-`make submit` will run the autograder and upload your code. Please keep a konata screenshot inside your repository when you are done.
+`make submit` will run the autograder and upload your code. Please keep a konata screenshot (just a segment of one test will be fine) inside your repository when you are done.
 
 Let us know on Piazza or OH if you need any help :)
 
