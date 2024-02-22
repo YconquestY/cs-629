@@ -92,7 +92,7 @@ For example, for the test `add32` the assembly code is available in `test/build/
 
 While debugging a design, it is very common to have side-by-side: the processor-execute trace (either just as a sequence of display statement printed in the terminal, or the fancier version of using Konata), and the corresponding assembly code listing in a text editor. This is to understand the moment where things go in an unexpected way: maybe the problem is caused by a branch, maybe an instruction get stuck forever in the decode stage (identifying which one it is might help doing a good diagnostic), etc... The key to debugging is to first gather as much data as possible, and then walk through the debugging data gathered slowly. Start debugging your processor on simple tests before going to more complicated ones.
 
-These tests are programmed in C and are in the tests directory. If you really want to compile your own tests, you will need to install riscv64-unknown-elf-gcc for your operating system.
+These tests are programmed in C and are in the tests directory. If you really want to compile your own tests, you will need to install riscv64-unknown-elf-gcc for your operating system (e.g. `sudo apt-get install gcc-riscv64-unknown-elf` on Debian). Edit the makefile to add your code. This is certainly not needed for the lab, only for fun or to debug :)
 
 ## Collection of registers
 
