@@ -16,13 +16,13 @@ Here is an overall picture of the design you should build:
 
 <img src="diagram_pipeline.png" alt="Pipelined processor diagram" width=600>
 
-This lab is longer so start early. You have two weeks to complete. Please make a full sketch of your design as this will help you debug. 
+This lab is longer so start early. You have 1.5 weeks to complete it, due March 5 at 9:30am, with the checkoff due after OH on March 11. 
 
 Lectures 5 and 6 will crucial for this lab.
 
 ## Your goal
 
-You will need to fill in the four pipeline stages in `pipelined.bsv` -- fetch, decode, execute, and writeback. These should function as described in the lecture notes.
+You will need to fill in the four pipeline stages in `pipelined.bsv` -- fetch, decode, execute, and writeback. These should function as described in the lecture notes. Please make a full sketch of your design ahead of time as this will help you debug. 
 
 Fetch should fetch the next instruction, with prediction of pc+4. Decode should run the given function decoder and store state. Execute runs the execute function (ALU, branching, etc). Writeback writes the updated state back to the register file and/or memory.
 
@@ -114,6 +114,8 @@ For the register file and the scoreboard, we advise you to use a vector of EHRs 
 # Submitting
 
 `make submit` will run the autograder and upload your code.
+
+Let us know on Piazza or OH if you need any help :)
 
 You can use regular `git commit` to backup any changes you make but make sure your last commit is passing tests and uploaded using `make submit`. You should commit and push regularly as a good coding practise.
 
