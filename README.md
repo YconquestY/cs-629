@@ -20,6 +20,19 @@ This lab is longer so start early. You have two weeks to complete. Please make a
 
 Lectures 5 and 6 will crucial for this lab.
 
+## Your goal
+
+You will need to fill in the four pipeline stages in `pipelined.bsv` -- fetch, decode, execute, and writeback. These should function as described in the lecture notes.
+
+Fetch should fetch the next instruction, with prediction of pc+4. Decode should run the given function decoder and store state. Execute runs the execute function (ALU, branching, etc). Writeback writes the updated state back to the register file and/or memory.
+
+Keep in mind that because of memory latency and other issues, these stages can take multiple cycles and your code should include appropriate stalling logic to wait for results. You should also be keeping guards to make sure data hazards are checked. Appropriate bypassing can be used with the EHRs as registers.
+
+We provide a series of queues that are controlled with methods to send and recieve memory requests. These are `toImem/fromImem`, `toDmem/fromDmem`, and `toMMIO/fromMMIO`. The FIFO queue interface has three methods that can be used: `.enq(word)`, `.deq()` , and `.empty` (bool). These are connected to BRAM in the test bench that you do not need to worry about. 
+
+We already provide the decode and execute functions. Reference `multicycle.bsv` for usage. 
+
+
 ## Running tests
 
 We have a collection of a few tests:
