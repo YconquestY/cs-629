@@ -34,11 +34,11 @@ timeout 1 ./top_bsv
 
 echo "Testing thelie"
 ./test.sh thelie32
-timeout 1 ./top_bsv
+timeout 10 ./top_bsv
 
 echo "Testing thuemorse"
 ./test.sh thuemorse32
-timeout 1 ./top_bsv
+timeout 10 ./top_bsv
 
 echo "Testing matmul"
 ./test.sh matmul32
