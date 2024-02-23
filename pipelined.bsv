@@ -89,7 +89,7 @@ module mkpipelined(RVIfc);
         // You should put the pc that you fetch in pc_fetched
         // Below is the code to support Konata's visualization
 		let iid <- fetch1Konata(lfh, fresh_id, 0);
-        labelKonataLeft(lfh, iid, $format("PC %x",pc_fetched));
+        labelKonataLeft(lfh, iid, $format("0x%x: ", pc_fetched));
         // TODO implement fetch
             
 

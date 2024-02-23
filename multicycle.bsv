@@ -78,7 +78,7 @@ module mkmulticycle(RVIfc);
     rule fetch if (state == Fetch && !starting);
 	    if(debug) $display("Fetch %x", pc);
 		let iid <- fetch1Konata(lfh, fresh_id, 0);
-        labelKonataLeft(lfh, iid, $format("PC : %x",pc));
+        labelKonataLeft(lfh, iid, $format("0x%x: ",pc));
 		current_id <= iid;
         let req = Mem {byte_en : 0,
 			   addr : pc,
@@ -93,14 +93,13 @@ module mkmulticycle(RVIfc);
         let instr = resp.data;
         let decodedInst = decodeInst(instr);
 		decodeKonata(lfh, current_id);
-        labelKonataLeft(lfh,current_id, $format("Instr bits: %x",decodedInst.inst));
+        labelKonataLeft(lfh, current_id, $format("DASM(%x)", instr));  // inserts the DASM id into the intermediate file
 		dInst <= decodedInst;
 		if (debug) $display("[Decode] ", fshow(decodedInst));
         let rs1_idx = getInstFields(instr).rs1;
         let rs2_idx = getInstFields(instr).rs2;
 		let rs1 = (rs1_idx ==0 ? 0 : rf[rs1_idx]);
 		let rs2 = (rs2_idx == 0 ? 0 : rf[rs2_idx]);
-        labelKonataLeft(lfh,current_id, $format(" Potential r1: %x, Potential r2: %x" , rs1, rs2));
 		rv1 <= rs1;
 		rv2 <= rs2;
         state <= Execute;
@@ -135,26 +134,24 @@ module mkmulticycle(RVIfc);
 				       data : data};
 		    if (isMMIO(addr)) begin 
 		        if (debug) $display("[Execute] MMIO", fshow(req));
-    		    toMMIO.enq(req);
-                labelKonataLeft(lfh,current_id, $format(" MMIO ", fshow(req)));
+				toMMIO.enq(req);
+                labelKonataLeft(lfh,current_id, $format(" (MMIO)", fshow(req)));
     		    mmio = True;
 		    end else begin 
-                labelKonataLeft(lfh,current_id, $format(" MEM ", fshow(req)));
+                labelKonataLeft(lfh,current_id, $format(" (MEM)", fshow(req)));
     		    toDmem.enq(req);
 		    end
 		end
 		else if (isControlInst(dInst)) begin
-                labelKonataLeft(lfh,current_id, $format(" Ctrl instr "));
+                labelKonataLeft(lfh,current_id, $format(" (CTRL)"));
                 data = pc + 4;
 		end else begin 
-            labelKonataLeft(lfh,current_id, $format(" Standard instr "));
+            labelKonataLeft(lfh,current_id, $format(" (ALU)"));
 		end
 		let controlResult = execControl32(dInst.inst, rv1, rv2, imm, pc);
 		let nextPc = controlResult.nextPC;
 		pc <= nextPc;
 		rvd <= data;
-
-        labelKonataLeft(lfh,current_id, $format(" ALU output: %x" , data));
 		mem_business <= MemBusiness { isUnsigned : unpack(isUnsigned), size : size, offset : offset, mmio: mmio};
 		state <= Writeback;
     endrule

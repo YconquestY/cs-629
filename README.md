@@ -14,7 +14,7 @@ You may find the following diagram to be useful:
 
 Here is an overall picture of the design you should build:
 
-<img src="diagram_pipeline.png" alt="Pipelined processor diagram" width=600>
+<img src="images/diagram_pipeline.png" alt="Pipelined processor diagram" width=600>
 
 This lab is longer so start early. You have 1.5 weeks to complete it, due March 5 at 9:30am, with the checkoff due after OH on March 11. 
 
@@ -73,10 +73,10 @@ Konata can then be used on produced 'output.log' files (generated when you run y
 
 You can already use Konata to visualize the execution of the baseline multicycle design, it should look like:
 
-<img src="Multicycle.png" alt="Multicycle in Konata" width=600>
+<img src="images/Multicycle.png" alt="Multicycle in Konata" width=600>
 
 Once you will have implemented your pipelined processor successfully, the Konata visualization should look like:
-<img src="Pipelined.png" alt="Pipelined in Konata" width=600>
+<img src="images/Pipelined.png" alt="Pipelined in Konata" width=600>
 
 To use Konata, you will have to generate event in each of the rule of your design. You can study `multicycle.bsv` as an example.  
 In the skeleton code of `pipelined.bsv` we also gave some sketch of how to generate those events.
