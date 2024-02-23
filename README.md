@@ -69,7 +69,7 @@ If you want to produce your own tests, you can do two things:
 - Write your own RISC-V assembly and compile it into an `elf`
 - Write your own C code and compile it into RISC-V `elf`
 
-then convert that `elf` into a `hex` file, hence the `elf2hex` tool we have in the directory. We don't expect you'll need to produce any tests yourself, but they are here if you want them.
+then convert that `elf` into a `hex` file, hence the `elf2hex` tool we have in the directory.  (Note: run `make clean; make` in the `elf2hex` directory before use if not on Linux amd64). We don't expect you'll need to produce any tests yourself, but they are here if you want them.
 
 If you *do* make your own tests, feel free to share the `hex` files on the Piazza. We have a rather boring and minimal set of tests, and I'm sure your peers would be delighted to see whatever fun tests you cook up! But it is not necessary for the lab.
 
