@@ -108,6 +108,10 @@ To add debug messages in konata, you can use `labelKonataLeft(lfh,current_id, $f
 
 A `Fmt` object is like a debug string. You can use `$format` exactly the same as you would use `$display`; the difference is only that `$format` places it in a `Fmt` object and `$display` does an `Action` with it.
 
+We provide binaries for a tool called `spike-dasm` for you if you are on an Arm mac or Intel linux/wsl machine. This tool processes the konata log for you to generate human readable assembly code in the log. If you are on a different architechture for some reason, it will default to not processing the logs. 
+
+* Alternatively, you can compile it yourself from <a href="https://github.com/riscv-software-src/riscv-isa-sim/tree/master">here</a>. You will need to do `sudo apt install device-tree-compiler` on Debian/WSL or `brew install dtc` on mac (intel or arm). Then run `./configure; make spike-dasm`. Copy your new `spike-dasm` file to `tools/` in the lab repository (replace the existing file).
+
 ## Disassembled files
 
 All the tests are written in C, you can find the source in "test/src/*.c".
