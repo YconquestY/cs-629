@@ -21,19 +21,19 @@ module mkVectorDot (VD);
 
     Reg#(Bit#(32)) output_res <- mkReg(unpack(0));
 
-    Reg#(Bit#(8)) dim <- mkReg(0);
+    Reg#(Bit#(8)) dim <- mkReg(0); // 0.1 not necessarily a register?
 
     Reg#(Bool) ready_start <- mkReg(False);
     Reg#(Bit#(8)) pos_a <- mkReg(unpack(0));
     Reg#(Bit#(8)) pos_b <- mkReg(unpack(0));
-    Reg#(Bit#(8)) pos_out <- mkReg(unpack(0));
+    Reg#(Bit#(8)) pos_out <- mkReg(unpack(0)); // 0.2 not necessary? `done_all` can be determined by `done_a` and `done_b`
     Reg#(Bool) done_all <- mkReg(False);
     Reg#(Bool) done_a <- mkReg(False);
     Reg#(Bool) done_b <- mkReg(False);
     Reg#(Bool) req_a_ready <- mkReg(False);
     Reg#(Bool) req_b_ready <- mkReg(False);
 
-    Reg#(Bit#(2)) i <- mkReg(0);
+    Reg#(Bit#(2)) i <- mkReg(0); // 0.1 not necessarily a register?
 
 
     rule process_a (ready_start && !done_a && !req_a_ready);
@@ -42,7 +42,7 @@ module mkVectorDot (VD);
                             address: zeroExtend(pos_a),
                             datain: ?});
 
-        if (pos_a < dim*zeroExtend(i))
+        if (pos_a < dim*zeroExtend(i+1) - 1) // 1. i + 1; boundary - 1
             pos_a <= pos_a + 1;
         else done_a <= True;
 
@@ -56,7 +56,7 @@ module mkVectorDot (VD);
                 address: zeroExtend(pos_b),
                 datain: ?});
 
-        if (pos_b < dim*zeroExtend(i))
+        if (pos_b < dim*zeroExtend(i+1) - 1) // 1. i + 1; boundary - 1
             pos_b <= pos_b + 1;
         else done_b <= True;
     
@@ -67,10 +67,11 @@ module mkVectorDot (VD);
         let out_a <- a.portA.response.get();
         let out_b <- b.portA.response.get();
 
-        output_res <=  out_a*out_b;     
+        //output_res <=  out_a*out_b; // 2. no accumulation
+        output_res <= output_res + out_a * out_b;
         pos_out <= pos_out + 1;
         
-        if (pos_out == dim-1) begin
+        if (pos_out == dim-1) begin // correct: read "old" `pos_out`
             done_all <= True;
         end
 
@@ -82,11 +83,14 @@ module mkVectorDot (VD);
 
 
     method Action start(Bit#(8) dim_in, Bit#(2) i_in) if (!ready_start);
+        output_res <= 0; // 3. forget to reset `output_res`
         ready_start <= True;
         dim <= dim_in;
         done_all <= False;
-        pos_a <= dim_in*zeroExtend(i);
-        pos_b <= dim_in*zeroExtend(i);
+        //pos_a <= dim_in*zeroExtend(i); // 4. wrong initialization
+        pos_a <= dim_in*zeroExtend(i_in);
+        //pos_b <= dim_in*zeroExtend(i);
+        pos_b <= dim_in*zeroExtend(i_in);
         done_a <= False;
         done_b <= False;
         pos_out <= 0;
@@ -94,7 +98,11 @@ module mkVectorDot (VD);
     endmethod
 
     method ActionValue#(Bit#(32)) response() if (done_all);
-        return output_res;
+        ready_start <= False;
+        done_all <= False;
+        done_a <= False;
+        done_b <= False;
+        return output_res; // 5. no "side effect"
     endmethod
 
 endmodule

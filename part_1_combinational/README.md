@@ -8,9 +8,9 @@ Write a little 4 operations ALU in `Alu.bsv`. You can use the Bluespec primitive
 
 The operations are:
 
-Add: Add v1, v2
-ShiftL: Shift v1 left by the amount specified by v2
-And: Bitwise AND v1, v2
+Add: Add v1, v2<br>
+ShiftL: Shift v1 left by the amount specified by v2<br>
+And: Bitwise AND v1, v2<br>
 Not: Bitwise NOT v1
 
 You can test your ALU by doing: 
@@ -63,6 +63,8 @@ endfunction
 ```
 
 _Question:_ If `shftAmnt` is dynamic (nonconstant), count the number of selectors (and their size) of `naiveShfl(in, shftAmnt)`.
+
+What is a *selector*?
 
 _Question:_ If `shftAmnt` is constant (for example 0b0100), count the number of selectors (and their size) of `naiveShfl(in, shftAmnt)`.
 

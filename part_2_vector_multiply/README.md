@@ -1,7 +1,7 @@
 # Lab 1_a Part 2
 
 ## Introduction
-This part of the lab involves debugging and fixing a buggy version of a Vector [dot product](https://en.wikipedia.org/wiki/Dot_product). Given two vectors, the code should return $A\cdot B$, following a normal vector product method (i.e. `$A_1*B_1+A_2*B_2+\dots+A_n*B_n$`). 
+This part of the lab involves debugging and fixing a buggy version of a Vector [dot product](https://en.wikipedia.org/wiki/Dot_product). Given two vectors, the code should return $A\cdot B$, following a normal vector product method (i.e. $A_1*B_1+A_2*B_2+\dots+A_n*B_n$). 
 
 [non-LaTeX: `A · B = a_1·b_1 + a_2·b_2 + ... + a_n·b_n` ; where A, B are vectors of length n, and a_i and b_i are scalars.]
 
@@ -20,7 +20,7 @@ endinterface
 ```
 The test bench will call the method `start` with the starting dimension `dim_in`, e.g. 16 for a 16 length vector A and B and the vector index `i`.  (Ungraded: What is the largest length of vector this interface could compute for?)
 
-Assume vector A and B are the same size. Vector A is stored in `v1.hex` and B is in `v2.hex`. Each contains a series of vectors, three 16-dimension vectors to be precise, in sequential order. The start of each vector is at `vector_id*dimension`. The expected dot product of each vector is stored in `v3.hex` for each corresponding pair of vectors. Note that all files are in hexadecimal even if not apparent. 
+Assume vector A and B are the same size. Vector A is stored in `v1.hex` and B is in `v2.hex`. Each contains a series of vectors, ~~three~~ four 16-dimension vectors to be precise, in sequential order. The start of each vector is at `vector_id*dimension`. The expected dot product of each vector is stored in `v3.hex` for each corresponding pair of vectors. Note that all files are in hexadecimal even if not apparent. 
 
 Assume dimension is constant, but do not hard code any number that is given as an input. The index can vary. 
 
