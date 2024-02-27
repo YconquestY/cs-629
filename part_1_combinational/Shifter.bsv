@@ -17,8 +17,9 @@ function Vector#(16, Word) barrelLeft(Vector#(16, Word) in, Bit#(4) shftAmnt);
     for (Integer i = 3; i >= 0; i = i - 1) begin
         Bit#(4) mask = 0;
         mask[i] = 1;
-        Bit#(4) maskedAmnt = shftAmnt & mask;
-        barrel[4-i] = naiveShfl(barrel[3-i], maskedAmnt);
+        //Bit#(4) maskedAmnt = shftAmnt & mask;
+        //barrel[4-i] = naiveShfl(barrel[3-i], maskedAmnt);
+        barrel[4-i] = unpack(pack(shftAmnt[i])) ? naiveShfl(barrel[3-i], mask) : barrel[3-i];
     end
     return barrel[4];
 endfunction
