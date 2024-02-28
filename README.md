@@ -1,13 +1,5 @@
 # Matrix Multiplication Lab
 
-## The Scenario
-
-Tim the Beaver has fallen into the craze of computer vision and machine learning after borrowing his friend's brand new augmented reality headset
-over the weekend. Once he's done trying it out, his friend tells him about the high tech hardware specifications of the headset. He then learns that the
-developers of the headset designed a custom spatial computing chip for the device. He then questions his friend about why they put the time and
-effort into designing a new custom chip instead of using a general x86 processor. His friend suggests that maybe spatial computing is easier to
-do in hardware than software. Let's find out!
-
 ## Hardware Specification
 
 ```
@@ -19,12 +11,15 @@ interface MM;
 endinterface
 ```
 
-To find out if hardware design is easier than software for spatial computing, you decide to design your own chip for spatial computation that can compute 16x16 matrix 
-multiplication ($C = A * B$) with 32-bit integer elements. To simulate the spatial computing chip, your chip needs to perform many matrix multiplications. You decide to encapsulate the matrix multiplication logic in a module mkMatrixMultiplyFolded that implements the above interface MM. You will need to implement this module.
+The goal is to explore a first simple design that can compute 16x16 matrix 
+multiplication ($C = A * B$) with 32-bit integer elements. 
+Your design will needs to perform many matrix multiplications, so you decide to encapsulate the matrix multiplication logic in a module mkMatrixMultiplyFolded that implements the above interface MM. You will need to implement this module.
 
-The module mkMatrixMultiplyFolded is instantiated inside your chip, and the chip can send and receive data from the module using its method calls. When the chip wants to do a matrix multiplication operation ($C = A * B$), it needs to first load the data into the module for the $A$ and $B$ matrices. It's impractical to load in all 16x16 32-bit values from the chip at once, so the chip writes in the data one row at a time. The chip will attempt to call methods `write_row_a` and `write_row_b` with the $A$ and $B$ matrices' data for each row until all the data is fed into the module. Once all the data is fed in, the chip will call `start `to initiate the matrix multiplication. After the chip starts the calculation, it will attempt to read the response using `resp_row_c`, which returns each row of the matrix product ($C$) one at a time. It will continue calling `resp_row_c` until the chip has collected all the rows (0-15). The module will need to use BRAMs to store the large amount of data for each matrix; BRAM $A$ and BRAM $B$ for the input matrices' data and BRAM $C$ for the output matrix data.
+One can send and receive data from the module using its method calls. When the design wants to do a matrix multiplication operation ($C = A * B$), it needs to first load the data into the module for the $A$ and $B$ matrices. It's impractical to load in all 16x16 32-bit values from the outside at once, so the interface writes the data one row at a time. The testbench that tests your design will attempt to call methods `write_row_a` and `write_row_b` with the $A$ and $B$ matrices' data for each row until all the data is fed into the module. Once all the data is fed in, the testbench will call `start `to initiate the matrix multiplication. After your module starts the calculation, the testbench will attempt to read the response using `resp_row_c`, which returns each row of the matrix product ($C$) one at a time.
 
-The rest of your chip doesn't know how your module is implemented, so it will attempt to call the interface methods as soon as the outer logic is ready (which is likely sooner than the internal calculation logic will finish). You should use what you learned about guards to ensure that the module doesn't accept any interface method calls that the module isn't ready for.
+It will continue calling `resp_row_c` until the chip has collected all the rows (0-15). To get experience in using request/response memories, your module will need to use BRAMs to store the data corresponding to each matrix; BRAM $A$ and BRAM $B$ for the input matrices' data and BRAM $C$ for the output matrix data.
+
+The testbench doesn't know how your module is implemented, so it will attempt to call the interface methods as soon as the outer logic is ready (which is likely sooner than the internal calculation logic will finish). You should use what you learned about guards to ensure that the module doesn't accept any interface method calls that the module isn't ready for.
 
 ## Summary
 
@@ -40,7 +35,7 @@ the second row.
 
 ## Design Notes
 
-- You may use the * operator to perform scalar multiplications, so there is no need to implement your own multiplier. Bluespec will instantiate a multiplier where you place the *. Because multipliers are expensive, you should not instantiate more than one.
+- You may use the * operator to perform scalar multiplications, so there is no need to implement your own multiplier. Bluespec will instantiate a multiplier where you place the *. Because multipliers are expensive, and the goal is to explore a folded computation, you should not instantiate more than one for this lab.
 - Ignore integer overflow in your design
 - To debug your code, we *highly* recommend using `$display();` statements throughout your code. `display();` functions similarly to `printf();`. Eg. `display("1+2=%d", 3);`.
 - You may want to define an enum using a typedef enum for your module's states.
@@ -99,7 +94,5 @@ To submit your completed lab we ask that you stage, commit, and push your change
 
 To do this you should only need to call `make submit`. After doing so, your entire directory should be uploaded to your private git-repo on Github Classroom. Upon submission,
 Github will automatically test & verify that your design runs correctly. You should see a green checkmark next to the commit titled "Save Changes & Submit" if your design passes Github's testcase. A yellow circle means the test is still pending and a red cross means the test failed. If your design passes locally, but not on Github, let the course staff know as this should not happen.
-
-Please take some time to fill out the [feedback form](https://docs.google.com/forms/d/e/1FAIpQLSeZod3klveOl0EwD17ihhO6dR1eZr4uX2uIyL_9RGUEtsxEiw/viewform?usp=sf_link). We really appreciate it!
 
 Should you need more guidance with git, please contact the course staff or see our piazza post: https://piazza.com/class/lrgt0dgrtpz590/post/27.
