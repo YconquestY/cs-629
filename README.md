@@ -1,9 +1,5 @@
 # Matrix Multiplication Lab
 
-## Setup
-
-Clone your private repo by clicking on the green button that says "code". Next click on SSH. Copy the ssh address. Now call `git clone git@github.com:6192-sp24/lab1-b-matrix-multiplication-<your github account name>.git`. You can paste the latter part of the command instead of typing it out, but it should be the same. Now `cd lab1-b-matrix-multiplication-<your github account name>/` into the cloned directory to start working on the lab.
-
 ## The Scenario
 
 Tim the Beaver has fallen into the craze of computer vision and machine learning after borrowing his friend's brand new augmented reality headset
