@@ -52,6 +52,7 @@ module mkTb(Empty);
                           $display("Rows %d matches", ctr_fsm);
                endaction
             action 
+               $display("Test %d passed", test_number/3);
                if (test_number == 9) begin 
                   $display("Test passed");
                   $finish(0);
