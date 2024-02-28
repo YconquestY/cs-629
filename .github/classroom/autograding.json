@@ -1,0 +1,44 @@
+{
+  "tests": [
+    {
+      "name": "Identity",
+      "setup": "",
+      "run": "cat output.log | grep \"0 passed\"",
+      "input": "",
+      "output": "passed",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 6
+    },
+    {
+      "name": "Identity Again ",
+      "setup": "",
+      "run": "cat output.log | grep \"1 passed\"",
+      "input": "",
+      "output": "passed",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 3
+    },
+    {
+      "name": "Random matrix",
+      "setup": "",
+      "run": "cat output.log | grep \"2 passed\"",
+      "input": "",
+      "output": "passed",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 2
+    },
+    {
+      "name": "Final random matrix",
+      "setup": "",
+      "run": "cat output.log | grep \"3 passed\"",
+      "input": "",
+      "output": "passed",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    }
+  ]
+}
