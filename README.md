@@ -17,8 +17,8 @@ This should look like:
     |           |
   IMEM L1    DMEM L1
     |           |
-    ------|------  
-          |    
+    -----||------
+         ||    
       Processor
 ```
 
