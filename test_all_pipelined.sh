@@ -40,7 +40,7 @@ echo "Testing thuemorse"
 ./test.sh thuemorse32
 timeout 10 ./top_pipelined
 
-#echo "Testing matmul"
-#./test.sh matmul32
-#timeout 60 ./top_pipelined
+echo "Testing matmul"
+./test.sh matmul32
+timeout 60 ./top_pipelined
 
