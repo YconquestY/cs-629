@@ -36,6 +36,8 @@ You will need to use konata (see below) to prove that your processor is pipeline
 
 ## Running tests
 
+Run `make all` first. then....
+
 We have a collection of a few tests:
   add32, and32, or32, hello32, thelie32, mul32, ... (see the full list in test/build/)
 
