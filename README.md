@@ -16,7 +16,17 @@ In the file `Cache32.bsv`, you should implement the `mkCache32` module. Your cac
 - It uses a store-buffer
 - You are free to design either a k-way associative (k=2,4,8) or a direct-mapped cache. If you choose a k-way associative you can pick any replacement policy you want
 - You should use a BRAM to hold the content of the cache and the associated tags. A placeholder bram is in the code for you.
-- Note that a BE (byte enable) bram is used to store data. This is important for processor use. Please see the Bluespec specifications for usage.
+
+Note that a BE (byte enable) bram is used to store data. This is important for processor use since RISC-V specifications allow byte based (`lb, sb, etc.`) instructions. A byte enable string looks something like `1100` for a four byte write. This means only the upper two bytes will be written to the bram, ignoring the lower two bytes. This applies for lines as well. A 64 byte line (512 bits at 8 bits per byte) would consist of a series of 64 bits (one hot encoding) for the byte enable request. The data in value would be the same, but the zeroed bytes are ignored. Please see the Bluespec specifications for usage. `BramRequestBE` types include this byte enable value in the `writeen` field.
+```
+typedef struct {Bit#(n) writeen;
+    Bool responseOnWrite;
+    addr address;
+    data datain;
+} BRAMRequestBE#(type addr, type data, numeric type n) deriving (Bits, Eq)
+```
+Please see the bluespec reference for more details on usage. Note that reads are always `writeen=0`. You will still always want to return words for any read. Your processor will always give a `CacheReq` type with the fields `CacheReq{word_byte: req.byte_en, addr: req.addr, data: req.data}`. The `word_byte` field will be the associated byte enable field for a given word. You will need to modify that to write to lines in your cache. Hint: n-dim vectors of m-bits in bluespec are the same as `n*m` bits in bluespec (in bram or otherwise).
+
 
 In the file `MemTypes.bsv` we defined a few basic types.
 You will also have to define new types for the tags and the indexes.
@@ -47,6 +57,7 @@ In the file `Cache512.bsv`, you should implement the `mkCache` module. Your cach
 In the file `MemTypes.bsv` we defined a few basic types.
 You will also have to define new types for the tags and the indexes. Make sure these do not conflict with types defined in Cache32
 
+Here, you do not need to worry about byte enable flags at all, so please feel free to store everything in a single bram as given. You are free to split it up instead if you so desire.
 
 ```verilog
 interface Cache512;
@@ -59,6 +70,13 @@ endinterface
 
 Here we see four methods. `putFromProc` delivers a cache request from your L1 cache to your L2 cache. `getToProc` should return the associated data that is for that memory address that was requested from L1. `getToMem` will deliver any requests from your cache to main memory (or a higher level cache). `putFromMem` will respond with the data you requested from main memory. These are connected in the test bench for you already.
 
+
+## Suggestions
+
+We recommend using the types given in the lab which are there to help you easily label data in bram, etc. You can also add your own types that will simplify the process.
+
+For instance, you might find the following type useful:
+`typedef enum { Invalid, Clean, Dirty} LineState`
 
 # Running tests
 
