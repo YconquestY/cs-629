@@ -1,4 +1,4 @@
-// TESTS FOR NEW CACHE (CACHE32MC) AND 2 LEVEL CACHE
+// TESTS FOR WORD CACHE (CACHE32) AND 2 LEVEL CACHE from 6.175 2023 (seshan@mit.edu)
 import ClientServer::*;
 import GetPut::*;
 import Randomizable::*;
