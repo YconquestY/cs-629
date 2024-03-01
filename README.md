@@ -78,6 +78,8 @@ We recommend using the types given in the lab which are there to help you easily
 For instance, you might find the following type useful:
 `typedef enum { Invalid, Clean, Dirty} LineState`
 
+Note: you cannot use two port BRAMs in this lab.
+
 # Running tests
 
 To test the cache in isolation, we have made one randomized test. It only tests functional correctness. The test does not check the sizes/kind of cache chosen, etc... all those things will be discussed during checkoffs.
