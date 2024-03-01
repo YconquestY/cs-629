@@ -51,7 +51,7 @@ module mkCache32(Cache32);
   method ActionValue#(MainMemReq) getToMem();
   endmethod
 
-  method Action putFromMem(MainMemResp e) if(!start_fill);
+  method Action putFromMem(MainMemResp e);
   endmethod
 
 
