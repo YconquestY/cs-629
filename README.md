@@ -2,7 +2,7 @@
 
 This section of the lab will involve connecting your caches into your processor from labs 2b and 3a.
 
-Start by copying `pipelined.bsv` from lab2b into this lab. Then copy `Cache32.bsv` and `Cache512.bsv` from lab 3a into this lab. Note: if you did not finish lab 2b, you can copy the contents of `multicycle.bsv` into `pipelined.bsv` instead.
+Start by copying `pipelined.bsv` from lab2b into this lab. Then copy `Cache32.bsv` and `Cache512.bsv` from lab 3a into this lab. Note: if you did not finish lab 2b, you can copy the contents of `multicycle.bsv` into `pipelined.bsv` instead (albeit renaming appropriate things).
 
 ## Your goal
 
