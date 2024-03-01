@@ -18,3 +18,10 @@ clean:
 
 all: clean $(BINARY_NAME)
 
+submit:
+	make all
+	./Beveren 2>&1 | tee output_submit.txt 
+	./Beveren_nested 2>&1 | tee output_submit.txt 
+	git add -A
+	git commit -am "Save Changes & Submit"
+	git push
