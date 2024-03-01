@@ -20,8 +20,9 @@ all: clean $(BINARY_NAME)
 
 submit:
 	make all
-	./Beveren 2>&1 | tee output_submit.txt 
-	./Beveren_nested 2>&1 | tee output_submit.txt 
+	./Beveren 2>&1 | tee output_submit1.txt 
+	./Beveren_nested 2>&1 | tee output_submit2.txt 
+	cat output_submit1.txt  output_submit2.txt  | tee output_submit.txt
 	git add -A
 	git commit -am "Save Changes & Submit"
 	git push
