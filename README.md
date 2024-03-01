@@ -77,7 +77,7 @@ You can also run all the tests with:
 
 All tests but `matmul32` typically take less than 2s to finish. `matmul32` is much slower (30s to 1mn).
 
-Note: The testbench has been modified from lab 2b to use a cache instead. Please do not overwrite these with copies from 2b.
+Note: The testbench has been modified from lab 2b to use a cache instead. Please do not overwrite these with copies from 2b. You will also need `python3` installed and in your path (i.e. can run `python3` in terminal/command prompt) to run the tests.
 
 
 
