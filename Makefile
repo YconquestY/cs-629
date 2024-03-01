@@ -18,3 +18,9 @@ clean:
 
 all: clean $(BINARY_NAME)
 
+submit:
+	make all
+	./test_all_pipelined.sh 2>&1 | tee output_submit.txt 
+	git add -A
+	git commit -am "Save Changes & Submit"
+	git push
