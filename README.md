@@ -51,6 +51,9 @@ endinterface
 ```
 Put sends a request (address) to memory, get returns the resulting line of data. See the MemTypes file for information on the types.
 
+Note: you cannot use two port BRAMs in this lab.
+
+
 ## Running tests
 
 Run `make all` first. then....
@@ -75,6 +78,8 @@ You can also run all the tests with:
 All tests but `matmul32` typically take less than 2s to finish. `matmul32` is much slower (30s to 1mn).
 
 Note: The testbench has been modified from lab 2b to use a cache instead. Please do not overwrite these with copies from 2b.
+
+
 
 ### How does testing work?
 (For enrichment)
