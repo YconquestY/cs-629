@@ -5,7 +5,7 @@ import Randomizable::*;
 import MainMem::*;
 import MemTypes::*;
 import Cache32::*;
-import Cache::*;
+import Cache512::*;
 import FIFOF::*;
 
 
