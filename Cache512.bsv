@@ -4,7 +4,6 @@ import FIFOF::*;
 import SpecialFIFOs::*;
 import MemTypes::*;
 import Ehr::*;
-// import SearchFIFO::*;
 
 typedef Bit#(8) IndexAddr;
 
@@ -38,16 +37,16 @@ module mkCache(Cache512);
 
 
   // TODO Write a Cache
-  method Action putFromProc(MainMemReq e)
+  method Action putFromProc(MainMemReq e);
   endmethod
 
-  method ActionValue#(MainMemResp) getToProc() 
+  method ActionValue#(MainMemResp) getToProc() ;
   endmethod
 
-  method ActionValue#(MainMemReq) getToMem()
+  method ActionValue#(MainMemReq) getToMem();
   endmethod
 
-  method Action putFromMem(MainMemResp e)
+  method Action putFromMem(MainMemResp e);
   endmethod
 
 
