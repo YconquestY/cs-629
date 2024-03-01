@@ -16,6 +16,7 @@ In the file `Cache32.bsv`, you should implement the `mkCache32` module. Your cac
 - It uses a store-buffer
 - You are free to design either a k-way associative (k=2,4,8) or a direct-mapped cache. If you choose a k-way associative you can pick any replacement policy you want
 - You should use a BRAM to hold the content of the cache and the associated tags. A placeholder bram is in the code for you.
+- Note that a BE (byte enable) bram is used to store data. This is important for processor use. Please see the Bluespec specifications for usage.
 
 In the file `MemTypes.bsv` we defined a few basic types.
 You will also have to define new types for the tags and the indexes.
