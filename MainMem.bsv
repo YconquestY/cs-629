@@ -4,7 +4,6 @@ import FIFO::*;
 import SpecialFIFOs::*;
 import DelayLine::*;
 import MemTypes::*;
-import Cache::*;
 
 interface MainMem;
     method Action put(MainMemReq req);
