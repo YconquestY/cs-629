@@ -16,7 +16,7 @@ module mktop_pipelined(Empty);
 
     CacheInterface cache <- mkCacheInterface();
 
-    RVIfc rv_core <- mkpipelined(0,0);
+    RVIfc rv_core <- mkpipelined;
     Reg#(Mem) ireq <- mkRegU;
     Reg#(Mem) dreq <- mkRegU;
     FIFO#(Mem) mmioreq <- mkFIFO;
