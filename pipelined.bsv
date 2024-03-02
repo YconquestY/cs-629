@@ -59,7 +59,7 @@ typedef struct {
 
 
 (* synthesize *)
-module mkpipelined#(Bit#(32) start_pc, Bit#(1) coreId)(RVIfc);
+module mkpipelined(RVIfc);
     // Interface with memory and devices
 
 
