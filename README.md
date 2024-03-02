@@ -96,3 +96,9 @@ If you *do* make your own tests, feel free to share the `hex` files on the Piazz
 
 # Submitting
 `make submit` will do it all for you :)
+
+# Discussion
+
+Why do we use a L1 and L2 cache? Which would be faster on a real processor?
+
+What instructions and data formats benefit from caching the best?
