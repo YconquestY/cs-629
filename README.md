@@ -96,3 +96,11 @@ make
 
 # Submitting
 Run `make submit` in the main folder.
+
+# Discussion
+
+Why do we want to use a cache?
+
+Why does the cache store lines instead of words?
+
+What are advantages and disadvantages of different line replacement policies?
