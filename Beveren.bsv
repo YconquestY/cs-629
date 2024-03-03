@@ -60,8 +60,8 @@ module mkBeveren(Empty);
        let newrand <- randomMem.next;
        deadlockChecker <= 0;
        CacheReq newreq = newrand;
-       newreq.addr = {0,newreq.addr[13:2],2'b0};
-       if ( newreq.word_byte == 0) counterIn <= counterIn + 1;
+       newreq.addr = {0,newreq.addr[13:2],2'b0};  // trims the random address
+       if ( newreq.word_byte == 0) counterIn <= counterIn + 1;  // count only reads
        mainRef.put(newreq);
        cache.putFromProc(newreq);
     endrule
