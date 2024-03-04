@@ -44,7 +44,7 @@ module mkCache32(Cache32);
     // Hint: Refer back to the slides for implementation details.
     // Hint: You may find it helpful to outline the necessary states and rules you'll need for your cache
     // Hint: Don't forget about $display
-    // Hint: If you add in a store buffer, do it after getting it working without one.
+    // Hint: If you want to add in a store buffer, do it after getting it working without one.
 
     method Action putFromProc(CacheReq e);
         noAction;
