@@ -8,22 +8,7 @@ import MemTypes::*;
 import Ehr::*;
 import Vector :: * ;
 
-typedef Bit#(7) IndexAddr;
-
-
-
-typedef struct { 
-  Bit#(2) valid;
-  Bit#(19) tag;
-} CacheReqLine deriving (Eq, Bits);
-
-
-
-typedef struct { 
-  Bit#(32) addr;
-  Bit#(32) data;
-  Bit#(4) byte_en;
-} StbReq deriving (Eq, Bits);
+// TODO: copy over from 3_a
 
 interface Cache32;
     method Action putFromProc(CacheReq e);
@@ -32,27 +17,24 @@ interface Cache32;
     method Action putFromMem(MainMemResp e);
 endinterface
 
+(* synthesize *)
 module mkCache32(Cache32);
-  BRAM_Configure cfg = defaultValue;
-  cfg.loadFormat = tagged Binary "zero.vmh";
-  BRAM1Port#(IndexAddr, CacheReqLine) bram1 <- mkBRAM1Server(cfg);
-  BRAM1PortBE#(IndexAddr, Vector#(16, Word), 64) bram2 <- mkBRAM1ServerBE(cfg);
+    // TODO copy over from 3_a
+    
+    method Action putFromProc(CacheReq e);
+        noAction;
+    endmethod
 
+    method ActionValue#(Word) getToProc();
+        return unpack(0);
+    endmethod
 
+    method ActionValue#(MainMemReq) getToMem();
+        return unpack(0);
+    endmethod
 
-
-  // TODO Write a Cache
-  method Action putFromProc(CacheReq e);
-  endmethod
-
-  method ActionValue#(Word) getToProc();
-  endmethod
-
-  method ActionValue#(MainMemReq) getToMem();
-  endmethod
-
-  method Action putFromMem(MainMemResp e);
-  endmethod
-
+    method Action putFromMem(MainMemResp e);
+        noAction;
+    endmethod
 
 endmodule

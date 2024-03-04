@@ -1,12 +1,9 @@
 // SINGLE CORE CACHE INTERFACE WITH NO PPP
-import ClientServer::*;
-import GetPut::*;
-import Randomizable::*;
 import MainMem::*;
 import MemTypes::*;
 import Cache32::*;
 import Cache512::*;
-import FIFOF::*;
+// import FIFOF::*;
 
 
 interface CacheInterface;
@@ -24,18 +21,22 @@ module mkCacheInterface(CacheInterface);
     Cache512 cacheL2 <- mkCache;
     Cache32 cacheI <- mkCache32;
 
-
+    // You may need to add rules and/or state elements.
 
     method Action sendReqData(CacheReq req);
+        noAction;
     endmethod
 
     method ActionValue#(Word) getRespData() ;
+        return unpack(0);
     endmethod
 
 
     method Action sendReqInstr(CacheReq req);
+        noAction;
     endmethod
 
     method ActionValue#(Word) getRespInstr();
+        return unpack(0);
     endmethod
 endmodule
