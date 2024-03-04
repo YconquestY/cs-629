@@ -36,3 +36,6 @@ function ParsedAddress parseAddress(Bit#(32) address);
 endfunction
 
 // and define whatever other types you may find helpful.
+
+
+// Helper types for implementation (L2 cache):

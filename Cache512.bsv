@@ -16,6 +16,7 @@ endinterface
 // delete when you're done with it
 typedef Bit#(1) PLACEHOLDER;
 
+(* synthesize *)
 module mkCache(Cache512);
     BRAM_Configure cfg = defaultValue;
     cfg.loadFormat = tagged Binary "zero512.vmh";  // zero out for you
