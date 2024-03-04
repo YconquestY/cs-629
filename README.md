@@ -109,6 +109,8 @@ make
 # Submitting
 Run `make submit` in the main folder.
 
+Deadline: March 14, 2024 at 9:30am.
+
 # Discussion
 
 How big are our caches in terms of bytes or kilobytes? The L1? The L2? What about the main memory (32 bit addresses with byte addressing)?
