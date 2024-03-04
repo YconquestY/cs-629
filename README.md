@@ -117,6 +117,8 @@ If you *do* make your own tests, feel free to share the `hex` files on the Piazz
 # Submitting
 `make submit` will do it all for you :)
 
+Deadline: March 14, 2024 at 9:30am.
+
 # Discussion
 
 In what ways do your Konata log look different, e.g., for a test like `thelie32`? Do you see any room for improvement?
