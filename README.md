@@ -86,10 +86,9 @@ As a note for the later lab, we will instantiate one L2 cache, which we will con
 
 ## Suggestions
 
-We recommend using the types given in the lab which are there to help you easily label data in bram, etc. You can also add your own types that will simplify the process.
+Use types! Use types! Use types!
 
-For instance, you might find the following type useful:
-`typedef enum { Invalid, Clean, Dirty} LineState`
+Also use `$display` statements.
 
 Note: you cannot use two port BRAMs in this lab.
 
@@ -112,8 +111,8 @@ Run `make submit` in the main folder.
 
 # Discussion
 
+How big are our caches in terms of bytes or kilobytes? The L1? The L2? What about the main memory (32 bit addresses with byte addressing)?
+
 Why do we want to use a cache?
 
 Why does the cache store lines instead of words?
-
-What are advantages and disadvantages of different line replacement policies?
