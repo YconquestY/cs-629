@@ -17,11 +17,11 @@ endinterface
 module mkCacheInterface(CacheInterface);
     let verbose = True;
     MainMem mainMem <- mkMainMem(); 
-    Cache32 cacheD <- mkCache32;
     Cache512 cacheL2 <- mkCache;
     Cache32 cacheI <- mkCache32;
+    Cache32 cacheD <- mkCache32;
 
-    // You may need to add rules and/or state elements.
+    // You need to add rules and/or state elements.
 
     method Action sendReqData(CacheReq req);
         noAction;
