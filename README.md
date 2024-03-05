@@ -130,3 +130,5 @@ Why do we use both an L1 and L2 cache? Which would be faster on a real processor
 The L2 cache has only a single port for requests and a single port for responses. How significant would you expect this to be for performance since both L1 caches must share these ports? And in practice?
 
 What might happen in our current implementation if a program tries to modify the instructions? What if we try to execute instructions held in data?
+
+We use the same cache structure for Imem and Dmem. How might you simplify the Imem cache to make it more efficient in terms of hardware usage? Hint: think about how instruction accesses differ from data accesses.
