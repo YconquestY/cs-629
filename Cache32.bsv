@@ -34,7 +34,7 @@ module mkCache32(Cache32);
     // Hint 3: Define additional types and structs as necessary.
     
     // Rename these to meaningful names if you're keeping them.
-    // the first argument is the type being held, and the second argument is the address type
+    // the second argument is the type being held, and the first argument is the address type (3rd would be byte enable specifics)
     BRAM1Port#(PLACEHOLDER, PLACEHOLDER) example_bram1 <- mkBRAM1Server(cfg);
     BRAM1PortBE#(PLACEHOLDER, Bit#(512), 64) example_bram2 <- mkBRAM1ServerBE(cfg);  // also a placeholder
 
