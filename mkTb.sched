@@ -1,0 +1,252 @@
+=== Generated schedule for mkTb ===
+
+Rule schedule
+-------------
+Rule: inc_ctr
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: mma_m_a_serverAdapter_outData_enqueue
+Predicate: mma_m_a_serverAdapter_outData_enqw.whas &&
+	   ((! mma_m_a_serverAdapter_outData_dequeueing.whas) ||
+	    mma_m_a_serverAdapter_outData_ff.i_notEmpty)
+Blocking rules: (none)
+ 
+Rule: mma_m_a_serverAdapter_outData_dequeue
+Predicate: mma_m_a_serverAdapter_outData_dequeueing.whas &&
+	   mma_m_a_serverAdapter_outData_ff.i_notEmpty
+Blocking rules: (none)
+ 
+Rule: mma_m_a_serverAdapter_cnt_finalAdd
+Predicate: mma_m_a_serverAdapter_cnt_1.whas ||
+	   mma_m_a_serverAdapter_cnt_2.whas ||
+	   mma_m_a_serverAdapter_cnt_3.whas
+Blocking rules: (none)
+ 
+Rule: mma_m_a_serverAdapter_s1__dreg_update
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: mma_m_a_serverAdapter_stageReadResponseAlways
+Predicate: mma_m_a_serverAdapter_writeWithResp.whas
+Blocking rules: (none)
+ 
+Rule: mma_m_a_serverAdapter_moveToOutFIFO
+Predicate: ((! mma_m_a_serverAdapter_s1[0]) ||
+	    mma_m_a_serverAdapter_outData_ff.i_notFull) &&
+	   mma_m_a_serverAdapter_s1[1]
+Blocking rules: (none)
+ 
+Rule: mma_m_a_serverAdapter_overRun
+Predicate: mma_m_a_serverAdapter_s1[1] &&
+	   ((! mma_m_a_serverAdapter_outData_beforeEnq.read) ||
+	    (! mma_m_a_serverAdapter_outData_beforeDeq.read) ||
+	    (! mma_m_a_serverAdapter_outData_ff.i_notFull))
+Blocking rules: (none)
+ 
+Rule: mma_m_b_serverAdapter_outData_enqueue
+Predicate: mma_m_b_serverAdapter_outData_enqw.whas &&
+	   ((! mma_m_b_serverAdapter_outData_dequeueing.whas) ||
+	    mma_m_b_serverAdapter_outData_ff.i_notEmpty)
+Blocking rules: (none)
+ 
+Rule: mma_m_b_serverAdapter_outData_dequeue
+Predicate: mma_m_b_serverAdapter_outData_dequeueing.whas &&
+	   mma_m_b_serverAdapter_outData_ff.i_notEmpty
+Blocking rules: (none)
+ 
+Rule: mma_m_b_serverAdapter_cnt_finalAdd
+Predicate: mma_m_b_serverAdapter_cnt_1.whas ||
+	   mma_m_b_serverAdapter_cnt_2.whas ||
+	   mma_m_b_serverAdapter_cnt_3.whas
+Blocking rules: (none)
+ 
+Rule: mma_m_b_serverAdapter_s1__dreg_update
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: mma_m_b_serverAdapter_stageReadResponseAlways
+Predicate: mma_m_b_serverAdapter_writeWithResp.whas
+Blocking rules: (none)
+ 
+Rule: mma_m_b_serverAdapter_moveToOutFIFO
+Predicate: ((! mma_m_b_serverAdapter_s1[0]) ||
+	    mma_m_b_serverAdapter_outData_ff.i_notFull) &&
+	   mma_m_b_serverAdapter_s1[1]
+Blocking rules: (none)
+ 
+Rule: mma_m_b_serverAdapter_overRun
+Predicate: mma_m_b_serverAdapter_s1[1] &&
+	   ((! mma_m_b_serverAdapter_outData_beforeEnq.read) ||
+	    (! mma_m_b_serverAdapter_outData_beforeDeq.read) ||
+	    (! mma_m_b_serverAdapter_outData_ff.i_notFull))
+Blocking rules: (none)
+ 
+Rule: mma_load_row_a_store_row_c
+Predicate: (mma_m_a_serverAdapter_cnt .< 3'd3) &&
+	   ((mma_row_a_idx == 5'd0) || mma_m_c.i_notFull) &&
+	   mma_busy && (mma_row_a_state == 2'd0)
+Blocking rules: (none)
+ 
+Rule: mma_store_row_c_patch
+Predicate: mma_m_c.i_notFull && (mma_row_a_idx == 5'd16)
+Blocking rules: (none)
+ 
+Rule: mma_cache_row_a
+Predicate: mma_m_a_serverAdapter_outData_beforeDeq.read &&
+	   (mma_m_a_serverAdapter_outData_ff.i_notEmpty ||
+	    mma_m_a_serverAdapter_outData_enqw.whas) &&
+	   mma_busy && (mma_row_a_state == 2'd1)
+Blocking rules: (none)
+ 
+Rule: mma_load_row_b
+Predicate: (mma_m_b_serverAdapter_cnt .< 3'd3) &&
+	   mma_busy && (mma_row_b_state == 2'd0)
+Blocking rules: (none)
+ 
+Rule: mma_cache_row_b
+Predicate: mma_m_b_serverAdapter_outData_beforeDeq.read &&
+	   (mma_m_b_serverAdapter_outData_ff.i_notEmpty ||
+	    mma_m_b_serverAdapter_outData_enqw.whas) &&
+	   mma_busy && (mma_row_b_state == 2'd1)
+Blocking rules: (none)
+ 
+Rule: mma_compute
+Predicate: mma_busy && (mma_row_a_state == 2'd2) && (mma_row_b_state == 2'd2)
+Blocking rules: (none)
+ 
+Rule: test_fsm_start_reg__dreg_update
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: test_fsm_state_handle_abort
+Predicate: test_fsm_abort.whas && test_fsm_abort.wget &&
+	   ((! test_fsm_start_wire.whas) || (! test_fsm_start_wire.wget))
+Blocking rules: (none)
+ 
+Rule: test_fsm_state_fired__dreg_update
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: test_fsm_state_every
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: test_fsm_restart
+Predicate: test_fsm_start_reg_1 && (! test_fsm_state_fired) &&
+	   ((! test_fsm_abort.whas) || (! test_fsm_abort.wget))
+Blocking rules: (none)
+ 
+Rule: test_fsm_action_l26c13
+Predicate: ((! test_fsm_abort.whas) || (! test_fsm_abort.wget) ||
+	    (test_fsm_start_wire.whas && test_fsm_start_wire.wget)) &&
+	   ((test_fsm_start_wire.whas && test_fsm_start_wire.wget &&
+	     ((test_fsm_abort.whas && test_fsm_abort.wget) ||
+	      (test_fsm_state_mkFSMstate.read == 3'd0))) ||
+	    (((! test_fsm_abort.whas) || (! test_fsm_abort.wget)) &&
+	     (test_fsm_state_mkFSMstate.read == 3'd5)))
+Blocking rules: (none)
+ 
+Rule: test_fsm_action_l31c16
+Predicate: (! mma_busy) &&
+	   (mma_m_a_serverAdapter_cnt .< 3'd3) &&
+	   (mma_m_b_serverAdapter_cnt .< 3'd3) &&
+	   (ctr_fsm < 10'd16) &&
+	   ((! test_fsm_abort.whas) || (! test_fsm_abort.wget)) &&
+	   ((test_fsm_state_mkFSMstate.read == 3'd1) ||
+	    (test_fsm_state_mkFSMstate.read == 3'd2))
+Blocking rules: (none)
+ 
+Rule: test_fsm_action_l38c13
+Predicate: (! mma_busy) &&
+	   (! (ctr_fsm < 10'd16)) &&
+	   ((! test_fsm_abort.whas) || (! test_fsm_abort.wget)) &&
+	   ((test_fsm_state_mkFSMstate.read == 3'd1) ||
+	    (test_fsm_state_mkFSMstate.read == 3'd2))
+Blocking rules: (none)
+ 
+Rule: test_fsm_action_l43c16
+Predicate: mma_m_c.i_notEmpty &&
+	   (ctr_fsm < 10'd16) &&
+	   ((! test_fsm_abort.whas) || (! test_fsm_abort.wget)) &&
+	   ((test_fsm_state_mkFSMstate.read == 3'd3) ||
+	    (test_fsm_state_mkFSMstate.read == 3'd4))
+Blocking rules: (none)
+ 
+Rule: test_fsm_action_l54c13
+Predicate: (! (ctr_fsm < 10'd16)) &&
+	   ((! test_fsm_abort.whas) || (! test_fsm_abort.wget)) &&
+	   ((test_fsm_state_mkFSMstate.read == 3'd3) ||
+	    (test_fsm_state_mkFSMstate.read == 3'd4))
+Blocking rules: (none)
+ 
+Rule: test_fsm_fsm_start
+Predicate: ((test_fsm_abort.whas && test_fsm_abort.wget) ||
+	    (test_fsm_state_mkFSMstate.read == 3'd0)) &&
+	   ((! test_fsm_start_reg_1) || test_fsm_state_fired) &&
+	   test_fsm_start_reg
+Blocking rules: (none)
+ 
+Rule: start
+Predicate: ((test_fsm_abort.whas && test_fsm_abort.wget) ||
+	    (test_fsm_state_mkFSMstate.read == 3'd0)) &&
+	   ((! test_fsm_start_reg_1) || test_fsm_state_fired) &&
+	   (! test_fsm_start_reg) &&
+	   (! going)
+Blocking rules: (none)
+ 
+Rule: __me_check_26
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: __me_check_27
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: __me_check_28
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: __me_check_29
+Predicate: True
+Blocking rules: (none)
+ 
+Logical execution order: inc_ctr,
+			 start,
+			 mma_load_row_a_store_row_c,
+			 mma_store_row_c_patch,
+			 mma_load_row_b,
+			 mma_compute,
+			 mma_m_a_serverAdapter_overRun,
+			 mma_m_a_serverAdapter_moveToOutFIFO,
+			 mma_cache_row_a,
+			 mma_m_a_serverAdapter_outData_enqueue,
+			 mma_m_a_serverAdapter_outData_dequeue,
+			 mma_m_b_serverAdapter_overRun,
+			 mma_m_b_serverAdapter_moveToOutFIFO,
+			 mma_cache_row_b,
+			 mma_m_b_serverAdapter_outData_enqueue,
+			 mma_m_b_serverAdapter_outData_dequeue,
+			 test_fsm_restart,
+			 test_fsm_action_l31c16,
+			 mma_m_a_serverAdapter_stageReadResponseAlways,
+			 mma_m_a_serverAdapter_cnt_finalAdd,
+			 mma_m_a_serverAdapter_s1__dreg_update,
+			 mma_m_b_serverAdapter_stageReadResponseAlways,
+			 mma_m_b_serverAdapter_cnt_finalAdd,
+			 mma_m_b_serverAdapter_s1__dreg_update,
+			 test_fsm_action_l38c13,
+			 test_fsm_action_l43c16,
+			 test_fsm_action_l54c13,
+			 __me_check_27,
+			 __me_check_28,
+			 __me_check_29,
+			 test_fsm_fsm_start,
+			 test_fsm_action_l26c13,
+			 __me_check_26,
+			 test_fsm_start_reg__dreg_update,
+			 test_fsm_state_handle_abort,
+			 test_fsm_state_every,
+			 test_fsm_state_fired__dreg_update
+
+====================================

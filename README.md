@@ -14,13 +14,13 @@ endinterface
 
 The goal is to explore a first simple design that can compute 16x16 matrix 
 multiplication ($C = A * B$) with 32-bit integer elements. 
-Your design will needs to perform many matrix multiplications, so you decide to encapsulate the matrix multiplication logic in a module mkMatrixMultiplyFolded that implements the above interface MM. You will need to implement this module.
+Your design will needs to perform many matrix multiplications, so you decide to encapsulate the matrix multiplication logic in a module mkMatrixMultiply<font color="skyblue">Folded</font> that implements the above interface MM. You will need to implement this module.
 
-One can send and receive data from the module using its method calls. When the design wants to do a matrix multiplication operation ($C = A * B$), it needs to first load the data into the module for the $A$ and $B$ matrices. It's impractical to load in all 16x16 32-bit values from the outside at once, so the interface writes the data one row at a time. The testbench that tests your design will attempt to call methods `write_row_a` and `write_row_b` with the $A$ and $B$ matrices' data for each row until all the data is fed into the module. Once all the data is fed in, the testbench will call `start `to initiate the matrix multiplication. After your module starts the calculation, the testbench will attempt to read the response using `resp_row_c`, which returns each row of the matrix product ($C$) one at a time.
+One can send and receive data from the module using its method calls. When the design wants to do a matrix multiplication operation ($C = A * B$), it needs to first load the data into the module for the $A$ and $B$ matrices. It's impractical to load in all 16x16 32-bit values from the outside at once, so the interface writes the data <font color="skyblue">one row</font> at a time. The testbench that tests your design will attempt to call methods `write_row_a` and `write_row_b` with the $A$ and $B$ matrices' data for each row until all the data is fed into the module. Once all the data is fed in, the testbench will call `start` to initiate the matrix multiplication. After your module starts the calculation, the testbench will attempt to read the response using `resp_row_c`, which returns <font color="skyblue">each row</font> of the matrix product ($C$) one at a time.
 
 It will continue calling `resp_row_c` until the chip has collected all the rows (0-15). To get experience in using request/response memories, your module will need to use BRAMs to store the data corresponding to each matrix; BRAM $A$ and BRAM $B$ for the input matrices' data and BRAM $C$ for the output matrix data.
 
-The testbench doesn't know how your module is implemented, so it will attempt to call the interface methods as soon as the outer logic is ready (which is likely sooner than the internal calculation logic will finish). You should use what you learned about guards to ensure that the module doesn't accept any interface method calls that the module isn't ready for.
+The testbench doesn't know how your module is implemented, so it will attempt to call the interface methods <font color="skyblue">as soon as</font> the outer logic is ready (which is likely <font color="red">sooner</font> than the internal calculation logic will finish). You should use what you learned about guards to ensure that the module <font color="red">doesn't</font> accept any interface method calls that the module isn't ready for.
 
 ## Summary
 
@@ -29,14 +29,13 @@ The testbench doesn't know how your module is implemented, so it will attempt to
 elements of `row` should be written to BRAM $A$. All of the address(es) should correspond to the 6th row of the matrix.
 Note: There is more than one way to design and address the BRAMs  (More on this later).
 - Method `write_row_b` must do the same for BRAM B.
-- Method `start()` should start the matrix multiplication calculation. The guard of `write_row_a`, `write_row_b`, and `resp_row_c` should be false 
-while calculating matrix $C$.
+- Method `start()` should start the matrix multiplication calculation. The guard of `write_row_a`, `write_row_b`, and `resp_row_c` should be <font color="red">false</font> while calculating matrix $C$.
 - Method `resp_row_c` should return 1 row of matrix $C$. On the first call, it should return the first row and on the second call, it should return
 the second row.
 
 ## Design Notes
 
-- You may use the * operator to perform scalar multiplications, so there is no need to implement your own multiplier. Bluespec will instantiate a multiplier where you place the *. Because multipliers are expensive, and the goal is to explore a folded computation, you should not instantiate more than one for this lab.
+- You may use the * operator to perform scalar multiplications, so there is no need to implement your own multiplier. Bluespec will instantiate a multiplier where you place the *. Because multipliers are expensive, and the goal is to explore a <font color="skyblue">folded</font> computation, you should <font color="red">not</font> instantiate <font color="skyblue">more than one</font> for this lab.
 - Ignore integer overflow in your design
 - To debug your code, we *highly* recommend using `$display();` statements throughout your code. `display();` functions similarly to `printf();`. Eg. `display("1+2=%d", 3);`.
 - You may want to define an enum using a typedef enum for your module's states.
@@ -45,6 +44,8 @@ the second row.
 = a_{ik} * b_{kj} + c_{ij,i}$$ **INSTEAD OF:** $$c_{ij} =\sum_{k=1}^n a_{ik} * b_{kj}$$
 
 **How many cycles would this take for an NxN matrix and why do we suggest taking this approach?**
+
+ $n^3$ cycles vs $n^2$ cycles, assuming pipelined BRAM access $\Leftarrow$ $1$ multiplication per cycle $\Leftarrow$ only $1$ multipler
 
 The following diagram summarizes the specifications of the hardware design:
 <img src="DesignBlueprint.png" alt="Matrix Multiply Design" width=600>
