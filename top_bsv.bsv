@@ -78,6 +78,7 @@ module mktop_bsv(Empty);
             // Exiting Simulation
                 if (req.data == 0) begin
                         $fdisplay(stderr, "  [0;32mPASS[0m");
+                        $fdisplay(stderr, "  cycle: %d", cycle_count);
                 end
                 else
                     begin
