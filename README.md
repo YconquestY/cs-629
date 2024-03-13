@@ -1,10 +1,11 @@
-# Lab 2b -- Pipelined Processors
+# Lab 3 -- Pipelined Processors
 
-Welcome to making your very first processor :) (or second for former 6.004 students)
+Welcome to our first step in processor design
 
 ## Introduction
 
-In the file `pipelined.bsv` fill out the `mkpipelined` module to implement a 4-staged pipelined mini-riscv processor (inspired by the lecture). To start, we provide a multicycle pipelined implementation in `multicycle.bsv` with several useful code chunks which you will almost entirely re-use in your implementation (it is expected you copy/paste most of the rules as a starting point).
+In the file `pipelined.bsv` fill out the `mkpipelined` module to implement a 4-staged pipelined mini-riscv processor (inspired by the lecture).
+To start, we provide a multicycle pipelined implementation in `multicycle.bsv` with several useful code chunks which you will almost entirely re-use in your implementation (it is expected you copy/paste most of the rules as a starting point, no need to implement decode/execute yourself).
 At the beginning of `pipelined.bsv` we define structs for the data to store between stages. These should be useful for you but feel free to to change them if needed for your design.
 
 As a refresher, a pipelined processor has queues between each stage. Mispredictions should be identified  if program counter predictions do not match up with the actual next program counter, and dealt with by neither sending a memory operation nor pushing the instruction to Writeback (and so never update the register file). 
@@ -16,19 +17,19 @@ Here is an overall picture of the design you should build:
 
 <img src="images/diagram_pipeline.png" alt="Pipelined processor diagram" width=600>
 
-This lab is longer so start early. You have 1.5 weeks to complete it, due March 5 at 9:30am, with the checkoff due after OH on March 11. 
-
-Lectures 5 and 6 will crucial for this lab.
+This lab is longer so start early. 
 
 ## Your goal
 
-You will need to fill in the four pipeline stages in `pipelined.bsv` -- fetch, decode, execute, and writeback. These should function as described in the lecture notes. Please make a full sketch of your design ahead of time as this will help you debug. 
+You will need to fill in the four pipeline stages in `pipelined.bsv` -- fetch, decode, execute, and writeback. Consider making a full sketch of your design ahead of time as this will help you debug. 
 
-Fetch should fetch the next instruction, with prediction of `pc+4`. Decode should run the given function decoder and store state. Execute runs the execute function (ALU, branching, etc). Writeback writes the updated state back to the register file and/or memory.
+Fetch should fetch the next instruction, with prediction of `pc+4`. 
+Decode should run the given function decoder and push the decoded instruction and the value of the register read (when they can be read) to the next stage. Execute runs the execute function (ALU, branching, etc) to produce the next state value, and potentially send load/store to memory.
+Writeback writes the updated state back to the register file.
 
-Keep in mind that because of memory latency and other issues, these stages can take multiple cycles and your code should include appropriate stalling logic to wait for results. You should also be keeping guards to make sure data hazards are checked. Appropriate bypassing can be used with the EHRs as registers.
+Keep in mind that because of memory latency and other issues (dependencies for example), these stages can take multiple cycles and your code should include appropriate stalling logic to wait for results. You should also be keeping guards to make sure data hazards are checked. Appropriate bypassing can be used with the EHRs as registers.
 
-We provide a series of queues that are controlled with methods to send and recieve memory requests. These are `toImem/fromImem`, `toDmem/fromDmem`, and `toMMIO/fromMMIO`. The FIFO queue interface has three methods that can be used: `.enq(word)`, `.deq()` , and `.empty` (bool). These are connected to BRAM in the test bench that you do not need to worry about. 
+We provide a series of queues that are controlled with methods to send and recieve memory requests. These are `toImem/fromImem`, `toDmem/fromDmem`, and `toMMIO/fromMMIO`. The FIFO queue interface has three methods that can be used: `.enq(word)`, `.deq()` , and `.empty` (bool). These are connected to a BRAM-implemented small memory in the test bench, and you do not need to worry about. 
 
 We already provide the decode and execute functions. Reference `multicycle.bsv` for usage. 
 
@@ -49,7 +50,7 @@ For the code we give you...
 ```
 Or for your code....
 ```
-timeout 2 ./run_pipelined add32 # Will run add32 on your future pipelined processor, it is often useful to add a timeout to avoid running forever
+timeout 2 ./run_pipelined add32 # Will run add32 on your future pipelined processor, it is often useful to add a timeout to avoid running forever as the tests generate log files (see below)
 ```
 
 Those will generate a trace `multicycle.log` or `pipelined.log` that can be opened in Konata (see below).
@@ -61,6 +62,8 @@ You can also run all the tests with:
 ```
 
 All tests but `matmul32` typically take less than 2s to finish. `matmul32` is much slower (30s to 1mn).
+There is a known issue with WSL, where if the current repo is cloned on the windows filesystem and not on the linux one, things go much slower. 
+Consider cloning in the linux filesystem if you are on WSL. 
 
 ### How does testing work?
 (For enrichment)
@@ -132,7 +135,7 @@ For the register file and the scoreboard, we advise you to use a vector of EHRs 
 
 `make submit` will run the autograder and upload your code. Please keep a konata screenshot (just a segment of one test will be fine) inside your repository when you are done.
 
-Let us know on Piazza or OH if you need any help :)
+Let us know on Piazza if you need any help :)
 
 You can use regular `git commit` to backup any changes you make but make sure your last commit is passing tests and uploaded using `make submit`. You should commit and push regularly as a good coding practise.
 
