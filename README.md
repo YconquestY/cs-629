@@ -82,6 +82,8 @@ Please install `gcc-riscv64-unknown-elf` on your machine (`sudo apt-get install 
 
 Then you can make your test by doing `cd testMulticore; make`. You run it using `./run_threaded.sh buffer32`.
 
+Please see the matrix multiply and multicore tests for inspiration. Similar to multicore, print success or failure if it has the right result.
+
 ## Konata update
 
 Konata supports displaying instruction from different threads. For that, one simply needs to specify at fetch time which thread we are fetching from.
