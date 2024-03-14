@@ -78,7 +78,7 @@ Thread1 should pull from that queue and sum all the elements.
 
 You should add this to `testMulticore/src/buffer.c`. 
 
-Please install `gcc-riscv64-unknown-elf` on your machine (`sudo apt-get install gcc-riscv64-unknown-elf` for Debian/WSL).
+Please install `gcc-riscv64-unknown-elf` on your machine (`sudo apt-get install gcc-riscv64-unknown-elf` for Debian/WSL). Mac users will need to do `brew tap riscv-software-src/riscv; brew install riscv-tools`.
 
 Then you can make your test by doing `cd testMultiCore; make`. You run it using `./run_threaded.sh buffer32`.
 
