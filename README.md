@@ -1,6 +1,6 @@
 # Lab 4a -- Basic multithreaidng	
 
-Start by copying in `pipelined.bsv` from lab2b, `Cache32.bsv` and `Cache512.bsv` from lab3a, and `CacheInterface.bsv` from lab3b, replacing the templates in this repository.
+Start by copying in `pipelined.bsv` from lab2b, `Cache32.bsv` and `Cache512.bsv` from lab3a, and `CacheInterface.bsv` from lab3b, replacing the templates in this repository. You may need to add in any other dependencies you added, as well, such as `*.hex` files.
 
 ## Two-threads machine
 
