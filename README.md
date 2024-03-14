@@ -80,7 +80,7 @@ You should add this to `testMulticore/src/buffer.c`.
 
 Please install `gcc-riscv64-unknown-elf` on your machine (`sudo apt-get install gcc-riscv64-unknown-elf` for Debian/WSL).
 
-Then you can make your test by doing `cd testMulticore; make`. You run it using `./run_threaded.sh buffer32`.
+Then you can make your test by doing `cd testMultiCore; make`. You run it using `./run_threaded.sh buffer32`.
 
 Please see the matrix multiply and multicore tests for inspiration. Similar to multicore, print success or failure if it has the right result.
 
