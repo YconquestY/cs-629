@@ -54,3 +54,9 @@ echo "Testing matmulmulti32"
 timeout 120 ./top_pipelined
 
 
+echo "Testing buffer32"
+./testMC.sh buffer32
+timeout 120 ./top_pipelined
+
+
+
