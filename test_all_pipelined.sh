@@ -40,10 +40,6 @@ echo "Testing thuemorse"
 ./test.sh thuemorse32
 timeout 25 ./top_pipelined
 
-echo "Testing thuemorse"
-./test.sh thuemorse32
-timeout 25 ./top_pipelined
-
 echo "Testing multicore32"
 ./testMC.sh multicore32
 timeout 120 ./top_pipelined
