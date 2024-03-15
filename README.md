@@ -1,4 +1,4 @@
-# Lab 4a -- Basic multithreaidng	
+# Lab 4a -- Basic multithreaidng	(SMT)
 
 Start by copying in `pipelined.bsv` from lab2b, `Cache32.bsv` and `Cache512.bsv` from lab3a, and `CacheInterface.bsv` from lab3b, replacing the templates in this repository. You may need to add in any other dependencies you added, as well, such as `*.hex` files.
 
@@ -191,4 +191,4 @@ We provided the (ungraded) RISC-V unit tests from 6.004 for convenience. See the
 
 This lab is due April 2, 2024, right before class at 9:30am.
 
-In part b, you will be asked to improve on this machine by using parallel queues to allow a thread to sometime overtake another thread, as outlined in the lecture. You will also explore instruction-choice policy.
+<!-- In part b, you will be asked to improve on this machine by using parallel queues to allow a thread to sometime overtake another thread, as outlined in the lecture. You will also explore instruction-choice policy. -->
