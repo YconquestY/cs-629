@@ -117,7 +117,7 @@ make
 ``` 
 Now you run it using `./run_threaded.sh buffer32`.
 
-Please see the multicore test for inspiration. 
+Please see the `multicore.c` test for inspiration. 
 
 To make your own ring buffer test, you will need to do the following:
 * Instantiate your global source array (with some arbitary content) and destination array with zeroes. We want to use static volatile fixed size arrays. We do not have access to the standard library in RISC-V 32 bit. In C this is done as follows:
@@ -131,6 +131,8 @@ static volatile int buffer_data[8] = {0,0,0,0,0,0,0,0};
 * In program thread 1, we want to wait (loop) until our flag is 1.
 * Then, in thread 1, sum the entire content of `input_data`. We want to use a local integer variable `sum`.
 * We want to then check if the sum is what you expect (e.g. 28 in the sample) and do `exit(0)` if true and `exit(1)` if false (pass or fail).
+
+You can use `putchar(char x)` to print any single character for debugging. We provide the strings "success" and "failure" for reference but you do not need them. You can copy the logic for printing these strings from multicore.c. 
 
 ## Konata update
 
