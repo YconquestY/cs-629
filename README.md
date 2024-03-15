@@ -77,6 +77,8 @@ flies better in the 2-threads processor)
 
 If/in cases where it does not go faster, why does it not go faster? (Show a Konata screenshot of a situation in your 2-thread core, where there is an opportunity of speedup if threads could overtake each other)
 
+We will use the same memory caches for both threads since each thread cannot run at the same time. This means that each thread can read the other thread's memory. This is crucial for proper interprocess communication in this lab.
+
 ### Understanding the software running
 
 Compare  `test/init.S` with the `test/init.S` of the previous lab, notice the main difference and explain what it does.
@@ -178,7 +180,7 @@ Right now, for all those benchmarks, both thread run the same benchmark in paral
 
 We provided the (ungraded) RISC-V unit tests from 6.004 for convenience. See the `risc_v_tests` folder for a list of test types and included tests.
 ```
-./run_6004 <test_type>/<test>
+./run_6004.sh <test_type>/<test>
 ```
 
 
