@@ -13,3 +13,4 @@
 # riscv64-unknown-elf-objdump -D build/matmul32    > build/matmul32.dump
 riscv64-unknown-elf-objdump -D build/multicore32 > build/multicore32.dump
 riscv64-unknown-elf-objdump -D build/matmulmulti32 > build/matmulmulti32.dump
+riscv64-unknown-elf-objdump -D build/buffer32 > build/buffer32.dump
