@@ -11,7 +11,7 @@ For this initial version of part a, you can use a simplified implementation wher
 
 As a hint we suggest you use the following updated datastructure accross stages:
 
-```
+```verilog
 typedef struct { 
                  Bit#(32) pc;
                  Bit#(32) ppc;
@@ -47,7 +47,7 @@ We decide to follow the following convention: both threads should start at the
 same pc, but one should start with register x10 (a0) initialized to 0, while the other one to
 should start with register x10 initialized to 1.
 Considering that a0 is the argument passed to main, it will allow us to write software in C:
-```
+```c
 int main(int tid) {
   if (tid ==0) {
     // code that should be run by hwthread0
@@ -78,17 +78,52 @@ Thread1 should pull from that queue and sum all the elements.
 
 You should add this to `testMultiCore/src/buffer.c`. 
 
-Please install `gcc-riscv64-unknown-elf` on your machine (`sudo apt-get install gcc-riscv64-unknown-elf` for Debian/WSL). Mac users will need to do `brew tap riscv-software-src/riscv; brew install riscv-tools`. Mac users will also need to do `cd elf2hex; make clean; make` before running any of their own programs.
+Please install `gcc-riscv64-unknown-elf` on your machine.
 
-Then you can make your test by doing `cd testMultiCore; make`. You run it using `./run_threaded.sh buffer32`.
+For Debian or WSL:
+ ```
+ sudo apt-get install gcc-riscv64-unknown-elf
+ ``` 
+Mac users will need to do:
+```
+brew tap riscv-software-src/riscv 
+brew install riscv-tools
+```
+Mac users will also need to do: 
+```
+cd elf2hex
+make clean
+make
+``` 
+before compiling any RISC-V programs.
 
-Please see the matrix multiply and multicore tests for inspiration. Similar to multicore, print success or failure if it has the right result.
+Then you can compile your test by doing 
+```
+cd testMultiCore
+make
+``` 
+Now you run it using `./run_threaded.sh buffer32`.
+
+Please see the multicore test for inspiration. 
+
+To make your own ring buffer test, you will need to do the following:
+* Instantiate your global source array (with some arbitary content) and destination array with zeroes. We want to use static volatile fixed size arrays. We do not have access to the standard library in RISC-V 32 bit. In C this is done as follows:
+```c
+static volatile int input_data[8] = {0,1,2,3,4,5,6,7};
+static volatile int buffer_data[8] = {0,0,0,0,0,0,0,0};
+```
+* You will also need a global variable called `flag` that will act as your semaphore, keeping track if inter-thread communication. This should look something like `static volatile int flag = 0;`
+* In program thread 0, you will need to copy all data from `input_data` into `buffer_data` in a loop.
+* Once we are done, we want to release our semaphore, setting our flag to 1. Once this is done, we can consider this thread to be successful and do `exit(0)`;
+* In program thread 1, we want to wait (loop) until our flag is 1.
+* Then, in thread 1, sum the entire content of `input_data`. We want to use a local integer variable `sum`.
+* We want to then check if the sum is what you expect (e.g. 28 in the sample) and do `exit(0)` if true and `exit(1)` if false (pass or fail).
 
 ## Konata update
 
 Konata supports displaying instruction from different threads. For that, one simply needs to specify at fetch time which thread we are fetching from.
 
-```
+```verilog
 // When fetching from thread 0:
 	let iid <- fetch1Konata(lfh, fresh_id, 0);
 	
@@ -138,5 +173,7 @@ We provided the (ungraded) RISC-V unit tests from 6.004 for convenience. See the
 
 # Submitting
 `make submit` will do it all for you :)
+
+This lab is due April 2, 2024, right before class at 9:30am.
 
 In part b, you will be asked to improve on this machine by using parallel queues to allow a thread to sometime overtake another thread, as outlined in the lecture. You will also explore instruction-choice policy.
