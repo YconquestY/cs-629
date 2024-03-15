@@ -9,6 +9,14 @@ In this lab, you are first asked to build a simple processor that hosts two hard
 
 For this initial version of part a, you can use a simplified implementation where both threads fly through a single queue per stage of the processor, resulting in both threads potentially stalling each-other. 
 
+
+We are going to have two mutually exclusive Fetch stages that will fetch the appropriate instruction from each thread.
+
+Both threads will start at 0 and diverge. In each of your queues, you will want to keep track of which thread it is associated with. In this SMT processor, Decode, Execute, and Writeback will handle both.
+
+<img src="overview.png" alt="Design" width=600>
+
+
 As a hint we suggest you use the following updated datastructure accross stages:
 
 ```verilog
@@ -41,11 +49,14 @@ typedef struct {
 } E2W deriving (Eq, FShow, Bits);
 ```
 
-Your machine will also necessitate 2 register file, two scoreboards and two epochs.
+Your machine will also instantiate 2 register file, two scoreboards and two epochs.
+
 To be able to distinguish the two threads, we do not start the two threads in the same exact state.
+
 We decide to follow the following convention: both threads should start at the
 same pc, but one should start with register x10 (a0) initialized to 0, while the other one to
-should start with register x10 initialized to 1.
+should start with register x10 initialized to 1. This should be reflected when you instantiate your register file for each thread. The test bench handles each path given the x10/a0 value. It will also associate a different stack pointer for each thread.
+
 Considering that a0 is the argument passed to main, it will allow us to write software in C:
 ```c
 int main(int tid) {
