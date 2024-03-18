@@ -13,7 +13,7 @@
     {
       "name": "Performance thuemorse (< 20k cycles)",
       "setup": "",
-      "run": "cat output_submit.txt | grep -a -A5 thuemorse | grep -a cycle | tr -dc '0-9' | xargs expr 20000 \\>= ",
+      "run": "cat output_submit.txt | grep -a -A6 thuemorse | grep -a cycle | tr -dc '0-9' | xargs expr 20000 \\>= ",
       "input": "",
       "output": "1",
       "comparison": "exact",
@@ -23,7 +23,7 @@
     {
       "name": "Performance reverse",
       "setup": "",
-      "run": "cat output_submit.txt | grep -a -A5 reverse | grep -a cycle | tr -dc '0-9' | xargs expr 16000 \\>= ",
+      "run": "cat output_submit.txt | grep -a -A6 reverse | grep -a cycle | tr -dc '0-9' | xargs expr 16000 \\>= ",
       "input": "",
       "output": "1",
       "comparison": "exact",
