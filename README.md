@@ -191,4 +191,3 @@ We provided the (ungraded) RISC-V unit tests from 6.004 for convenience. See the
 
 This lab is due April 2, 2024, right before class at 9:30am.
 
-<!-- In part b, you will be asked to improve on this machine by using parallel queues to allow a thread to sometime overtake another thread, as outlined in the lecture. You will also explore instruction-choice policy. -->
