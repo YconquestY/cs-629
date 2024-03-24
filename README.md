@@ -1,4 +1,4 @@
-# Lab 4a -- Basic multithreaidng	(SMT)
+# Lab 4 -- Basic multithreaidng	(SMT)
 
 Start by copying in `pipelined.bsv` from lab2b, `Cache32.bsv` and `Cache512.bsv` from lab3a, and `CacheInterface.bsv` from lab3b, replacing the templates in this repository. You may need to add in any other dependencies you added, as well, such as `*.hex` files.
 
@@ -127,10 +127,10 @@ static volatile int buffer_data[8] = {0,0,0,0,0,0,0,0};
 ```
 * You will also need a global variable called `flag` that will act as your semaphore, keeping track if inter-thread communication. This should look something like `static volatile int flag = 0;`
 * In program thread 0, you will need to copy all data from `input_data` into `buffer_data` in a loop.
-* Once we are done, we want to release our semaphore, setting our flag to 1. Once this is done, we can consider this thread to be successful and do `exit(0)`;
+* Once we are done, we want to release our semaphore, setting our flag to 1. Once this is done, we can consider this thread to be successful and do `return 0`;
 * In program thread 1, we want to wait (loop) until our flag is 1.
 * Then, in thread 1, sum the entire content of `input_data`. We want to use a local integer variable `sum`.
-* We want to then check if the sum is what you expect (e.g. 28 in the sample) and do `exit(0)` if true and `exit(1)` if false (pass or fail).
+* We want to then check if the sum is what you expect (e.g. 28 in the sample) and do `return 0` if true and `return 1` if false (pass or fail).
 
 You can use `putchar(char x)` to print any single character for debugging. We provide the strings "success" and "failure" for reference but you do not need them. You can copy the logic for printing these strings from multicore.c. 
 

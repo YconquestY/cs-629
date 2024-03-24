@@ -52,7 +52,7 @@ skip:
 
   call main
 
-  li x10, 0
+//  li x10, 0
 
   call exit
 1:
