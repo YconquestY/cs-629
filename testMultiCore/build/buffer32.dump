@@ -1,0 +1,173 @@
+
+build/buffer32:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00001000 <program_thread0>:
+    1000:	00100513          	li	a0,1
+    1004:	00008067          	ret
+
+00001008 <program_thread1>:
+    1008:	00100513          	li	a0,1
+    100c:	00008067          	ret
+
+00001010 <getchar>:
+    1010:	ff010113          	addi	sp,sp,-16
+    1014:	00812623          	sw	s0,12(sp)
+    1018:	01010413          	addi	s0,sp,16
+    101c:	00001797          	auipc	a5,0x1
+    1020:	ff078793          	addi	a5,a5,-16 # 200c <GET_ADDR>
+    1024:	0007a783          	lw	a5,0(a5)
+    1028:	0007a783          	lw	a5,0(a5)
+    102c:	00078513          	mv	a0,a5
+    1030:	00c12403          	lw	s0,12(sp)
+    1034:	01010113          	addi	sp,sp,16
+    1038:	00008067          	ret
+
+0000103c <putchar>:
+    103c:	fe010113          	addi	sp,sp,-32
+    1040:	00812e23          	sw	s0,28(sp)
+    1044:	02010413          	addi	s0,sp,32
+    1048:	fea42623          	sw	a0,-20(s0)
+    104c:	00001797          	auipc	a5,0x1
+    1050:	fbc78793          	addi	a5,a5,-68 # 2008 <PUT_ADDR>
+    1054:	0007a783          	lw	a5,0(a5)
+    1058:	fec42703          	lw	a4,-20(s0)
+    105c:	00e7a023          	sw	a4,0(a5)
+    1060:	fec42783          	lw	a5,-20(s0)
+    1064:	00078513          	mv	a0,a5
+    1068:	01c12403          	lw	s0,28(sp)
+    106c:	02010113          	addi	sp,sp,32
+    1070:	00008067          	ret
+
+00001074 <exit>:
+    1074:	fe010113          	addi	sp,sp,-32
+    1078:	00812e23          	sw	s0,28(sp)
+    107c:	02010413          	addi	s0,sp,32
+    1080:	fea42623          	sw	a0,-20(s0)
+    1084:	00001797          	auipc	a5,0x1
+    1088:	f8c78793          	addi	a5,a5,-116 # 2010 <FINISH_ADDR>
+    108c:	0007a783          	lw	a5,0(a5)
+    1090:	fec42703          	lw	a4,-20(s0)
+    1094:	00e7a023          	sw	a4,0(a5)
+    1098:	fec42783          	lw	a5,-20(s0)
+    109c:	00078513          	mv	a0,a5
+    10a0:	01c12403          	lw	s0,28(sp)
+    10a4:	02010113          	addi	sp,sp,32
+    10a8:	00008067          	ret
+
+Disassembly of section .text.startup:
+
+000010ac <main>:
+    10ac:	00100513          	li	a0,1
+    10b0:	00008067          	ret
+
+Disassembly of section .rodata.str1.4:
+
+000010b4 <.rodata.str1.4>:
+    10b4:	6146                	flw	ft2,80(sp)
+    10b6:	6c69                	lui	s8,0x1a
+    10b8:	7275                	lui	tp,0xffffd
+    10ba:	0a65                	addi	s4,s4,25
+    10bc:	0000                	unimp
+    10be:	0000                	unimp
+    10c0:	63637553          	0x63637553
+    10c4:	7365                	lui	t1,0xffff9
+    10c6:	          	0xa73
+
+Disassembly of section .sdata:
+
+00002000 <f>:
+    2000:	10b4                	addi	a3,sp,104
+	...
+
+00002004 <s>:
+    2004:	10c0                	addi	s0,sp,100
+	...
+
+00002008 <PUT_ADDR>:
+    2008:	fff0                	fsw	fa2,124(a5)
+    200a:	f000                	fsw	fs0,32(s0)
+
+0000200c <GET_ADDR>:
+    200c:	fff4                	fsw	fa3,124(a5)
+    200e:	f000                	fsw	fs0,32(s0)
+
+00002010 <FINISH_ADDR>:
+    2010:	fff8                	fsw	fa4,124(a5)
+    2012:	f000                	fsw	fs0,32(s0)
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	3a434347          	fmsub.d	ft6,ft6,ft4,ft7,rmm
+   4:	2820                	fld	fs0,80(s0)
+   6:	2029                	jal	10 <_start+0x10>
+   8:	3031                	jal	fffff814 <_end+0xffffd800>
+   a:	322e                	fld	ft4,232(sp)
+   c:	302e                	fld	ft0,232(sp)
+	...
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	1b41                	addi	s6,s6,-16
+   2:	0000                	unimp
+   4:	7200                	flw	fs0,32(a2)
+   6:	7369                	lui	t1,0xffffa
+   8:	01007663          	bgeu	zero,a6,14 <_start+0x14>
+   c:	0011                	c.nop	4
+   e:	0000                	unimp
+  10:	1004                	addi	s1,sp,32
+  12:	7205                	lui	tp,0xfffe1
+  14:	3376                	fld	ft6,376(sp)
+  16:	6932                	flw	fs2,12(sp)
+  18:	7032                	flw	ft0,44(sp)
+  1a:	0030                	addi	a2,sp,8
+
+Disassembly of section .text.init:
+
+00000000 <_start>:
+   0:	00000093          	li	ra,0
+   4:	00000113          	li	sp,0
+   8:	00000193          	li	gp,0
+   c:	00000213          	li	tp,0
+  10:	00000293          	li	t0,0
+  14:	00000313          	li	t1,0
+  18:	00000393          	li	t2,0
+  1c:	00000413          	li	s0,0
+  20:	00000493          	li	s1,0
+  24:	00000593          	li	a1,0
+  28:	00000613          	li	a2,0
+  2c:	00000693          	li	a3,0
+  30:	00000713          	li	a4,0
+  34:	00000793          	li	a5,0
+  38:	00000813          	li	a6,0
+  3c:	00000893          	li	a7,0
+  40:	00000913          	li	s2,0
+  44:	00000993          	li	s3,0
+  48:	00000a13          	li	s4,0
+  4c:	00000a93          	li	s5,0
+  50:	00000b13          	li	s6,0
+  54:	00000b93          	li	s7,0
+  58:	00000c13          	li	s8,0
+  5c:	00000c93          	li	s9,0
+  60:	00000d13          	li	s10,0
+  64:	00000d93          	li	s11,0
+  68:	00000e13          	li	t3,0
+  6c:	00000e93          	li	t4,0
+  70:	00000f13          	li	t5,0
+  74:	00000f93          	li	t6,0
+  78:	00051663          	bnez	a0,84 <nextstack>
+  7c:	10000137          	lui	sp,0x10000
+  80:	ff010113          	addi	sp,sp,-16 # ffffff0 <_end+0xfffdfdc>
+
+00000084 <nextstack>:
+  84:	00050463          	beqz	a0,8c <skip>
+  88:	0f000137          	lui	sp,0xf000
+
+0000008c <skip>:
+  8c:	020010ef          	jal	ra,10ac <main>
+  90:	7e5000ef          	jal	ra,1074 <exit>
+  94:	0000006f          	j	94 <skip+0x8>

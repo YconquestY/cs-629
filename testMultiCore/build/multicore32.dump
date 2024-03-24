@@ -13,7 +13,7 @@ Disassembly of section .text:
     1014:	00001517          	auipc	a0,0x1
     1018:	fec50513          	addi	a0,a0,-20 # 2000 <input_data>
     101c:	00001697          	auipc	a3,0x1
-    1020:	01c68693          	addi	a3,a3,28 # 2038 <acc_thread0>
+    1020:	01868693          	addi	a3,a3,24 # 2034 <acc_thread0>
     1024:	00400593          	li	a1,4
     1028:	00279713          	slli	a4,a5,0x2
     102c:	00e50733          	add	a4,a0,a4
@@ -24,124 +24,136 @@ Disassembly of section .text:
     1040:	00e6a023          	sw	a4,0(a3)
     1044:	feb792e3          	bne	a5,a1,1028 <program_thread0+0x28>
     1048:	00001717          	auipc	a4,0x1
-    104c:	ff470713          	addi	a4,a4,-12 # 203c <flag>
+    104c:	ff070713          	addi	a4,a4,-16 # 2038 <flag>
     1050:	00072783          	lw	a5,0(a4)
     1054:	fe078ee3          	beqz	a5,1050 <program_thread0+0x50>
     1058:	00072783          	lw	a5,0(a4)
     105c:	0006a683          	lw	a3,0(a3)
     1060:	01c00713          	li	a4,28
     1064:	00d787b3          	add	a5,a5,a3
-    1068:	02e78863          	beq	a5,a4,1098 <program_thread0+0x98>
+    1068:	04e78063          	beq	a5,a4,10a8 <program_thread0+0xa8>
     106c:	00001497          	auipc	s1,0x1
-    1070:	fb848493          	addi	s1,s1,-72 # 2024 <f>
+    1070:	fb448493          	addi	s1,s1,-76 # 2020 <f>
     1074:	0004a403          	lw	s0,0(s1)
     1078:	00044503          	lbu	a0,0(s0)
     107c:	00140413          	addi	s0,s0,1
-    1080:	0ac000ef          	jal	ra,112c <putchar>
+    1080:	0c4000ef          	jal	ra,1144 <putchar>
     1084:	0004a783          	lw	a5,0(s1)
     1088:	00878793          	addi	a5,a5,8
     108c:	fef466e3          	bltu	s0,a5,1078 <program_thread0+0x78>
-    1090:	00100513          	li	a0,1
-    1094:	0d0000ef          	jal	ra,1164 <exit>
-    1098:	00001497          	auipc	s1,0x1
-    109c:	f9048493          	addi	s1,s1,-112 # 2028 <s>
-    10a0:	0004a403          	lw	s0,0(s1)
-    10a4:	00044503          	lbu	a0,0(s0)
-    10a8:	00140413          	addi	s0,s0,1
-    10ac:	080000ef          	jal	ra,112c <putchar>
-    10b0:	0004a783          	lw	a5,0(s1)
-    10b4:	00878793          	addi	a5,a5,8
-    10b8:	fef466e3          	bltu	s0,a5,10a4 <program_thread0+0xa4>
-    10bc:	00000513          	li	a0,0
-    10c0:	0a4000ef          	jal	ra,1164 <exit>
+    1090:	00c12083          	lw	ra,12(sp)
+    1094:	00812403          	lw	s0,8(sp)
+    1098:	00412483          	lw	s1,4(sp)
+    109c:	00100513          	li	a0,1
+    10a0:	01010113          	addi	sp,sp,16
+    10a4:	00008067          	ret
+    10a8:	00001497          	auipc	s1,0x1
+    10ac:	f7c48493          	addi	s1,s1,-132 # 2024 <s>
+    10b0:	0004a403          	lw	s0,0(s1)
+    10b4:	00044503          	lbu	a0,0(s0)
+    10b8:	00140413          	addi	s0,s0,1
+    10bc:	088000ef          	jal	ra,1144 <putchar>
+    10c0:	0004a783          	lw	a5,0(s1)
+    10c4:	00878793          	addi	a5,a5,8
+    10c8:	fef466e3          	bltu	s0,a5,10b4 <program_thread0+0xb4>
+    10cc:	00c12083          	lw	ra,12(sp)
+    10d0:	00812403          	lw	s0,8(sp)
+    10d4:	00412483          	lw	s1,4(sp)
+    10d8:	00000513          	li	a0,0
+    10dc:	01010113          	addi	sp,sp,16
+    10e0:	00008067          	ret
 
-000010c4 <program_thread1>:
-    10c4:	00001717          	auipc	a4,0x1
-    10c8:	f3c70713          	addi	a4,a4,-196 # 2000 <input_data>
-    10cc:	01072783          	lw	a5,16(a4)
-    10d0:	01472603          	lw	a2,20(a4)
-    10d4:	01872683          	lw	a3,24(a4)
-    10d8:	01c72703          	lw	a4,28(a4)
-    10dc:	00c787b3          	add	a5,a5,a2
-    10e0:	00d787b3          	add	a5,a5,a3
-    10e4:	00e787b3          	add	a5,a5,a4
-    10e8:	00001717          	auipc	a4,0x1
-    10ec:	f4f72a23          	sw	a5,-172(a4) # 203c <flag>
-    10f0:	00001797          	auipc	a5,0x1
-    10f4:	f307a783          	lw	a5,-208(a5) # 2020 <FINISH_ADDR2>
-    10f8:	0007a023          	sw	zero,0(a5)
-    10fc:	00008067          	ret
+000010e4 <program_thread1>:
+    10e4:	00001717          	auipc	a4,0x1
+    10e8:	f1c70713          	addi	a4,a4,-228 # 2000 <input_data>
+    10ec:	01072783          	lw	a5,16(a4)
+    10f0:	01472603          	lw	a2,20(a4)
+    10f4:	01872683          	lw	a3,24(a4)
+    10f8:	01c72703          	lw	a4,28(a4)
+    10fc:	00c787b3          	add	a5,a5,a2
+    1100:	00d787b3          	add	a5,a5,a3
+    1104:	00e787b3          	add	a5,a5,a4
+    1108:	00001717          	auipc	a4,0x1
+    110c:	f2f72823          	sw	a5,-208(a4) # 2038 <flag>
+    1110:	00000513          	li	a0,0
+    1114:	00008067          	ret
 
-00001100 <getchar>:
-    1100:	ff010113          	addi	sp,sp,-16
-    1104:	00812623          	sw	s0,12(sp)
-    1108:	01010413          	addi	s0,sp,16
-    110c:	00001797          	auipc	a5,0x1
-    1110:	f2478793          	addi	a5,a5,-220 # 2030 <GET_ADDR>
-    1114:	0007a783          	lw	a5,0(a5)
-    1118:	0007a783          	lw	a5,0(a5)
-    111c:	00078513          	mv	a0,a5
-    1120:	00c12403          	lw	s0,12(sp)
-    1124:	01010113          	addi	sp,sp,16
-    1128:	00008067          	ret
+00001118 <getchar>:
+    1118:	ff010113          	addi	sp,sp,-16
+    111c:	00812623          	sw	s0,12(sp)
+    1120:	01010413          	addi	s0,sp,16
+    1124:	00001797          	auipc	a5,0x1
+    1128:	f0878793          	addi	a5,a5,-248 # 202c <GET_ADDR>
+    112c:	0007a783          	lw	a5,0(a5)
+    1130:	0007a783          	lw	a5,0(a5)
+    1134:	00078513          	mv	a0,a5
+    1138:	00c12403          	lw	s0,12(sp)
+    113c:	01010113          	addi	sp,sp,16
+    1140:	00008067          	ret
 
-0000112c <putchar>:
-    112c:	fe010113          	addi	sp,sp,-32
-    1130:	00812e23          	sw	s0,28(sp)
-    1134:	02010413          	addi	s0,sp,32
-    1138:	fea42623          	sw	a0,-20(s0)
-    113c:	00001797          	auipc	a5,0x1
-    1140:	ef078793          	addi	a5,a5,-272 # 202c <PUT_ADDR>
-    1144:	0007a783          	lw	a5,0(a5)
-    1148:	fec42703          	lw	a4,-20(s0)
-    114c:	00e7a023          	sw	a4,0(a5)
-    1150:	fec42783          	lw	a5,-20(s0)
-    1154:	00078513          	mv	a0,a5
-    1158:	01c12403          	lw	s0,28(sp)
-    115c:	02010113          	addi	sp,sp,32
-    1160:	00008067          	ret
+00001144 <putchar>:
+    1144:	fe010113          	addi	sp,sp,-32
+    1148:	00812e23          	sw	s0,28(sp)
+    114c:	02010413          	addi	s0,sp,32
+    1150:	fea42623          	sw	a0,-20(s0)
+    1154:	00001797          	auipc	a5,0x1
+    1158:	ed478793          	addi	a5,a5,-300 # 2028 <PUT_ADDR>
+    115c:	0007a783          	lw	a5,0(a5)
+    1160:	fec42703          	lw	a4,-20(s0)
+    1164:	00e7a023          	sw	a4,0(a5)
+    1168:	fec42783          	lw	a5,-20(s0)
+    116c:	00078513          	mv	a0,a5
+    1170:	01c12403          	lw	s0,28(sp)
+    1174:	02010113          	addi	sp,sp,32
+    1178:	00008067          	ret
 
-00001164 <exit>:
-    1164:	fe010113          	addi	sp,sp,-32
-    1168:	00812e23          	sw	s0,28(sp)
-    116c:	02010413          	addi	s0,sp,32
-    1170:	fea42623          	sw	a0,-20(s0)
-    1174:	00001797          	auipc	a5,0x1
-    1178:	ec078793          	addi	a5,a5,-320 # 2034 <FINISH_ADDR>
-    117c:	0007a783          	lw	a5,0(a5)
-    1180:	fec42703          	lw	a4,-20(s0)
-    1184:	00e7a023          	sw	a4,0(a5)
-    1188:	fec42783          	lw	a5,-20(s0)
-    118c:	00078513          	mv	a0,a5
-    1190:	01c12403          	lw	s0,28(sp)
-    1194:	02010113          	addi	sp,sp,32
-    1198:	00008067          	ret
+0000117c <exit>:
+    117c:	fe010113          	addi	sp,sp,-32
+    1180:	00812e23          	sw	s0,28(sp)
+    1184:	02010413          	addi	s0,sp,32
+    1188:	fea42623          	sw	a0,-20(s0)
+    118c:	00001797          	auipc	a5,0x1
+    1190:	ea478793          	addi	a5,a5,-348 # 2030 <FINISH_ADDR>
+    1194:	0007a783          	lw	a5,0(a5)
+    1198:	fec42703          	lw	a4,-20(s0)
+    119c:	00e7a023          	sw	a4,0(a5)
+    11a0:	fec42783          	lw	a5,-20(s0)
+    11a4:	00078513          	mv	a0,a5
+    11a8:	01c12403          	lw	s0,28(sp)
+    11ac:	02010113          	addi	sp,sp,32
+    11b0:	00008067          	ret
 
 Disassembly of section .text.startup:
 
-0000119c <main>:
-    119c:	ff010113          	addi	sp,sp,-16
-    11a0:	00112623          	sw	ra,12(sp)
-    11a4:	00050c63          	beqz	a0,11bc <main+0x20>
-    11a8:	f1dff0ef          	jal	ra,10c4 <program_thread1>
-    11ac:	00c12083          	lw	ra,12(sp)
-    11b0:	00000513          	li	a0,0
-    11b4:	01010113          	addi	sp,sp,16
-    11b8:	00008067          	ret
-    11bc:	e45ff0ef          	jal	ra,1000 <program_thread0>
+000011b4 <main>:
+    11b4:	02050c63          	beqz	a0,11ec <main+0x38>
+    11b8:	00001717          	auipc	a4,0x1
+    11bc:	e4870713          	addi	a4,a4,-440 # 2000 <input_data>
+    11c0:	01072783          	lw	a5,16(a4)
+    11c4:	01472603          	lw	a2,20(a4)
+    11c8:	01872683          	lw	a3,24(a4)
+    11cc:	01c72703          	lw	a4,28(a4)
+    11d0:	00c787b3          	add	a5,a5,a2
+    11d4:	00d787b3          	add	a5,a5,a3
+    11d8:	00e787b3          	add	a5,a5,a4
+    11dc:	00001717          	auipc	a4,0x1
+    11e0:	e4f72e23          	sw	a5,-420(a4) # 2038 <flag>
+    11e4:	00000513          	li	a0,0
+    11e8:	00008067          	ret
+    11ec:	e15ff06f          	j	1000 <program_thread0>
 
 Disassembly of section .rodata.str1.4:
 
-000011c0 <.rodata.str1.4>:
-    11c0:	6146                	flw	ft2,80(sp)
-    11c2:	6c69                	lui	s8,0x1a
-    11c4:	7275                	lui	tp,0xffffd
-    11c6:	0a65                	addi	s4,s4,25
-    11c8:	0000                	unimp
-    11ca:	0000                	unimp
-    11cc:	63637553          	0x63637553
-    11d0:	7365                	lui	t1,0xffff9
-    11d2:	          	0xa73
+000011f0 <.rodata.str1.4>:
+    11f0:	6146                	flw	ft2,80(sp)
+    11f2:	6c69                	lui	s8,0x1a
+    11f4:	7275                	lui	tp,0xffffd
+    11f6:	0a65                	addi	s4,s4,25
+    11f8:	0000                	unimp
+    11fa:	0000                	unimp
+    11fc:	63637553          	0x63637553
+    1200:	7365                	lui	t1,0xffff9
+    1202:	          	0xa73
 
 Disassembly of section .data:
 
@@ -163,38 +175,34 @@ Disassembly of section .data:
 
 Disassembly of section .sdata:
 
-00002020 <FINISH_ADDR2>:
-    2020:	fff8                	fsw	fa4,124(a5)
-    2022:	f000                	fsw	fs0,32(s0)
-
-00002024 <f>:
-    2024:	11c0                	addi	s0,sp,228
+00002020 <f>:
+    2020:	11f0                	addi	a2,sp,236
 	...
 
-00002028 <s>:
-    2028:	11cc                	addi	a1,sp,228
+00002024 <s>:
+    2024:	11fc                	addi	a5,sp,236
 	...
 
-0000202c <PUT_ADDR>:
-    202c:	fff0                	fsw	fa2,124(a5)
+00002028 <PUT_ADDR>:
+    2028:	fff0                	fsw	fa2,124(a5)
+    202a:	f000                	fsw	fs0,32(s0)
+
+0000202c <GET_ADDR>:
+    202c:	fff4                	fsw	fa3,124(a5)
     202e:	f000                	fsw	fs0,32(s0)
 
-00002030 <GET_ADDR>:
-    2030:	fff4                	fsw	fa3,124(a5)
+00002030 <FINISH_ADDR>:
+    2030:	fff8                	fsw	fa4,124(a5)
     2032:	f000                	fsw	fs0,32(s0)
-
-00002034 <FINISH_ADDR>:
-    2034:	fff8                	fsw	fa4,124(a5)
-    2036:	f000                	fsw	fs0,32(s0)
 
 Disassembly of section .sbss:
 
-00002038 <acc_thread0>:
-    2038:	0000                	unimp
+00002034 <acc_thread0>:
+    2034:	0000                	unimp
 	...
 
-0000203c <flag>:
-    203c:	0000                	unimp
+00002038 <flag>:
+    2038:	0000                	unimp
 	...
 
 Disassembly of section .comment:
@@ -203,7 +211,7 @@ Disassembly of section .comment:
    0:	3a434347          	fmsub.d	ft6,ft6,ft4,ft7,rmm
    4:	2820                	fld	fs0,80(s0)
    6:	2029                	jal	10 <_start+0x10>
-   8:	3031                	jal	fffff814 <flag+0xffffd7d8>
+   8:	3031                	jal	fffff814 <flag+0xffffd7dc>
    a:	322e                	fld	ft4,232(sp)
    c:	302e                	fld	ft0,232(sp)
 	...
@@ -260,14 +268,13 @@ Disassembly of section .text.init:
   74:	00000f93          	li	t6,0
   78:	00051663          	bnez	a0,84 <nextstack>
   7c:	10000137          	lui	sp,0x10000
-  80:	ff010113          	addi	sp,sp,-16 # ffffff0 <flag+0xfffdfb4>
+  80:	ff010113          	addi	sp,sp,-16 # ffffff0 <flag+0xfffdfb8>
 
 00000084 <nextstack>:
   84:	00050463          	beqz	a0,8c <skip>
   88:	0f000137          	lui	sp,0xf000
 
 0000008c <skip>:
-  8c:	110010ef          	jal	ra,119c <main>
-  90:	00000513          	li	a0,0
-  94:	0d0010ef          	jal	ra,1164 <exit>
-  98:	0000006f          	j	98 <skip+0xc>
+  8c:	128010ef          	jal	ra,11b4 <main>
+  90:	0ec010ef          	jal	ra,117c <exit>
+  94:	0000006f          	j	94 <skip+0x8>

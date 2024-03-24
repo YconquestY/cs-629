@@ -49,9 +49,9 @@ Disassembly of section .text:
     1094:	04100513          	li	a0,65
     1098:	00112623          	sw	ra,12(sp)
     109c:	00812423          	sw	s0,8(sp)
-    10a0:	23c000ef          	jal	ra,12dc <putchar>
+    10a0:	240000ef          	jal	ra,12e0 <putchar>
     10a4:	00a00513          	li	a0,10
-    10a8:	234000ef          	jal	ra,12dc <putchar>
+    10a8:	238000ef          	jal	ra,12e0 <putchar>
     10ac:	00000293          	li	t0,0
     10b0:	00001e17          	auipc	t3,0x1
     10b4:	360e0e13          	addi	t3,t3,864 # 2410 <a>
@@ -119,24 +119,24 @@ Disassembly of section .text:
     11ac:	00178793          	addi	a5,a5,1
     11b0:	00e59e63          	bne	a1,a4,11cc <program_thread0+0x13c>
     11b4:	fec792e3          	bne	a5,a2,1198 <program_thread0+0x108>
-    11b8:	00812403          	lw	s0,8(sp)
-    11bc:	00c12083          	lw	ra,12(sp)
+    11b8:	00c12083          	lw	ra,12(sp)
+    11bc:	00812403          	lw	s0,8(sp)
     11c0:	00000513          	li	a0,0
     11c4:	01010113          	addi	sp,sp,16
-    11c8:	14c0006f          	j	1314 <exit>
-    11cc:	00812403          	lw	s0,8(sp)
-    11d0:	00c12083          	lw	ra,12(sp)
+    11c8:	00008067          	ret
+    11cc:	00c12083          	lw	ra,12(sp)
+    11d0:	00812403          	lw	s0,8(sp)
     11d4:	00100513          	li	a0,1
     11d8:	01010113          	addi	sp,sp,16
-    11dc:	1380006f          	j	1314 <exit>
+    11dc:	00008067          	ret
 
 000011e0 <program_thread1>:
     11e0:	ff010113          	addi	sp,sp,-16
     11e4:	04200513          	li	a0,66
     11e8:	00112623          	sw	ra,12(sp)
-    11ec:	0f0000ef          	jal	ra,12dc <putchar>
+    11ec:	0f4000ef          	jal	ra,12e0 <putchar>
     11f0:	00a00513          	li	a0,10
-    11f4:	0e8000ef          	jal	ra,12dc <putchar>
+    11f4:	0ec000ef          	jal	ra,12e0 <putchar>
     11f8:	00800293          	li	t0,8
     11fc:	00001e17          	auipc	t3,0x1
     1200:	214e0e13          	addi	t3,t3,532 # 2410 <a>
@@ -178,86 +178,80 @@ Disassembly of section .text:
     1290:	00128293          	addi	t0,t0,1
     1294:	f9d290e3          	bne	t0,t4,1214 <program_thread1+0x34>
     1298:	00c12083          	lw	ra,12(sp)
-    129c:	00600793          	li	a5,6
+    129c:	00100793          	li	a5,1
     12a0:	00002717          	auipc	a4,0x2
     12a4:	d6f72823          	sw	a5,-656(a4) # 3010 <flag>
-    12a8:	01010113          	addi	sp,sp,16
-    12ac:	00008067          	ret
+    12a8:	00000513          	li	a0,0
+    12ac:	01010113          	addi	sp,sp,16
+    12b0:	00008067          	ret
 
-000012b0 <getchar>:
-    12b0:	ff010113          	addi	sp,sp,-16
-    12b4:	00812623          	sw	s0,12(sp)
-    12b8:	01010413          	addi	s0,sp,16
-    12bc:	00001797          	auipc	a5,0x1
-    12c0:	14c78793          	addi	a5,a5,332 # 2408 <GET_ADDR>
-    12c4:	0007a783          	lw	a5,0(a5)
+000012b4 <getchar>:
+    12b4:	ff010113          	addi	sp,sp,-16
+    12b8:	00812623          	sw	s0,12(sp)
+    12bc:	01010413          	addi	s0,sp,16
+    12c0:	00001797          	auipc	a5,0x1
+    12c4:	14878793          	addi	a5,a5,328 # 2408 <GET_ADDR>
     12c8:	0007a783          	lw	a5,0(a5)
-    12cc:	00078513          	mv	a0,a5
-    12d0:	00c12403          	lw	s0,12(sp)
-    12d4:	01010113          	addi	sp,sp,16
-    12d8:	00008067          	ret
+    12cc:	0007a783          	lw	a5,0(a5)
+    12d0:	00078513          	mv	a0,a5
+    12d4:	00c12403          	lw	s0,12(sp)
+    12d8:	01010113          	addi	sp,sp,16
+    12dc:	00008067          	ret
 
-000012dc <putchar>:
-    12dc:	fe010113          	addi	sp,sp,-32
-    12e0:	00812e23          	sw	s0,28(sp)
-    12e4:	02010413          	addi	s0,sp,32
-    12e8:	fea42623          	sw	a0,-20(s0)
-    12ec:	00001797          	auipc	a5,0x1
-    12f0:	11878793          	addi	a5,a5,280 # 2404 <PUT_ADDR>
-    12f4:	0007a783          	lw	a5,0(a5)
-    12f8:	fec42703          	lw	a4,-20(s0)
-    12fc:	00e7a023          	sw	a4,0(a5)
-    1300:	fec42783          	lw	a5,-20(s0)
-    1304:	00078513          	mv	a0,a5
-    1308:	01c12403          	lw	s0,28(sp)
-    130c:	02010113          	addi	sp,sp,32
-    1310:	00008067          	ret
+000012e0 <putchar>:
+    12e0:	fe010113          	addi	sp,sp,-32
+    12e4:	00812e23          	sw	s0,28(sp)
+    12e8:	02010413          	addi	s0,sp,32
+    12ec:	fea42623          	sw	a0,-20(s0)
+    12f0:	00001797          	auipc	a5,0x1
+    12f4:	11478793          	addi	a5,a5,276 # 2404 <PUT_ADDR>
+    12f8:	0007a783          	lw	a5,0(a5)
+    12fc:	fec42703          	lw	a4,-20(s0)
+    1300:	00e7a023          	sw	a4,0(a5)
+    1304:	fec42783          	lw	a5,-20(s0)
+    1308:	00078513          	mv	a0,a5
+    130c:	01c12403          	lw	s0,28(sp)
+    1310:	02010113          	addi	sp,sp,32
+    1314:	00008067          	ret
 
-00001314 <exit>:
-    1314:	fe010113          	addi	sp,sp,-32
-    1318:	00812e23          	sw	s0,28(sp)
-    131c:	02010413          	addi	s0,sp,32
-    1320:	fea42623          	sw	a0,-20(s0)
-    1324:	00001797          	auipc	a5,0x1
-    1328:	0e878793          	addi	a5,a5,232 # 240c <FINISH_ADDR>
-    132c:	0007a783          	lw	a5,0(a5)
-    1330:	fec42703          	lw	a4,-20(s0)
-    1334:	00e7a023          	sw	a4,0(a5)
-    1338:	fec42783          	lw	a5,-20(s0)
-    133c:	00078513          	mv	a0,a5
-    1340:	01c12403          	lw	s0,28(sp)
-    1344:	02010113          	addi	sp,sp,32
-    1348:	00008067          	ret
+00001318 <exit>:
+    1318:	fe010113          	addi	sp,sp,-32
+    131c:	00812e23          	sw	s0,28(sp)
+    1320:	02010413          	addi	s0,sp,32
+    1324:	fea42623          	sw	a0,-20(s0)
+    1328:	00001797          	auipc	a5,0x1
+    132c:	0e478793          	addi	a5,a5,228 # 240c <FINISH_ADDR>
+    1330:	0007a783          	lw	a5,0(a5)
+    1334:	fec42703          	lw	a4,-20(s0)
+    1338:	00e7a023          	sw	a4,0(a5)
+    133c:	fec42783          	lw	a5,-20(s0)
+    1340:	00078513          	mv	a0,a5
+    1344:	01c12403          	lw	s0,28(sp)
+    1348:	02010113          	addi	sp,sp,32
+    134c:	00008067          	ret
 
 Disassembly of section .text.startup:
 
-0000134c <main>:
-    134c:	ff010113          	addi	sp,sp,-16
-    1350:	00112623          	sw	ra,12(sp)
-    1354:	00000693          	li	a3,0
-    1358:	00001897          	auipc	a7,0x1
-    135c:	0b888893          	addi	a7,a7,184 # 2410 <a>
-    1360:	01000813          	li	a6,16
-    1364:	00000713          	li	a4,0
-    1368:	00469593          	slli	a1,a3,0x4
-    136c:	00e587b3          	add	a5,a1,a4
-    1370:	00279793          	slli	a5,a5,0x2
-    1374:	00f887b3          	add	a5,a7,a5
-    1378:	00d70633          	add	a2,a4,a3
-    137c:	00d7a023          	sw	a3,0(a5)
-    1380:	40c7a023          	sw	a2,1024(a5)
-    1384:	00170713          	addi	a4,a4,1
-    1388:	ff0712e3          	bne	a4,a6,136c <main+0x20>
-    138c:	00168693          	addi	a3,a3,1
-    1390:	fce69ae3          	bne	a3,a4,1364 <main+0x18>
-    1394:	00051c63          	bnez	a0,13ac <main+0x60>
-    1398:	cf9ff0ef          	jal	ra,1090 <program_thread0>
-    139c:	00c12083          	lw	ra,12(sp)
-    13a0:	00000513          	li	a0,0
-    13a4:	01010113          	addi	sp,sp,16
-    13a8:	00008067          	ret
-    13ac:	e35ff0ef          	jal	ra,11e0 <program_thread1>
-    13b0:	fedff06f          	j	139c <main+0x50>
+00001350 <main>:
+    1350:	00000693          	li	a3,0
+    1354:	00001897          	auipc	a7,0x1
+    1358:	0bc88893          	addi	a7,a7,188 # 2410 <a>
+    135c:	01000813          	li	a6,16
+    1360:	00000713          	li	a4,0
+    1364:	00469593          	slli	a1,a3,0x4
+    1368:	00e587b3          	add	a5,a1,a4
+    136c:	00279793          	slli	a5,a5,0x2
+    1370:	00f887b3          	add	a5,a7,a5
+    1374:	00d70633          	add	a2,a4,a3
+    1378:	00d7a023          	sw	a3,0(a5)
+    137c:	40c7a023          	sw	a2,1024(a5)
+    1380:	00170713          	addi	a4,a4,1
+    1384:	ff0712e3          	bne	a4,a6,1368 <main+0x18>
+    1388:	00168693          	addi	a3,a3,1
+    138c:	fce69ae3          	bne	a3,a4,1360 <main+0x10>
+    1390:	00051463          	bnez	a0,1398 <main+0x48>
+    1394:	cfdff06f          	j	1090 <program_thread0>
+    1398:	e49ff06f          	j	11e0 <program_thread1>
 
 Disassembly of section .data:
 
@@ -849,7 +843,6 @@ Disassembly of section .text.init:
   88:	0f000137          	lui	sp,0xf000
 
 0000008c <skip>:
-  8c:	2c0010ef          	jal	ra,134c <main>
-  90:	00000513          	li	a0,0
-  94:	280010ef          	jal	ra,1314 <exit>
-  98:	0000006f          	j	98 <skip+0xc>
+  8c:	2c4010ef          	jal	ra,1350 <main>
+  90:	288010ef          	jal	ra,1318 <exit>
+  94:	0000006f          	j	94 <skip+0x8>
