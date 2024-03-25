@@ -21,8 +21,9 @@ module mkCache(Cache512);
     BRAM_Configure cfg = defaultValue;
     cfg.loadFormat = tagged Binary "zero512.vmh";  // zero out for you
 
-    // Rename this to a meaningful name if you're keeping it, or adding more.
-    BRAM1Port#(PLACEHOLDER, PLACEHOLDER) example_bram <- mkBRAM1Server(cfg);
+    // Rename the following to a meaningful name if you're keeping it, or adding more.
+    // BRAM1Port#(PLACEHOLDER, PLACEHOLDER) example_bram <- mkBRAM1Server(cfg);
+    // At that level, probably no need of byteenable BRAM
 
     // Remember the previous hints when applicable, especially defining useful types.
 

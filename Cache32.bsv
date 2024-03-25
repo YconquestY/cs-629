@@ -29,14 +29,12 @@ module mkCache32(Cache32);
 
     // Did you make sure to define your data types in MemTypes.bsv? It will help you debug if you use types.
 
-    // Hint 1: one way is to have one BRAM for each of data, state, and tag.
-    // Hint 2: The index into all of your BRAMs should be the same.
+    // Hint 1: one way is to have one BRAM for data, vector of registers for the rest of the state
+    // Hint 2: The index to those memories should be the same (number of line in the cache).
     // Hint 3: Define additional types and structs as necessary.
     
-    // Rename these to meaningful names if you're keeping them.
-    // the second argument is the type being held, and the first argument is the address type (3rd would be byte enable specifics)
-    BRAM1Port#(PLACEHOLDER, PLACEHOLDER) example_bram1 <- mkBRAM1Server(cfg);
-    BRAM1PortBE#(PLACEHOLDER, Bit#(512), 64) example_bram2 <- mkBRAM1ServerBE(cfg);  // also a placeholder
+    // Reminder to instantiate a BRAM with byte enable:
+    // BRAM1PortBE#(PLACEHOLDER, Bit#(512), 64) example_bram2 <- mkBRAM1ServerBE(cfg);  // also a placeholder
 
     // You may instead find it useful to use the CacheArrayUnit abstraction presented
     // in lecture. In that case, most of your logic would be in that module, which you 
