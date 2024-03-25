@@ -1,0 +1,45 @@
+name: Autograding Tests
+'on':
+- push
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Single cache
+      id: single-cache
+      uses: education/autograding-io-grader@v1
+      with:
+        test-name: Single cache
+        command: cat output_submit1.txt | fgrep PASSED | wc -l
+        input: ''
+        expected-output: '1'
+        comparison-method: contains
+        timeout: 10
+        max-score: 3
+    - name: Two caches
+      id: two-caches
+      uses: education/autograding-io-grader@v1
+      with:
+        test-name: Two caches
+        command: cat output_submit2.txt | fgrep PASSED | wc -l
+        input: ''
+        expected-output: '1'
+        comparison-method: exact
+        timeout: 10
+        max-score: 3
+    - name: Autograding Reporter
+      uses: education/autograding-grading-reporter@v1
+      env:
+        SINGLE-CACHE_RESULTS: "${{steps.single-cache.outputs.result}}"
+        TWO-CACHES_RESULTS: "${{steps.two-caches.outputs.result}}"
+      with:
+        runners: single-cache,two-caches
