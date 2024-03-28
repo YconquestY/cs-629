@@ -1,0 +1,112 @@
+=== Generated schedule for mkRouterTestBench ===
+
+Rule schedule
+-------------
+Rule: init
+Predicate: ! started
+Blocking rules: (none)
+ 
+Rule: doCount
+Predicate: started
+Blocking rules: (none)
+ 
+Rule: rl_insertFlits
+Predicate: ((clkCount == 32'd1)
+	    ? router.RDY_dataLinks_4_putFlit &&
+	      router.RDY_dataLinks_3_putFlit &&
+	      router.RDY_dataLinks_2_putFlit &&
+	      router.RDY_dataLinks_1_putFlit &&
+	      router.RDY_dataLinks_0_putFlit &&
+	      (! verify_queue_1_rv.port0__read[37]) &&
+	      (! verify_queue_0_rv.port0__read[37]) &&
+	      (! verify_queue_2_rv.port0__read[37]) &&
+	      (! verify_queue_3_rv.port0__read[37]) &&
+	      (! verify_queue_4_rv.port0__read[37])
+	    : (((clkCount == 32'd2) ||
+		(clkCount == 32'd3) ||
+		(((clkCount == 32'd4) || (clkCount == 32'd5))
+		 ? ! verify_queue_1_rv.port0__read[37]
+		 : ((clkCount == 32'd6) ||
+		    ((clkCount == 32'd7)
+		     ? ! verify_queue_0_rv.port0__read[37]
+		     : ((! (clkCount == 32'd8)) ||
+			(! verify_queue_0_rv.port0__read[37])))))) &&
+	       ((clkCount == 32'd2)
+		? router.RDY_dataLinks_4_putFlit &&
+		  router.RDY_dataLinks_3_putFlit &&
+		  router.RDY_dataLinks_2_putFlit &&
+		  router.RDY_dataLinks_1_putFlit &&
+		  router.RDY_dataLinks_0_putFlit &&
+		  (! verify_queue_1_rv.port0__read[37]) &&
+		  (! verify_queue_0_rv.port0__read[37]) &&
+		  (! verify_queue_2_rv.port0__read[37]) &&
+		  (! verify_queue_3_rv.port0__read[37]) &&
+		  (! verify_queue_4_rv.port0__read[37])
+		: ((clkCount == 32'd3)
+		   ? router.RDY_dataLinks_4_putFlit &&
+		     router.RDY_dataLinks_3_putFlit &&
+		     router.RDY_dataLinks_2_putFlit &&
+		     router.RDY_dataLinks_1_putFlit &&
+		     router.RDY_dataLinks_0_putFlit &&
+		     (! verify_queue_1_rv.port0__read[37]) &&
+		     (! verify_queue_2_rv.port0__read[37]) &&
+		     (! verify_queue_3_rv.port0__read[37])
+		   : (False ||
+		      False ||
+		      (! (clkCount == 32'd6)) ||
+		      (router.RDY_dataLinks_4_putFlit &&
+		       router.RDY_dataLinks_3_putFlit &&
+		       router.RDY_dataLinks_2_putFlit &&
+		       router.RDY_dataLinks_1_putFlit &&
+		       router.RDY_dataLinks_0_putFlit &&
+		       (! verify_queue_1_rv.port0__read[37]) &&
+		       (! verify_queue_0_rv.port0__read[37]) &&
+		       (! verify_queue_2_rv.port0__read[37]))))))) &&
+	   (clkCount < 32'd20)
+Blocking rules: (none)
+ 
+Rule: getFlits_port
+Predicate: router.RDY_dataLinks_0_getFlit &&
+	   verify_queue_0_rv.port1__read[37] &&
+	   started
+Blocking rules: (none)
+ 
+Rule: getFlits_port_1
+Predicate: router.RDY_dataLinks_1_getFlit &&
+	   verify_queue_1_rv.port1__read[37] &&
+	   started
+Blocking rules: (none)
+ 
+Rule: getFlits_port_2
+Predicate: router.RDY_dataLinks_2_getFlit &&
+	   verify_queue_2_rv.port1__read[37] &&
+	   started
+Blocking rules: (none)
+ 
+Rule: getFlits_port_3
+Predicate: router.RDY_dataLinks_3_getFlit &&
+	   verify_queue_3_rv.port1__read[37] &&
+	   started
+Blocking rules: (none)
+ 
+Rule: getFlits_port_4
+Predicate: router.RDY_dataLinks_4_getFlit &&
+	   verify_queue_4_rv.port1__read[37] &&
+	   started
+Blocking rules: (none)
+ 
+Rule: done
+Predicate: clkCount == 32'd19
+Blocking rules: (none)
+ 
+Logical execution order: init,
+			 rl_insertFlits,
+			 getFlits_port,
+			 getFlits_port_1,
+			 getFlits_port_2,
+			 getFlits_port_3,
+			 getFlits_port_4,
+			 done,
+			 doCount
+
+=================================================

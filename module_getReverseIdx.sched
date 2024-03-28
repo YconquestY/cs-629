@@ -1,0 +1,11 @@
+=== Generated schedule for module_getReverseIdx ===
+
+Method schedule
+---------------
+Method: getReverseIdx
+Ready signal: True
+Conflict-free: getReverseIdx
+ 
+Logical execution order: getReverseIdx
+
+====================================================

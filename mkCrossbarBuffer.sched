@@ -1,0 +1,80 @@
+=== Generated schedule for mkCrossbarBuffer ===
+
+Method schedule
+---------------
+Method: getFlit
+Ready signal: (! buffer_readBeforeLaterWrites_5.read) ||
+	      (buffer_port_4.whas
+	       ? buffer_port_4.wget[37]
+	       : (buffer_port_3.whas
+		  ? buffer_port_3.wget[37]
+		  : (buffer_port_2.whas
+		     ? buffer_port_2.wget[37]
+		     : (buffer_port_1.whas
+			? buffer_port_1.wget[37]
+			: (buffer_port_0.whas
+			   ? buffer_port_0.wget[37]
+			   : buffer_register[37])))))
+Sequenced after: bufferChannel_0_putFlit,
+		 bufferChannel_1_putFlit,
+		 bufferChannel_2_putFlit,
+		 bufferChannel_3_putFlit,
+		 bufferChannel_4_putFlit
+Conflicts: getFlit
+ 
+Method: bufferChannel_0_putFlit
+Ready signal: True
+Sequenced before: getFlit,
+		  bufferChannel_1_putFlit,
+		  bufferChannel_2_putFlit,
+		  bufferChannel_3_putFlit,
+		  bufferChannel_4_putFlit
+Conflicts: bufferChannel_0_putFlit
+ 
+Method: bufferChannel_1_putFlit
+Ready signal: True
+Sequenced before: getFlit,
+		  bufferChannel_2_putFlit,
+		  bufferChannel_3_putFlit,
+		  bufferChannel_4_putFlit
+Sequenced after: bufferChannel_0_putFlit
+Conflicts: bufferChannel_1_putFlit
+ 
+Method: bufferChannel_2_putFlit
+Ready signal: True
+Sequenced before: getFlit, bufferChannel_3_putFlit, bufferChannel_4_putFlit
+Sequenced after: bufferChannel_0_putFlit, bufferChannel_1_putFlit
+Conflicts: bufferChannel_2_putFlit
+ 
+Method: bufferChannel_3_putFlit
+Ready signal: True
+Sequenced before: getFlit, bufferChannel_4_putFlit
+Sequenced after: bufferChannel_0_putFlit,
+		 bufferChannel_1_putFlit,
+		 bufferChannel_2_putFlit
+Conflicts: bufferChannel_3_putFlit
+ 
+Method: bufferChannel_4_putFlit
+Ready signal: True
+Sequenced before: getFlit
+Sequenced after: bufferChannel_0_putFlit,
+		 bufferChannel_1_putFlit,
+		 bufferChannel_2_putFlit,
+		 bufferChannel_3_putFlit
+Conflicts: bufferChannel_4_putFlit
+ 
+Rule schedule
+-------------
+Rule: buffer_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Logical execution order: bufferChannel_0_putFlit,
+			 bufferChannel_1_putFlit,
+			 bufferChannel_2_putFlit,
+			 bufferChannel_3_putFlit,
+			 bufferChannel_4_putFlit,
+			 getFlit,
+			 buffer_canonicalize
+
+================================================

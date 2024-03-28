@@ -1,0 +1,11 @@
+=== Generated schedule for module_idx2Dir ===
+
+Method schedule
+---------------
+Method: idx2Dir
+Ready signal: True
+Conflict-free: idx2Dir
+ 
+Logical execution order: idx2Dir
+
+==============================================

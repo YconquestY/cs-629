@@ -1,0 +1,294 @@
+=== Generated schedule for mkRouter ===
+
+Method schedule
+---------------
+Method: isInited
+Ready signal: True
+Conflict-free: isInited,
+	       dataLinks_0_getFlit,
+	       dataLinks_0_putFlit,
+	       dataLinks_1_getFlit,
+	       dataLinks_1_putFlit,
+	       dataLinks_2_getFlit,
+	       dataLinks_2_putFlit,
+	       dataLinks_3_getFlit,
+	       dataLinks_3_putFlit,
+	       dataLinks_4_getFlit,
+	       dataLinks_4_putFlit
+ 
+Method: dataLinks_0_getFlit
+Ready signal: outputBuffer_0_rv.port1__read[37]
+Conflict-free: isInited,
+	       dataLinks_1_getFlit,
+	       dataLinks_2_getFlit,
+	       dataLinks_3_getFlit,
+	       dataLinks_4_getFlit
+Sequenced after (restricted): dataLinks_0_putFlit,
+			      dataLinks_1_putFlit,
+			      dataLinks_2_putFlit,
+			      dataLinks_3_putFlit,
+			      dataLinks_4_putFlit
+Conflicts: dataLinks_0_getFlit
+ 
+Method: dataLinks_0_putFlit
+Ready signal: ! inputBuffer_0_rv.port0__read[37]
+Conflict-free: isInited,
+	       dataLinks_1_putFlit,
+	       dataLinks_2_putFlit,
+	       dataLinks_3_putFlit,
+	       dataLinks_4_putFlit
+Sequenced before (restricted): dataLinks_0_getFlit,
+			       dataLinks_1_getFlit,
+			       dataLinks_2_getFlit,
+			       dataLinks_3_getFlit,
+			       dataLinks_4_getFlit
+Conflicts: dataLinks_0_putFlit
+ 
+Method: dataLinks_1_getFlit
+Ready signal: outputBuffer_1_rv.port1__read[37]
+Conflict-free: isInited,
+	       dataLinks_0_getFlit,
+	       dataLinks_2_getFlit,
+	       dataLinks_3_getFlit,
+	       dataLinks_4_getFlit
+Sequenced after (restricted): dataLinks_0_putFlit,
+			      dataLinks_1_putFlit,
+			      dataLinks_2_putFlit,
+			      dataLinks_3_putFlit,
+			      dataLinks_4_putFlit
+Conflicts: dataLinks_1_getFlit
+ 
+Method: dataLinks_1_putFlit
+Ready signal: ! inputBuffer_1_rv.port0__read[37]
+Conflict-free: isInited,
+	       dataLinks_0_putFlit,
+	       dataLinks_2_putFlit,
+	       dataLinks_3_putFlit,
+	       dataLinks_4_putFlit
+Sequenced before (restricted): dataLinks_0_getFlit,
+			       dataLinks_1_getFlit,
+			       dataLinks_2_getFlit,
+			       dataLinks_3_getFlit,
+			       dataLinks_4_getFlit
+Conflicts: dataLinks_1_putFlit
+ 
+Method: dataLinks_2_getFlit
+Ready signal: outputBuffer_2_rv.port1__read[37]
+Conflict-free: isInited,
+	       dataLinks_0_getFlit,
+	       dataLinks_1_getFlit,
+	       dataLinks_3_getFlit,
+	       dataLinks_4_getFlit
+Sequenced after (restricted): dataLinks_0_putFlit,
+			      dataLinks_1_putFlit,
+			      dataLinks_2_putFlit,
+			      dataLinks_3_putFlit,
+			      dataLinks_4_putFlit
+Conflicts: dataLinks_2_getFlit
+ 
+Method: dataLinks_2_putFlit
+Ready signal: ! inputBuffer_2_rv.port0__read[37]
+Conflict-free: isInited,
+	       dataLinks_0_putFlit,
+	       dataLinks_1_putFlit,
+	       dataLinks_3_putFlit,
+	       dataLinks_4_putFlit
+Sequenced before (restricted): dataLinks_0_getFlit,
+			       dataLinks_1_getFlit,
+			       dataLinks_2_getFlit,
+			       dataLinks_3_getFlit,
+			       dataLinks_4_getFlit
+Conflicts: dataLinks_2_putFlit
+ 
+Method: dataLinks_3_getFlit
+Ready signal: outputBuffer_3_rv.port1__read[37]
+Conflict-free: isInited,
+	       dataLinks_0_getFlit,
+	       dataLinks_1_getFlit,
+	       dataLinks_2_getFlit,
+	       dataLinks_4_getFlit
+Sequenced after (restricted): dataLinks_0_putFlit,
+			      dataLinks_1_putFlit,
+			      dataLinks_2_putFlit,
+			      dataLinks_3_putFlit,
+			      dataLinks_4_putFlit
+Conflicts: dataLinks_3_getFlit
+ 
+Method: dataLinks_3_putFlit
+Ready signal: ! inputBuffer_3_rv.port0__read[37]
+Conflict-free: isInited,
+	       dataLinks_0_putFlit,
+	       dataLinks_1_putFlit,
+	       dataLinks_2_putFlit,
+	       dataLinks_4_putFlit
+Sequenced before (restricted): dataLinks_0_getFlit,
+			       dataLinks_1_getFlit,
+			       dataLinks_2_getFlit,
+			       dataLinks_3_getFlit,
+			       dataLinks_4_getFlit
+Conflicts: dataLinks_3_putFlit
+ 
+Method: dataLinks_4_getFlit
+Ready signal: outputBuffer_4_rv.port1__read[37]
+Conflict-free: isInited,
+	       dataLinks_0_getFlit,
+	       dataLinks_1_getFlit,
+	       dataLinks_2_getFlit,
+	       dataLinks_3_getFlit
+Sequenced after (restricted): dataLinks_0_putFlit,
+			      dataLinks_1_putFlit,
+			      dataLinks_2_putFlit,
+			      dataLinks_3_putFlit,
+			      dataLinks_4_putFlit
+Conflicts: dataLinks_4_getFlit
+ 
+Method: dataLinks_4_putFlit
+Ready signal: ! inputBuffer_4_rv.port0__read[37]
+Conflict-free: isInited,
+	       dataLinks_0_putFlit,
+	       dataLinks_1_putFlit,
+	       dataLinks_2_putFlit,
+	       dataLinks_3_putFlit
+Sequenced before (restricted): dataLinks_0_getFlit,
+			       dataLinks_1_getFlit,
+			       dataLinks_2_getFlit,
+			       dataLinks_3_getFlit,
+			       dataLinks_4_getFlit
+Conflicts: dataLinks_4_putFlit
+ 
+Rule schedule
+-------------
+Rule: arbReqReg_0_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: arbReqReg_1_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: arbReqReg_2_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: arbReqReg_3_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: arbReqReg_4_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: arbReqReg_5_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: arbReqReg_6_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: arbReqReg_7_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: doInitialize
+Predicate: outPortArbiter_0.RDY_initialize &&
+	   outPortArbiter_1.RDY_initialize &&
+	   outPortArbiter_2.RDY_initialize &&
+	   outPortArbiter_3.RDY_initialize &&
+	   outPortArbiter_4.RDY_initialize &&
+	   (! inited)
+Blocking rules: (none)
+ 
+Rule: debug_tick
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: rl_Switch_Arbitration
+Predicate: (! arbResBuf_rv.port0__read[5]) && inited
+Blocking rules: (none)
+ 
+Rule: rl_Switch_Traversal
+Predicate: arbResBuf_rv.port1__read[5] &&
+	   ((! (arbResBuf_rv.port1__read[5]
+		? arbResBuf_rv.port1__read[4:0]
+		: (_ :: Bit 5))[0]) ||
+	    inputBuffer_0_rv.port1__read[37]) &&
+	   ((! (arbResBuf_rv.port1__read[5]
+		? arbResBuf_rv.port1__read[4:0]
+		: (_ :: Bit 5))[1]) ||
+	    inputBuffer_1_rv.port1__read[37]) &&
+	   ((! (arbResBuf_rv.port1__read[5]
+		? arbResBuf_rv.port1__read[4:0]
+		: (_ :: Bit 5))[2]) ||
+	    inputBuffer_2_rv.port1__read[37]) &&
+	   ((! (arbResBuf_rv.port1__read[5]
+		? arbResBuf_rv.port1__read[4:0]
+		: (_ :: Bit 5))[3]) ||
+	    inputBuffer_3_rv.port1__read[37]) &&
+	   ((! (arbResBuf_rv.port1__read[5]
+		? arbResBuf_rv.port1__read[4:0]
+		: (_ :: Bit 5))[4]) ||
+	    inputBuffer_4_rv.port1__read[37]) &&
+	   inited
+Blocking rules: (none)
+ 
+Rule: rl_enqOutBufs
+Predicate: cbSwitch.RDY_crossbarPorts_0_getFlit &&
+	   (! outputBuffer_0_rv.port0__read[37]) &&
+	   inited
+Blocking rules: (none)
+ 
+Rule: rl_enqOutBufs_1
+Predicate: cbSwitch.RDY_crossbarPorts_1_getFlit &&
+	   (! outputBuffer_1_rv.port0__read[37]) &&
+	   inited
+Blocking rules: (none)
+ 
+Rule: rl_enqOutBufs_2
+Predicate: cbSwitch.RDY_crossbarPorts_2_getFlit &&
+	   (! outputBuffer_2_rv.port0__read[37]) &&
+	   inited
+Blocking rules: (none)
+ 
+Rule: rl_enqOutBufs_3
+Predicate: cbSwitch.RDY_crossbarPorts_3_getFlit &&
+	   (! outputBuffer_3_rv.port0__read[37]) &&
+	   inited
+Blocking rules: (none)
+ 
+Rule: rl_enqOutBufs_4
+Predicate: cbSwitch.RDY_crossbarPorts_4_getFlit &&
+	   (! outputBuffer_4_rv.port0__read[37]) &&
+	   inited
+Blocking rules: (none)
+ 
+Logical execution order: isInited,
+			 dataLinks_0_putFlit,
+			 dataLinks_1_putFlit,
+			 dataLinks_2_putFlit,
+			 dataLinks_3_putFlit,
+			 dataLinks_4_putFlit,
+			 doInitialize,
+			 rl_Switch_Arbitration,
+			 rl_Switch_Traversal,
+			 rl_enqOutBufs,
+			 dataLinks_0_getFlit,
+			 rl_enqOutBufs_1,
+			 dataLinks_1_getFlit,
+			 rl_enqOutBufs_2,
+			 dataLinks_2_getFlit,
+			 rl_enqOutBufs_3,
+			 dataLinks_3_getFlit,
+			 rl_enqOutBufs_4,
+			 dataLinks_4_getFlit,
+			 debug_tick,
+			 arbReqReg_0_canonicalize,
+			 arbReqReg_1_canonicalize,
+			 arbReqReg_2_canonicalize,
+			 arbReqReg_3_canonicalize,
+			 arbReqReg_4_canonicalize,
+			 arbReqReg_5_canonicalize,
+			 arbReqReg_6_canonicalize,
+			 arbReqReg_7_canonicalize
+
+========================================
