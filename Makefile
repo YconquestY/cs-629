@@ -27,7 +27,9 @@ all: clean $(BINARY_NAME)
 
 submit:
 	make all
-	./test_all_pipelined.sh 2>&1 | tee output_submit.txt 
+	./CrossbarTestBench 2>&1 | tee output_submit1.txt 
+	./RouterTestBench 2>&1 | tee output_submit2.txt 
+	cat output_submit1.txt output_submit2.txt > output_submit.txt
 	git add -A
 	git commit -am "Save Changes & Submit"
 	git push

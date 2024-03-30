@@ -20,7 +20,8 @@ make all
 
 Networks-on-chip form the backbone of multi/many-core chips today. NoCs comprise of links, interconnected via routers. Routers enable multiplexing of flits from different packets over the shared links cycle-by cycle. A mesh NoC with routers and links is shown below.
 
-![The router of “Router” in the system ](fig/Router.png)
+<!-- ![The router of “Router” in the system ](fig/Router.png ) -->
+<img src="fig/Router.png" width="400px">
 
 The router of “Router” in the system 
 
@@ -28,11 +29,12 @@ A router is functionally capable of receiving packets on its input ports, determ
 
 An overview of the simple router is shown below.
 
-![Router Architecture Overview](fig/Router_overview.png)
+<!-- ![Router Architecture Overview](fig/Router_overview.png) -->
+<img src="fig/Router_overview.png" width="400px">
 
 Router Architecture Overview
 
-The router comprises of the following key components
+The router comprises the following key components
 
 1. **Input/output ports:** In this lab, we are designing the red router that is going to be deployed in a 2D mesh layout of 9 CPUs (as shown in the figure above). The router has 5 input ports, including north, west, east, south and one input from the CPU. 
 2. **Input Buffer:** Each input port has an input buffer, which has a FIFO queue to hold the data received from input port.
@@ -81,7 +83,8 @@ A crossbar is a switch enabling an input port to connect to an output port. It e
 
 In this lab, we will construct a crossbar with 5 input ports and 5 output ports. Each output port has a single entry output buffer. 
 
-![Crossbar Overview](fig/crossbar.png)
+<!-- ![Crossbar Overview](fig/crossbar.png) -->
+<img src="fig/crossbar.png" width="400px">
 
 Crossbar Overview
 
@@ -116,7 +119,8 @@ In the part B, we will implement a single-cycle router with three-stages, i.e. t
 
 The three stages that we will implement in part B are shown below.
 
-![Single-cycle Three-stage Router Pipeline Overview](fig/Router_pipeline.png)
+<!-- ![Single-cycle Three-stage Router Pipeline Overview](fig/Router_pipeline.png) -->
+<img src="fig/Router_pipeline.png" width="400px">
 
 Single-cycle Three-stage Router Pipeline Overview
 
@@ -126,7 +130,8 @@ Single-cycle Three-stage Router Pipeline Overview
 
 ### Implementation Checklist
 
-![Router MicroArchitecture Overview](fig/MicroArchitecture.png)
+<!-- ![Router MicroArchitecture Overview](fig/MicroArchitecture.png) -->
+<img src="fig/MicroArchitecture.png" width="800px">
 
 Router MicroArchitecture Overview
 
@@ -138,3 +143,7 @@ In this lab, we provide skeleton code inside `router.bsv`, and you will implemen
 - On/Off flow control: we already give the implementation of input buffers, where each input buffer is being implemented as the form of `SizedBypassFIFOF` with 4 available slots. You will need to disable new flits from coming in when the input buffer is full.
 
 Have fun! Enjoy XD
+
+# Submitting
+
+Please run `make submit`. Please remember to use Github to back up your code regularly.
