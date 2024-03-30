@@ -237,7 +237,7 @@ module mkRouterTestBench();
       verify_queue[0].enq(flit4); 
     end
   endrule
-  ∏
+
   for(Integer i=0;i<valueOf(NumPorts); i=i+1) begin
     rule getFlits_port if(started); // && verify_queue[0].notEmpty);
       let temp_receive_flit <- router.dataLinks[i].getFlit();

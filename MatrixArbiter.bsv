@@ -47,7 +47,7 @@ module mkMatrixArbiter#(Integer numReq)(NtkArbiter#(num));
         let isGoodToGo <- getPermitSignal(reqVec, i);
         if((reqVec[i] == 1) && isGoodToGo) begin
           ret = i;
-        end`
+        end
       end
 
       return ret;
