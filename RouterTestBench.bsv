@@ -19,6 +19,7 @@ module mkRouterTestBench();
   Reg#(Bool) passed <- mkReg(True);
   Reg#(Data) clkCount <- mkReg(0);
   Reg#(Data) flitCount <- mkReg(0);
+  Reg#(Data) failCount <- mkReg(0);
   Vector#(NumPorts, FIFOF#(Flit))  verify_queue <- replicateM(mkBypassFIFOF);
 
   rule init(!started);
@@ -243,7 +244,8 @@ module mkRouterTestBench();
       let temp_receive_flit <- router.dataLinks[i].getFlit();
       Flit verify_flit_vec = verify_queue[i].first();
       verify_queue[i].deq();
-      if (temp_receive_flit.flitData != temp_receive_flit.flitData)  begin
+      if (temp_receive_flit.flitData != verify_flit_vec.flitData)  begin
+        failCount <= failCount + 1;
         $fdisplay(stderr, "[0;31mFAIL[0m (port%0d receives %0d, expected %0d)", i, temp_receive_flit.flitData, verify_flit_vec.flitData);
         $finish;
       end
@@ -252,7 +254,9 @@ module mkRouterTestBench();
   end
 
   rule done (clkCount == 19);
-    $fdisplay(stderr, "  [0;32mPASS[0m");
+    if (failCount==0) begin
+      $fdisplay(stderr, "  [0;32mPASS[0m");
+    end 
     $finish;
   endrule
 

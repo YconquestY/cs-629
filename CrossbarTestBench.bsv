@@ -63,29 +63,36 @@ module mkCrossbarTestBench();
       let flit_rec_5 <- cb.crossbarPorts[4].getFlit;
       if (flit_rec_1.flitData != 2) begin
         $fdisplay(stderr, "  [0;31mFAIL[0m (port 0 receives %0d, expected 2)", count, flit_rec_1.flitData);
-      end
+        $finish;
+        end
       if (flit_rec_2.flitData != 1) begin
         $fdisplay(stderr, "  [0;31mFAIL[0m (port 0 receives %0d, expected 1)", count, flit_rec_2.flitData);
-      end
+        $finish;
+        end
       if (flit_rec_3.flitData != 4) begin
         $fdisplay(stderr, "[cycle: %d]  [0;31mFAIL[0m (port 0 receives %0d, expected 4)", count, flit_rec_3.flitData);
-      end
+        $finish;
+        end
       if (flit_rec_4.flitData != 5) begin
         $fdisplay(stderr, "[cycle: %d]  [0;31mFAIL[0m (port 0 receives %0d, expected 5)", count, flit_rec_4.flitData);
-      end
+        $finish;
+        end
       if (flit_rec_5.flitData != 3) begin
         $fdisplay(stderr, "[cycle: %d]  [0;31mFAIL[0m (port 0 receives %0d, expected 3)", count, flit_rec_5.flitData);
-      end
+        $finish;
+        end
     end
     else if(count == 11) begin
       let flit_rec_1 <- cb.crossbarPorts[1].getFlit;
       let flit_rec_2 <- cb.crossbarPorts[4].getFlit;
       if (flit_rec_1.flitData != 2) begin
         $fdisplay(stderr, "[cycle: %d]  [0;31mFAIL[0m (port 1 receives %0d, expected 2)", count, flit_rec_1.flitData);
-      end
+        $finish;
+        end
       if (flit_rec_2.flitData != 1) begin
         $fdisplay(stderr, "[cycle: %d]  [0;31mFAIL[0m (port 4 receives %0d, expected 1)", count, flit_rec_2.flitData);
-      end
+        $finish;
+        end
     end
     else if(count == 12) begin
       let flit_rec_1 <- cb.crossbarPorts[0].getFlit;
@@ -95,19 +102,24 @@ module mkCrossbarTestBench();
       let flit_rec_5 <- cb.crossbarPorts[4].getFlit;
       if (flit_rec_1.flitData != 4) begin
         $fdisplay(stderr, "[cycle: %d]  [0;31mFAIL[0m (port 0 receives %0d, expected 4)", count, flit_rec_1.flitData);
+        $finish;
       end
       if (flit_rec_2.flitData != 5) begin
         $fdisplay(stderr, "[cycle: %d]  [0;31mFAIL[0m (port 1 receives %0d, expected 5)", count, flit_rec_2.flitData);
-      end
+        $finish;
+        end
       if (flit_rec_3.flitData != 1) begin
         $fdisplay(stderr, "[cycle: %d]  [0;31mFAIL[0m (port 2 receives %0d, expected 1)", count, flit_rec_3.flitData);
-      end
+        $finish;
+        end
       if (flit_rec_4.flitData != 2) begin
         $fdisplay(stderr, "[cycle: %d]  [0;31mFAIL[0m (port 3 receives %0d, expected 2)", count, flit_rec_4.flitData);
-      end
+        $finish;
+        end
       if (flit_rec_5.flitData != 3) begin
         $fdisplay(stderr, "[cycle: %d]  [0;31mFAIL[0m (port 4 receives %0d, expected 3)", count, flit_rec_5.flitData);
-      end
+        $finish;
+        end
     end
     else if (count == 13) begin
       $fdisplay(stderr, "  [0;32mPASS[0m");
