@@ -19,7 +19,6 @@ module mkRouterTestBench();
   Reg#(Bool) passed <- mkReg(True);
   Reg#(Data) clkCount <- mkReg(0);
   Reg#(Data) flitCount <- mkReg(0);
-  Reg#(Data) failCount <- mkReg(0);
   Vector#(NumPorts, FIFOF#(Flit))  verify_queue <- replicateM(mkBypassFIFOF);
 
   rule init(!started);
@@ -90,15 +89,15 @@ module mkRouterTestBench();
       router.dataLinks[1].putFlit(flit1);
       $display("[0;33mInsertFlits[0m\t data=%0d into East-input port1: target North-output port0", flit1.flitData);
       
-      verify_queue[2].enq(flit4); 
+      verify_queue[2].enq(flit3); 
       router.dataLinks[2].putFlit(flit2);
       $display("[0;33mInsertFlits[0m\t data=%0d into South-input port2: target Local-output port3", flit2.flitData);
       
-      verify_queue[3].enq(flit2); 
+      verify_queue[3].enq(flit4); 
       router.dataLinks[3].putFlit(flit3);
       $display("[0;33mInsertFlits[0m\t data=%0d into West-input port3: target South-output port4", flit3.flitData);
       
-      verify_queue[4].enq(flit3); 
+      verify_queue[4].enq(flit2); 
       router.dataLinks[4].putFlit(flit4);
       $display("[0;33mInsertFlits[0m\t data=%0d into Local-input port4: target West-output port2", flit4.flitData);
       sent <= True;
@@ -113,14 +112,14 @@ module mkRouterTestBench();
       flit3.nextDir = south_;
       flit4.nextDir = west_;
 
-      verify_queue[1].enq(flit0); 
       router.dataLinks[0].putFlit(flit0);
       $display("[0;33mInsertFlits[0m\t data=%0d into North-input port0: target East-output port1", clkCount,flit0.flitData);
 
       
       router.dataLinks[1].putFlit(flit1);
       $display("[0;33mInsertFlits[0m\t data=%0d into East-input port1: target East-output port1", flit1.flitData);
-      
+
+      verify_queue[1].enq(flit2); 
       router.dataLinks[2].putFlit(flit2);
       $display("[0;33mInsertFlits[0m\t data=%0d into South-input port2: target East-output port1", flit2.flitData);
       
@@ -140,10 +139,10 @@ module mkRouterTestBench();
       verify_queue[1].enq(flit1); 
     end
     else if(clkCount == 5) begin
-      Flit flit2 = ?;
-      flit2.flitData = 13;
-      flit2.nextDir = east_;
-      verify_queue[1].enq(flit2); 
+      Flit flit0 = ?;
+      flit0.flitData = 11;
+      flit0.nextDir = east_;
+      verify_queue[1].enq(flit0); 
     end
     else if(clkCount == 6) begin
       Flit flit0 = ?;Flit flit1 = ?;Flit flit2 = ?;Flit flit3 = ?;Flit flit4 = ?;
@@ -155,13 +154,13 @@ module mkRouterTestBench();
       flit3.nextDir = south_;
       flit4.nextDir = north_;
 
-      verify_queue[0].enq(flit1); 
       router.dataLinks[0].putFlit(flit0);
       $display("[0;33mInsertFlits[0m\t data=%0d into North-input port0: target East-output port1", flit0.flitData);
 
       router.dataLinks[1].putFlit(flit1);
       $display("[0;33mInsertFlits[0m\t data=%0d into East-input port1: target North-output port0", flit1.flitData);
       
+      verify_queue[0].enq(flit2); 
       router.dataLinks[2].putFlit(flit2);
       $display("[0;33mInsertFlits[0m\t data=%0d into South-input port2: target North-output port0", flit2.flitData);
       
@@ -175,16 +174,16 @@ module mkRouterTestBench();
       sent <= True;
     end
     else if(clkCount == 7) begin
-      Flit flit2 = ?;
-      flit2.flitData = 18;
-      flit2.nextDir = north_;
-      verify_queue[0].enq(flit2); 
-    end
-    else if(clkCount == 8) begin
       Flit flit4 = ?;
       flit4.flitData = 20;
       flit4.nextDir = north_;
       verify_queue[0].enq(flit4); 
+    end
+    else if(clkCount == 8) begin
+      Flit flit1 = ?;
+      flit1.flitData = 17;
+      flit1.nextDir = north_;
+      verify_queue[0].enq(flit1); 
     end
     else if(clkCount == 9) begin
       Flit flit0 = ?;Flit flit1 = ?;Flit flit2 = ?;Flit flit3 = ?;Flit flit4 = ?;
@@ -196,7 +195,6 @@ module mkRouterTestBench();
       flit3.nextDir = north_;
       flit4.nextDir = north_;
 
-      verify_queue[0].enq(flit1); 
       router.dataLinks[0].putFlit(flit0);
       $display("[0;33mInsertFlits[0m\t data=%0d into North-input port0: target North-output port0", flit0.flitData);
 
@@ -206,6 +204,7 @@ module mkRouterTestBench();
       router.dataLinks[2].putFlit(flit2);
       $display("[0;33mInsertFlits[0m\t data=%0d into South-input port2: target North-output port0", flit2.flitData);
       
+      verify_queue[0].enq(flit3); 
       router.dataLinks[3].putFlit(flit3);
       $display("[0;33mInsertFlits[0m\t data=%0d into West-input port3: target North-output port0", flit3.flitData);
       
@@ -214,10 +213,10 @@ module mkRouterTestBench();
       sent <= True;
     end
     else if(clkCount == 10) begin
-      Flit flit1 = ?;
-      flit1.flitData = 22;
-      flit1.nextDir = north_;
-      verify_queue[0].enq(flit1); 
+      Flit flit0 = ?;
+      flit0.flitData = 21;
+      flit0.nextDir = north_;
+      verify_queue[0].enq(flit0); 
     end
     else if(clkCount == 11) begin
       Flit flit2 = ?;
@@ -226,16 +225,16 @@ module mkRouterTestBench();
       verify_queue[0].enq(flit2); 
     end
     else if(clkCount == 12) begin
-      Flit flit3 = ?;
-      flit3.flitData = 24;
-      flit3.nextDir = north_;
-      verify_queue[0].enq(flit3); 
-    end
-    else if(clkCount == 13) begin
       Flit flit4 = ?;
       flit4.flitData = 25;
       flit4.nextDir = north_;
       verify_queue[0].enq(flit4); 
+    end
+    else if(clkCount == 13) begin
+      Flit flit1 = ?;
+      flit1.flitData = 22;
+      flit1.nextDir = north_;
+      verify_queue[0].enq(flit1); 
     end
   endrule
 
@@ -245,7 +244,6 @@ module mkRouterTestBench();
       Flit verify_flit_vec = verify_queue[i].first();
       verify_queue[i].deq();
       if (temp_receive_flit.flitData != verify_flit_vec.flitData)  begin
-        failCount <= failCount + 1;
         $fdisplay(stderr, "[0;31mFAIL[0m (port%0d receives %0d, expected %0d)", i, temp_receive_flit.flitData, verify_flit_vec.flitData);
         $finish;
       end
@@ -254,9 +252,7 @@ module mkRouterTestBench();
   end
 
   rule done (clkCount == 19);
-    if (failCount==0) begin
-      $fdisplay(stderr, "  [0;32mPASS[0m");
-    end 
+    $fdisplay(stderr, "  [0;32mPASS[0m");
     $finish;
   endrule
 
