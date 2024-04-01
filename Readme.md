@@ -147,3 +147,5 @@ Have fun! Enjoy XD
 # Submitting
 
 Please run `make submit`. Please remember to use Github to back up your code regularly.
+
+Due: Thursday, April 11, 2024 at 9:30am.
