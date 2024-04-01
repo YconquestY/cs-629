@@ -1,4 +1,4 @@
-# Network-on-Chip Router Lab
+# Lab5: Network-on-Chip Router Lab
 
 In this lab, you will be implementing several components of a network-on-chip (NoC) router to make it fully functional. It includes two parts 
 
