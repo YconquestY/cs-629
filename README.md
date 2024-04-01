@@ -110,6 +110,12 @@ make
 ``` 
 before compiling any RISC-V programs.
 
+On athena, this is already installed in the 6.828/6.039 locker:
+```
+export PATH=$PATH:/afs/athena.mit.edu/course/6/6.828/amd64_ubuntu1804/bin
+```
+You can add this to your `.bashrc` if you don't want to have to keep reloading it on login.
+
 Then you can compile your test by doing 
 ```
 cd testMultiCore
