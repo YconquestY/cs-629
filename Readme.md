@@ -5,7 +5,7 @@ In this lab, you will be implementing several components of a network-on-chip (N
 - Part A: crossbar.
 - Part B: single-cycle three-stage router.
 
-Wanna get it compile?
+### Running tests
 
 ```bash
 make clean
