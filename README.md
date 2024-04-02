@@ -110,9 +110,9 @@ make
 ``` 
 before compiling any RISC-V programs.
 
-Mac users may also need to download Elf.h
+Mac users may also need to download Elf.h.
 Create the file at `/usr/local/include/elf.h`. 
-e.g. `sudo vim /usr/local/include/elf.h`
+e.g. `sudo vim /usr/local/include/elf.h`.
 Paste in the Mac version of the definitions file found here: https://gist.github.com/mlafeldt/3885346
 
 
