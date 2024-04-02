@@ -110,6 +110,12 @@ make
 ``` 
 before compiling any RISC-V programs.
 
+Mac users may also need to download Elf.h
+Create the file at `/usr/local/include/elf.h`. 
+e.g. `sudo vim /usr/local/include/elf.h`
+Paste in the Mac version of the definitions file found here: https://gist.github.com/mlafeldt/3885346
+
+
 On athena, this is already installed in the 6.828/6.039 locker:
 ```
 export PATH=$PATH:/afs/athena.mit.edu/course/6/6.828/amd64_ubuntu1804/bin
