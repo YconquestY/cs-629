@@ -127,7 +127,16 @@ module mkRouter(Router);
         /*
             Please implement the Switch Arbitration stage here
         */ 
+        if(tick_count < 4) begin
+            for(Integer inPort=0; inPort<valueOf(NumPorts); inPort = inPort+1) begin
+                if(arbReq[inPort] != null_) $display("[cycle:%0d] Port:%0d; Arbiter Request = %d", tick_count, inPort, arbReq[inPort]);
+            end
 
+            for(Integer outPort = 0; outPort < valueOf(NumPorts); outPort = outPort + 1) begin
+                $display("[cycle:%0d] arbReqBits[%0d] = %b", tick_count, outPort, arbReqBits[outPort]);
+            end
+        end
+        
         arbResBuf.enq(grantedInPorts);
     endrule
 
