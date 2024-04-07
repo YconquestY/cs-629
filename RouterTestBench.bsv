@@ -83,7 +83,7 @@ module mkRouterTestBench();
 
       verify_queue[0].enq(flit1); 
       router.dataLinks[0].putFlit(flit0);
-      $display("[0;33mInsertFlits[0m\t data=%0d into North-input port0: target East-output port1", clkCount,flit0.flitData);
+      $display("[0;33mInsertFlits[0m\t data=%0d into North-input port0: target East-output port1", flit0.flitData);
 
       verify_queue[1].enq(flit0); 
       router.dataLinks[1].putFlit(flit1);
@@ -91,15 +91,15 @@ module mkRouterTestBench();
       
       verify_queue[2].enq(flit3); 
       router.dataLinks[2].putFlit(flit2);
-      $display("[0;33mInsertFlits[0m\t data=%0d into South-input port2: target Local-output port3", flit2.flitData);
+      $display("[0;33mInsertFlits[0m\t data=%0d into South-input port2: target Local-output port4", flit2.flitData);
       
       verify_queue[3].enq(flit4); 
       router.dataLinks[3].putFlit(flit3);
-      $display("[0;33mInsertFlits[0m\t data=%0d into West-input port3: target South-output port4", flit3.flitData);
+      $display("[0;33mInsertFlits[0m\t data=%0d into West-input port3: target South-output port2", flit3.flitData);
       
       verify_queue[4].enq(flit2); 
       router.dataLinks[4].putFlit(flit4);
-      $display("[0;33mInsertFlits[0m\t data=%0d into Local-input port4: target West-output port2", flit4.flitData);
+      $display("[0;33mInsertFlits[0m\t data=%0d into Local-input port4: target West-output port3", flit4.flitData);
       sent <= True;
     end
     else if(clkCount == 3) begin
@@ -113,8 +113,7 @@ module mkRouterTestBench();
       flit4.nextDir = west_;
 
       router.dataLinks[0].putFlit(flit0);
-      $display("[0;33mInsertFlits[0m\t data=%0d into North-input port0: target East-output port1", clkCount,flit0.flitData);
-
+      $display("[0;33mInsertFlits[0m\t data=%0d into North-input port0: target East-output port1", flit0.flitData);
       
       router.dataLinks[1].putFlit(flit1);
       $display("[0;33mInsertFlits[0m\t data=%0d into East-input port1: target East-output port1", flit1.flitData);
@@ -125,11 +124,11 @@ module mkRouterTestBench();
       
       verify_queue[2].enq(flit3); 
       router.dataLinks[3].putFlit(flit3);
-      $display("[0;33mInsertFlits[0m\t data=%0d into West-input port3: target South-output port4", flit3.flitData);
+      $display("[0;33mInsertFlits[0m\t data=%0d into West-input port3: target South-output port2", flit3.flitData);
       
       verify_queue[3].enq(flit4); 
       router.dataLinks[4].putFlit(flit4);
-      $display("[0;33mInsertFlits[0m\t data=%0d into Local-input port4: target West-output port2", flit4.flitData);
+      $display("[0;33mInsertFlits[0m\t data=%0d into Local-input port4: target West-output port3", flit4.flitData);
       sent <= True;
     end
     else if(clkCount == 4) begin
@@ -166,7 +165,7 @@ module mkRouterTestBench();
       
       verify_queue[1].enq(flit0); 
       router.dataLinks[3].putFlit(flit3);
-      $display("[0;33mInsertFlits[0m\t data=%0d into West-input port3: target South-output port4", flit3.flitData);
+      $display("[0;33mInsertFlits[0m\t data=%0d into West-input port3: target South-output port2", flit3.flitData);
       
       verify_queue[2].enq(flit3); 
       router.dataLinks[4].putFlit(flit4);
