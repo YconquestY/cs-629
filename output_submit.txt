@@ -1,0 +1,6 @@
+Warning: file 'memlines.vmh' for memory 'mainMem_bram_memory' has a gap at addresses 151 to 191.
+Warning: file 'memlines.vmh' for memory 'mainMem_bram_memory' has a gap at addresses 257 to 67108863.
+Warning: file 'mem.vmh' for memory 'mainRef_bram_memory' has a gap at addresses 2411 to 3071.
+Warning: file 'mem.vmh' for memory 'mainRef_bram_memory' has a gap at addresses 4100 to 1073741823.
+PASSED
+

@@ -9,7 +9,7 @@ import Cache32::*;
 
 
 module mkBeveren(Empty);
-    let verbose = True;
+    let verbose = False;
     Randomize#(CacheReq) randomMem <- mkGenericRandomizer;
     MainMemFast mainRef <- mkMainMemFast(); //Initialize both to 0
     MainMem mainMem <- mkMainMem(); //Initialize both to 0

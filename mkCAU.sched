@@ -1,0 +1,470 @@
+=== Generated schedule for mkCAU ===
+
+Method schedule
+---------------
+Method: req
+Ready signal: (! ready) &&
+	      (dataArray_serverAdapter_cnt .< 3'd3) && currReqQ.i_notFull
+Conflict-free: resp
+Conflicts: req, update
+ 
+Method: resp
+Ready signal: (dataArray_serverAdapter_outData_ff.i_notEmpty ||
+	       dataArray_serverAdapter_outData_enqw.whas) &&
+	      ready &&
+	      currReqQ.i_notEmpty &&
+	      (((! ((PrimArrayDynSelect (PrimBuildArray stateArray_0
+							stateArray_1
+							stateArray_2
+							stateArray_3
+							stateArray_4
+							stateArray_5
+							stateArray_6
+							stateArray_7
+							stateArray_8
+							stateArray_9
+							stateArray_10
+							stateArray_11
+							stateArray_12
+							stateArray_13
+							stateArray_14
+							stateArray_15
+							stateArray_16
+							stateArray_17
+							stateArray_18
+							stateArray_19
+							stateArray_20
+							stateArray_21
+							stateArray_22
+							stateArray_23
+							stateArray_24
+							stateArray_25
+							stateArray_26
+							stateArray_27
+							stateArray_28
+							stateArray_29
+							stateArray_30
+							stateArray_31
+							stateArray_32
+							stateArray_33
+							stateArray_34
+							stateArray_35
+							stateArray_36
+							stateArray_37
+							stateArray_38
+							stateArray_39
+							stateArray_40
+							stateArray_41
+							stateArray_42
+							stateArray_43
+							stateArray_44
+							stateArray_45
+							stateArray_46
+							stateArray_47
+							stateArray_48
+							stateArray_49
+							stateArray_50
+							stateArray_51
+							stateArray_52
+							stateArray_53
+							stateArray_54
+							stateArray_55
+							stateArray_56
+							stateArray_57
+							stateArray_58
+							stateArray_59
+							stateArray_60
+							stateArray_61
+							stateArray_62
+							stateArray_63
+							stateArray_64
+							stateArray_65
+							stateArray_66
+							stateArray_67
+							stateArray_68
+							stateArray_69
+							stateArray_70
+							stateArray_71
+							stateArray_72
+							stateArray_73
+							stateArray_74
+							stateArray_75
+							stateArray_76
+							stateArray_77
+							stateArray_78
+							stateArray_79
+							stateArray_80
+							stateArray_81
+							stateArray_82
+							stateArray_83
+							stateArray_84
+							stateArray_85
+							stateArray_86
+							stateArray_87
+							stateArray_88
+							stateArray_89
+							stateArray_90
+							stateArray_91
+							stateArray_92
+							stateArray_93
+							stateArray_94
+							stateArray_95
+							stateArray_96
+							stateArray_97
+							stateArray_98
+							stateArray_99
+							stateArray_100
+							stateArray_101
+							stateArray_102
+							stateArray_103
+							stateArray_104
+							stateArray_105
+							stateArray_106
+							stateArray_107
+							stateArray_108
+							stateArray_109
+							stateArray_110
+							stateArray_111
+							stateArray_112
+							stateArray_113
+							stateArray_114
+							stateArray_115
+							stateArray_116
+							stateArray_117
+							stateArray_118
+							stateArray_119
+							stateArray_120
+							stateArray_121
+							stateArray_122
+							stateArray_123
+							stateArray_124
+							stateArray_125
+							stateArray_126
+							stateArray_127)
+					currReqQ.first[44:38]) ==
+		    2'd0)) &&
+		(currReqQ.first[63:45] ==
+		 (PrimArrayDynSelect (PrimBuildArray tagArray_0
+						     tagArray_1
+						     tagArray_2
+						     tagArray_3
+						     tagArray_4
+						     tagArray_5
+						     tagArray_6
+						     tagArray_7
+						     tagArray_8
+						     tagArray_9
+						     tagArray_10
+						     tagArray_11
+						     tagArray_12
+						     tagArray_13
+						     tagArray_14
+						     tagArray_15
+						     tagArray_16
+						     tagArray_17
+						     tagArray_18
+						     tagArray_19
+						     tagArray_20
+						     tagArray_21
+						     tagArray_22
+						     tagArray_23
+						     tagArray_24
+						     tagArray_25
+						     tagArray_26
+						     tagArray_27
+						     tagArray_28
+						     tagArray_29
+						     tagArray_30
+						     tagArray_31
+						     tagArray_32
+						     tagArray_33
+						     tagArray_34
+						     tagArray_35
+						     tagArray_36
+						     tagArray_37
+						     tagArray_38
+						     tagArray_39
+						     tagArray_40
+						     tagArray_41
+						     tagArray_42
+						     tagArray_43
+						     tagArray_44
+						     tagArray_45
+						     tagArray_46
+						     tagArray_47
+						     tagArray_48
+						     tagArray_49
+						     tagArray_50
+						     tagArray_51
+						     tagArray_52
+						     tagArray_53
+						     tagArray_54
+						     tagArray_55
+						     tagArray_56
+						     tagArray_57
+						     tagArray_58
+						     tagArray_59
+						     tagArray_60
+						     tagArray_61
+						     tagArray_62
+						     tagArray_63
+						     tagArray_64
+						     tagArray_65
+						     tagArray_66
+						     tagArray_67
+						     tagArray_68
+						     tagArray_69
+						     tagArray_70
+						     tagArray_71
+						     tagArray_72
+						     tagArray_73
+						     tagArray_74
+						     tagArray_75
+						     tagArray_76
+						     tagArray_77
+						     tagArray_78
+						     tagArray_79
+						     tagArray_80
+						     tagArray_81
+						     tagArray_82
+						     tagArray_83
+						     tagArray_84
+						     tagArray_85
+						     tagArray_86
+						     tagArray_87
+						     tagArray_88
+						     tagArray_89
+						     tagArray_90
+						     tagArray_91
+						     tagArray_92
+						     tagArray_93
+						     tagArray_94
+						     tagArray_95
+						     tagArray_96
+						     tagArray_97
+						     tagArray_98
+						     tagArray_99
+						     tagArray_100
+						     tagArray_101
+						     tagArray_102
+						     tagArray_103
+						     tagArray_104
+						     tagArray_105
+						     tagArray_106
+						     tagArray_107
+						     tagArray_108
+						     tagArray_109
+						     tagArray_110
+						     tagArray_111
+						     tagArray_112
+						     tagArray_113
+						     tagArray_114
+						     tagArray_115
+						     tagArray_116
+						     tagArray_117
+						     tagArray_118
+						     tagArray_119
+						     tagArray_120
+						     tagArray_121
+						     tagArray_122
+						     tagArray_123
+						     tagArray_124
+						     tagArray_125
+						     tagArray_126
+						     tagArray_127)
+				     currReqQ.first[44:38])))
+	       ? ((currReqQ.first[67:64] == 4'h0) ||
+		  (dataArray_serverAdapter_outData_beforeDeq.read &&
+		   (dataArray_serverAdapter_cnt .< 3'd3))) &&
+		 ((! (currReqQ.first[67:64] == 4'h0)) ||
+		  dataArray_serverAdapter_outData_beforeDeq.read)
+	       : ((! ((PrimArrayDynSelect (PrimBuildArray stateArray_0
+							  stateArray_1
+							  stateArray_2
+							  stateArray_3
+							  stateArray_4
+							  stateArray_5
+							  stateArray_6
+							  stateArray_7
+							  stateArray_8
+							  stateArray_9
+							  stateArray_10
+							  stateArray_11
+							  stateArray_12
+							  stateArray_13
+							  stateArray_14
+							  stateArray_15
+							  stateArray_16
+							  stateArray_17
+							  stateArray_18
+							  stateArray_19
+							  stateArray_20
+							  stateArray_21
+							  stateArray_22
+							  stateArray_23
+							  stateArray_24
+							  stateArray_25
+							  stateArray_26
+							  stateArray_27
+							  stateArray_28
+							  stateArray_29
+							  stateArray_30
+							  stateArray_31
+							  stateArray_32
+							  stateArray_33
+							  stateArray_34
+							  stateArray_35
+							  stateArray_36
+							  stateArray_37
+							  stateArray_38
+							  stateArray_39
+							  stateArray_40
+							  stateArray_41
+							  stateArray_42
+							  stateArray_43
+							  stateArray_44
+							  stateArray_45
+							  stateArray_46
+							  stateArray_47
+							  stateArray_48
+							  stateArray_49
+							  stateArray_50
+							  stateArray_51
+							  stateArray_52
+							  stateArray_53
+							  stateArray_54
+							  stateArray_55
+							  stateArray_56
+							  stateArray_57
+							  stateArray_58
+							  stateArray_59
+							  stateArray_60
+							  stateArray_61
+							  stateArray_62
+							  stateArray_63
+							  stateArray_64
+							  stateArray_65
+							  stateArray_66
+							  stateArray_67
+							  stateArray_68
+							  stateArray_69
+							  stateArray_70
+							  stateArray_71
+							  stateArray_72
+							  stateArray_73
+							  stateArray_74
+							  stateArray_75
+							  stateArray_76
+							  stateArray_77
+							  stateArray_78
+							  stateArray_79
+							  stateArray_80
+							  stateArray_81
+							  stateArray_82
+							  stateArray_83
+							  stateArray_84
+							  stateArray_85
+							  stateArray_86
+							  stateArray_87
+							  stateArray_88
+							  stateArray_89
+							  stateArray_90
+							  stateArray_91
+							  stateArray_92
+							  stateArray_93
+							  stateArray_94
+							  stateArray_95
+							  stateArray_96
+							  stateArray_97
+							  stateArray_98
+							  stateArray_99
+							  stateArray_100
+							  stateArray_101
+							  stateArray_102
+							  stateArray_103
+							  stateArray_104
+							  stateArray_105
+							  stateArray_106
+							  stateArray_107
+							  stateArray_108
+							  stateArray_109
+							  stateArray_110
+							  stateArray_111
+							  stateArray_112
+							  stateArray_113
+							  stateArray_114
+							  stateArray_115
+							  stateArray_116
+							  stateArray_117
+							  stateArray_118
+							  stateArray_119
+							  stateArray_120
+							  stateArray_121
+							  stateArray_122
+							  stateArray_123
+							  stateArray_124
+							  stateArray_125
+							  stateArray_126
+							  stateArray_127)
+					  currReqQ.first[44:38]) ==
+		      2'd2)) ||
+		  dataArray_serverAdapter_outData_beforeDeq.read))
+Conflict-free: req
+Conflicts: resp, update
+ 
+Method: update
+Ready signal: dataArray_serverAdapter_cnt .< 3'd3
+Conflicts: req, resp, update
+ 
+Rule schedule
+-------------
+Rule: dataArray_serverAdapter_outData_enqueue
+Predicate: dataArray_serverAdapter_outData_enqw.whas &&
+	   ((! dataArray_serverAdapter_outData_dequeueing.whas) ||
+	    dataArray_serverAdapter_outData_ff.i_notEmpty)
+Blocking rules: (none)
+ 
+Rule: dataArray_serverAdapter_outData_dequeue
+Predicate: dataArray_serverAdapter_outData_dequeueing.whas &&
+	   dataArray_serverAdapter_outData_ff.i_notEmpty
+Blocking rules: (none)
+ 
+Rule: dataArray_serverAdapter_cnt_finalAdd
+Predicate: dataArray_serverAdapter_cnt_1.whas ||
+	   dataArray_serverAdapter_cnt_2.whas ||
+	   dataArray_serverAdapter_cnt_3.whas
+Blocking rules: (none)
+ 
+Rule: dataArray_serverAdapter_s1__dreg_update
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: dataArray_serverAdapter_stageReadResponseAlways
+Predicate: dataArray_serverAdapter_writeWithResp.whas
+Blocking rules: (none)
+ 
+Rule: dataArray_serverAdapter_moveToOutFIFO
+Predicate: ((! dataArray_serverAdapter_s1[0]) ||
+	    dataArray_serverAdapter_outData_ff.i_notFull) &&
+	   dataArray_serverAdapter_s1[1]
+Blocking rules: (none)
+ 
+Rule: dataArray_serverAdapter_overRun
+Predicate: dataArray_serverAdapter_s1[1] &&
+	   ((! dataArray_serverAdapter_outData_beforeEnq.read) ||
+	    (! dataArray_serverAdapter_outData_beforeDeq.read) ||
+	    (! dataArray_serverAdapter_outData_ff.i_notFull))
+Blocking rules: (none)
+ 
+Logical execution order: req,
+			 update,
+			 dataArray_serverAdapter_overRun,
+			 dataArray_serverAdapter_moveToOutFIFO,
+			 resp,
+			 dataArray_serverAdapter_stageReadResponseAlways,
+			 dataArray_serverAdapter_outData_enqueue,
+			 dataArray_serverAdapter_outData_dequeue,
+			 dataArray_serverAdapter_cnt_finalAdd,
+			 dataArray_serverAdapter_s1__dreg_update
+
+=====================================
