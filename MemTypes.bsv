@@ -41,6 +41,7 @@ endfunction
 
 // and define whatever other types you may find helpful.
 typedef enum {WaitCAUResp, SendReq, WaitMemResp} ReqStatus deriving (Bits, Eq, FShow);
+typedef enum {Ready, WaitResp, WaitUpdate} CAUStatus deriving (Bits, Eq, FShow);
 
 typedef struct {
     HitMissType hitMiss;

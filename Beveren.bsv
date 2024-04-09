@@ -60,7 +60,7 @@ module mkBeveren(Empty);
        let newrand <- randomMem.next;
        deadlockChecker <= 0;
        CacheReq newreq = newrand;
-       newreq.addr = {0,newreq.addr[8:2],2'b0};  // trims the random address
+       newreq.addr = {0,newreq.addr[13:2],2'b0};  // trims the random address
        if ( newreq.word_byte == 0) counterIn <= counterIn + 1;  // count only reads
        mainRef.put(newreq);
        cache.putFromProc(newreq);
@@ -75,7 +75,7 @@ module mkBeveren(Empty);
            $display("The cache answered %x instead of %x\n", resp1, resp2);
            $display("FAILED\n");
            $finish;
-       end 
+       end
        if (counterOut == 49999) begin
            $display("PASSED\n");
            $finish;

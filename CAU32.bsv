@@ -5,14 +5,14 @@ import Ehr::*;
 import MemTypes::*;
 
 
-interface CAU;
+interface CAU32;
     method Action req(CacheReq r);
     method ActionValue#(CAUResp) resp();
     method Action update(LineIndex index, CacheLine line);
 endinterface
 
 (* synthesize *)
-module mkCAU(CAU);
+module mkCAU32(CAU32);
     BRAM_Configure cfg = defaultValue;
     cfg.loadFormat = tagged Binary "zero.vmh";  // zero out for you
 
@@ -21,11 +21,11 @@ module mkCAU(CAU);
     // use 1-port BRAM, see https://piazza.com/class/lrgt0dgrtpz590/post/113
     BRAM1Port#(LineIndex, LineData) dataArray <- mkBRAM1Server(cfg);
     
-    Reg#(Bool) ready <- mkReg(False);
+    Reg#(CAUStatus) status <- mkReg(Ready);
     FIFO#(CacheReq) currReqQ <- mkFIFO;
 
-    method Action req(CacheReq r) if (!ready);
-        ready <= True;
+    method Action req(CacheReq r) if (status == Ready);
+        status <= WaitResp;
 
         let index = parseAddress(r.addr).index;
         dataArray.portA.request.put(BRAMRequest{write: False,
@@ -36,9 +36,7 @@ module mkCAU(CAU);
         currReqQ.enq(r);
     endmethod
 
-    method ActionValue#(CAUResp) resp() if (ready);
-        ready <= False;
-
+    method ActionValue#(CAUResp) resp() if (status == WaitResp);
         let data <- dataArray.portA.response.get;
         let currReq = currReqQ.first; currReqQ.deq;
 
@@ -51,6 +49,8 @@ module mkCAU(CAU);
         let hit = reqTag == oldTag;
         let write = currReq.word_byte != 4'h0;
         if (state != Invalid && hit) begin
+            status <= Ready;
+
             if (!write) begin // load hit
                 return CAUResp{hitMiss: LdHit,
                                ldValue: data[parsedAddr.woffset],
@@ -74,6 +74,8 @@ module mkCAU(CAU);
             end
         end
         else begin // miss
+            status <= WaitUpdate;
+
             let dirty = state == Dirty;
             return CAUResp{hitMiss: Miss,
                            ldValue: ?,
@@ -83,7 +85,9 @@ module mkCAU(CAU);
         end
     endmethod
 
-    method Action update(LineIndex index, CacheLine line);
+    method Action update(LineIndex index, CacheLine line) if (status == WaitUpdate);
+        status <= Ready;
+        
         stateArray[index] <= line.state;
         tagArray[index] <= line.tag;
         dataArray.portA.request.put(BRAMRequest{write: True,

@@ -7,7 +7,7 @@ import SpecialFIFOs::*;
 import MemTypes::*;
 import Ehr::*;
 import Vector :: * ;
-import CAU::*;
+import CAU32::*;
 
 // The types live in MemTypes.bsv
 
@@ -29,7 +29,7 @@ module mkCache32(Cache32);
     // Hint 1: one way is to have one BRAM for data, vector of registers for the rest of the state
     // Hint 2: The index to those memories should be the same (number of line in the cache).
     // Hint 3: Define additional types and structs as necessary.
-    CAU cau <- mkCAU;
+    CAU32 cau <- mkCAU32;
 
     FIFO#(Word) hitQ <- mkBypassFIFO;
 
@@ -95,8 +95,6 @@ module mkCache32(Cache32);
         let line = lineRespQ.first; lineRespQ.deq;
         let currReq = currReqQ.first; currReqQ.deq;
         let parsedAddr = parseAddress(currReq.addr);
-        //if (parsedAddr.index == 5)
-        //    $display("load line %x", line);
         if (currReq.word_byte == 4'h0) begin // load
             LineData data = unpack(line);
             hitQ.enq(data[parsedAddr.woffset]);

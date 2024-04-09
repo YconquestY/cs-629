@@ -63,7 +63,7 @@ Tip: Don't forget to use `$display` statements. They can be helpful in debugging
 
 In the file `Cache512.bsv`, you should implement the `mkCache` module. Your cache should have the following characteristics:
 - It has 256 cache lines, each line is 512-bits long, with all data requested and returned being 512 bits long (what's the cache size in KB?)<br>
-  $512$ KB
+  $16$ KB
 - It uses a writeback miss-allocate policy
 - You are free to design either a k-way associative (k=2,4,8) or a direct-mapped cache. If you choose a k-way associative you can pick any replacement policy you want
 - You should use a BRAM to hold the content of the cache, but you can use a <font color="skyblue">vector of registers</font> for the associated tags.
@@ -84,9 +84,9 @@ endinterface
 
 Here we see four methods. `putFromProc` delivers a cache request from your L1 cache to your L2 cache. `getToProc` should return the associated data that is for that memory address that was requested from L1. `getToMem` will deliver any requests from your cache to main memory (or a higher level cache). `putFromMem` will respond with the data you requested from main memory. These are connected in the test bench for you already.
 
-For testing Part 2, use `Beveren_nested.bsv`. This will test your L2 cache *indirectly*. We connect your L1 cache to the L2 cache and probe your L1. If you find it helpful, you can make your own test bench using the same structure as `Beveren.bsv` and probe your L2 cache directly.
+For testing Part 2, use `Beveren_nested.bsv`. This will test your L2 cache <font color="red">indirectly</font>. We connect your L1 cache to the L2 cache and probe your L1. If you find it helpful, you can make your own test bench using the same structure as `Beveren.bsv` and probe your L2 cache directly.
 
-As a note for the later lab, we will instantiate one L2 cache, which we will connect to both of your L1 caches.
+As a note for the later lab, we will instantiate one L2 cache, which we will connect to <font color="skyblue">both</font> of your L1 caches.
 
 ## Suggestions
 
