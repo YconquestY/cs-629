@@ -57,3 +57,26 @@ typedef struct {
 } CacheLine deriving (Bits, Eq, FShow);
 
 // Helper types for implementation (L2 cache):
+typedef Bit#(18) LineTag2; // 26b address - 8b index
+typedef Bit#(8) LineIndex2;
+
+typedef struct {
+    LineTag2   tag;
+    LineIndex2 index;
+} ParsedAddress2 deriving (Bits, Eq);
+
+function ParsedAddress2 parseAddress2(Bit#(26) address);
+    return ParsedAddress2{tag: address[25:8],
+                          index: address[7:0]}; // 256 lines
+endfunction
+
+typedef struct {
+    HitMissType hitMiss;
+    CacheLine2  line;
+} CAUResp2 deriving (Bits, Eq, FShow);
+
+typedef struct {
+    LineState   state;
+    LineTag2    tag;
+    MainMemResp data;
+} CacheLine2 deriving (Bits, Eq, FShow);

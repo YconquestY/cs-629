@@ -1,17 +1,17 @@
-=== Generated schedule for mkCAU ===
+=== Generated schedule for mkCAU512 ===
 
 Method schedule
 ---------------
 Method: req
-Ready signal: (! ready) &&
+Ready signal: (status == 2'd0) &&
 	      (dataArray_serverAdapter_cnt .< 3'd3) && currReqQ.i_notFull
-Conflict-free: resp
-Conflicts: req, update
+Conflict-free: resp, update
+Conflicts: req
  
 Method: resp
 Ready signal: (dataArray_serverAdapter_outData_ff.i_notEmpty ||
 	       dataArray_serverAdapter_outData_enqw.whas) &&
-	      ready &&
+	      (status == 2'd1) &&
 	      currReqQ.i_notEmpty &&
 	      (((! ((PrimArrayDynSelect (PrimBuildArray stateArray_0
 							stateArray_1
@@ -140,10 +140,138 @@ Ready signal: (dataArray_serverAdapter_outData_ff.i_notEmpty ||
 							stateArray_124
 							stateArray_125
 							stateArray_126
-							stateArray_127)
-					currReqQ.first[44:38]) ==
+							stateArray_127
+							stateArray_128
+							stateArray_129
+							stateArray_130
+							stateArray_131
+							stateArray_132
+							stateArray_133
+							stateArray_134
+							stateArray_135
+							stateArray_136
+							stateArray_137
+							stateArray_138
+							stateArray_139
+							stateArray_140
+							stateArray_141
+							stateArray_142
+							stateArray_143
+							stateArray_144
+							stateArray_145
+							stateArray_146
+							stateArray_147
+							stateArray_148
+							stateArray_149
+							stateArray_150
+							stateArray_151
+							stateArray_152
+							stateArray_153
+							stateArray_154
+							stateArray_155
+							stateArray_156
+							stateArray_157
+							stateArray_158
+							stateArray_159
+							stateArray_160
+							stateArray_161
+							stateArray_162
+							stateArray_163
+							stateArray_164
+							stateArray_165
+							stateArray_166
+							stateArray_167
+							stateArray_168
+							stateArray_169
+							stateArray_170
+							stateArray_171
+							stateArray_172
+							stateArray_173
+							stateArray_174
+							stateArray_175
+							stateArray_176
+							stateArray_177
+							stateArray_178
+							stateArray_179
+							stateArray_180
+							stateArray_181
+							stateArray_182
+							stateArray_183
+							stateArray_184
+							stateArray_185
+							stateArray_186
+							stateArray_187
+							stateArray_188
+							stateArray_189
+							stateArray_190
+							stateArray_191
+							stateArray_192
+							stateArray_193
+							stateArray_194
+							stateArray_195
+							stateArray_196
+							stateArray_197
+							stateArray_198
+							stateArray_199
+							stateArray_200
+							stateArray_201
+							stateArray_202
+							stateArray_203
+							stateArray_204
+							stateArray_205
+							stateArray_206
+							stateArray_207
+							stateArray_208
+							stateArray_209
+							stateArray_210
+							stateArray_211
+							stateArray_212
+							stateArray_213
+							stateArray_214
+							stateArray_215
+							stateArray_216
+							stateArray_217
+							stateArray_218
+							stateArray_219
+							stateArray_220
+							stateArray_221
+							stateArray_222
+							stateArray_223
+							stateArray_224
+							stateArray_225
+							stateArray_226
+							stateArray_227
+							stateArray_228
+							stateArray_229
+							stateArray_230
+							stateArray_231
+							stateArray_232
+							stateArray_233
+							stateArray_234
+							stateArray_235
+							stateArray_236
+							stateArray_237
+							stateArray_238
+							stateArray_239
+							stateArray_240
+							stateArray_241
+							stateArray_242
+							stateArray_243
+							stateArray_244
+							stateArray_245
+							stateArray_246
+							stateArray_247
+							stateArray_248
+							stateArray_249
+							stateArray_250
+							stateArray_251
+							stateArray_252
+							stateArray_253
+							stateArray_254
+							stateArray_255)
+					currReqQ.first[519:512]) ==
 		    2'd0)) &&
-		(currReqQ.first[63:45] ==
+		(currReqQ.first[537:520] ==
 		 (PrimArrayDynSelect (PrimBuildArray tagArray_0
 						     tagArray_1
 						     tagArray_2
@@ -271,13 +399,140 @@ Ready signal: (dataArray_serverAdapter_outData_ff.i_notEmpty ||
 						     tagArray_124
 						     tagArray_125
 						     tagArray_126
-						     tagArray_127)
-				     currReqQ.first[44:38])))
-	       ? ((currReqQ.first[67:64] == 4'h0) ||
-		  (dataArray_serverAdapter_outData_beforeDeq.read &&
-		   (dataArray_serverAdapter_cnt .< 3'd3))) &&
-		 ((! (currReqQ.first[67:64] == 4'h0)) ||
-		  dataArray_serverAdapter_outData_beforeDeq.read)
+						     tagArray_127
+						     tagArray_128
+						     tagArray_129
+						     tagArray_130
+						     tagArray_131
+						     tagArray_132
+						     tagArray_133
+						     tagArray_134
+						     tagArray_135
+						     tagArray_136
+						     tagArray_137
+						     tagArray_138
+						     tagArray_139
+						     tagArray_140
+						     tagArray_141
+						     tagArray_142
+						     tagArray_143
+						     tagArray_144
+						     tagArray_145
+						     tagArray_146
+						     tagArray_147
+						     tagArray_148
+						     tagArray_149
+						     tagArray_150
+						     tagArray_151
+						     tagArray_152
+						     tagArray_153
+						     tagArray_154
+						     tagArray_155
+						     tagArray_156
+						     tagArray_157
+						     tagArray_158
+						     tagArray_159
+						     tagArray_160
+						     tagArray_161
+						     tagArray_162
+						     tagArray_163
+						     tagArray_164
+						     tagArray_165
+						     tagArray_166
+						     tagArray_167
+						     tagArray_168
+						     tagArray_169
+						     tagArray_170
+						     tagArray_171
+						     tagArray_172
+						     tagArray_173
+						     tagArray_174
+						     tagArray_175
+						     tagArray_176
+						     tagArray_177
+						     tagArray_178
+						     tagArray_179
+						     tagArray_180
+						     tagArray_181
+						     tagArray_182
+						     tagArray_183
+						     tagArray_184
+						     tagArray_185
+						     tagArray_186
+						     tagArray_187
+						     tagArray_188
+						     tagArray_189
+						     tagArray_190
+						     tagArray_191
+						     tagArray_192
+						     tagArray_193
+						     tagArray_194
+						     tagArray_195
+						     tagArray_196
+						     tagArray_197
+						     tagArray_198
+						     tagArray_199
+						     tagArray_200
+						     tagArray_201
+						     tagArray_202
+						     tagArray_203
+						     tagArray_204
+						     tagArray_205
+						     tagArray_206
+						     tagArray_207
+						     tagArray_208
+						     tagArray_209
+						     tagArray_210
+						     tagArray_211
+						     tagArray_212
+						     tagArray_213
+						     tagArray_214
+						     tagArray_215
+						     tagArray_216
+						     tagArray_217
+						     tagArray_218
+						     tagArray_219
+						     tagArray_220
+						     tagArray_221
+						     tagArray_222
+						     tagArray_223
+						     tagArray_224
+						     tagArray_225
+						     tagArray_226
+						     tagArray_227
+						     tagArray_228
+						     tagArray_229
+						     tagArray_230
+						     tagArray_231
+						     tagArray_232
+						     tagArray_233
+						     tagArray_234
+						     tagArray_235
+						     tagArray_236
+						     tagArray_237
+						     tagArray_238
+						     tagArray_239
+						     tagArray_240
+						     tagArray_241
+						     tagArray_242
+						     tagArray_243
+						     tagArray_244
+						     tagArray_245
+						     tagArray_246
+						     tagArray_247
+						     tagArray_248
+						     tagArray_249
+						     tagArray_250
+						     tagArray_251
+						     tagArray_252
+						     tagArray_253
+						     tagArray_254
+						     tagArray_255)
+				     currReqQ.first[519:512])))
+	       ? (currReqQ.first[538] ||
+		  dataArray_serverAdapter_outData_beforeDeq.read) &&
+		 ((! currReqQ.first[538]) ||
+		  (dataArray_serverAdapter_cnt .< 3'd3))
 	       : ((! ((PrimArrayDynSelect (PrimBuildArray stateArray_0
 							  stateArray_1
 							  stateArray_2
@@ -405,16 +660,145 @@ Ready signal: (dataArray_serverAdapter_outData_ff.i_notEmpty ||
 							  stateArray_124
 							  stateArray_125
 							  stateArray_126
-							  stateArray_127)
-					  currReqQ.first[44:38]) ==
+							  stateArray_127
+							  stateArray_128
+							  stateArray_129
+							  stateArray_130
+							  stateArray_131
+							  stateArray_132
+							  stateArray_133
+							  stateArray_134
+							  stateArray_135
+							  stateArray_136
+							  stateArray_137
+							  stateArray_138
+							  stateArray_139
+							  stateArray_140
+							  stateArray_141
+							  stateArray_142
+							  stateArray_143
+							  stateArray_144
+							  stateArray_145
+							  stateArray_146
+							  stateArray_147
+							  stateArray_148
+							  stateArray_149
+							  stateArray_150
+							  stateArray_151
+							  stateArray_152
+							  stateArray_153
+							  stateArray_154
+							  stateArray_155
+							  stateArray_156
+							  stateArray_157
+							  stateArray_158
+							  stateArray_159
+							  stateArray_160
+							  stateArray_161
+							  stateArray_162
+							  stateArray_163
+							  stateArray_164
+							  stateArray_165
+							  stateArray_166
+							  stateArray_167
+							  stateArray_168
+							  stateArray_169
+							  stateArray_170
+							  stateArray_171
+							  stateArray_172
+							  stateArray_173
+							  stateArray_174
+							  stateArray_175
+							  stateArray_176
+							  stateArray_177
+							  stateArray_178
+							  stateArray_179
+							  stateArray_180
+							  stateArray_181
+							  stateArray_182
+							  stateArray_183
+							  stateArray_184
+							  stateArray_185
+							  stateArray_186
+							  stateArray_187
+							  stateArray_188
+							  stateArray_189
+							  stateArray_190
+							  stateArray_191
+							  stateArray_192
+							  stateArray_193
+							  stateArray_194
+							  stateArray_195
+							  stateArray_196
+							  stateArray_197
+							  stateArray_198
+							  stateArray_199
+							  stateArray_200
+							  stateArray_201
+							  stateArray_202
+							  stateArray_203
+							  stateArray_204
+							  stateArray_205
+							  stateArray_206
+							  stateArray_207
+							  stateArray_208
+							  stateArray_209
+							  stateArray_210
+							  stateArray_211
+							  stateArray_212
+							  stateArray_213
+							  stateArray_214
+							  stateArray_215
+							  stateArray_216
+							  stateArray_217
+							  stateArray_218
+							  stateArray_219
+							  stateArray_220
+							  stateArray_221
+							  stateArray_222
+							  stateArray_223
+							  stateArray_224
+							  stateArray_225
+							  stateArray_226
+							  stateArray_227
+							  stateArray_228
+							  stateArray_229
+							  stateArray_230
+							  stateArray_231
+							  stateArray_232
+							  stateArray_233
+							  stateArray_234
+							  stateArray_235
+							  stateArray_236
+							  stateArray_237
+							  stateArray_238
+							  stateArray_239
+							  stateArray_240
+							  stateArray_241
+							  stateArray_242
+							  stateArray_243
+							  stateArray_244
+							  stateArray_245
+							  stateArray_246
+							  stateArray_247
+							  stateArray_248
+							  stateArray_249
+							  stateArray_250
+							  stateArray_251
+							  stateArray_252
+							  stateArray_253
+							  stateArray_254
+							  stateArray_255)
+					  currReqQ.first[519:512]) ==
 		      2'd2)) ||
 		  dataArray_serverAdapter_outData_beforeDeq.read))
-Conflict-free: req
-Conflicts: resp, update
+Conflict-free: req, update
+Conflicts: resp
  
 Method: update
-Ready signal: dataArray_serverAdapter_cnt .< 3'd3
-Conflicts: req, resp, update
+Ready signal: (status == 2'd2) && (dataArray_serverAdapter_cnt .< 3'd3)
+Conflict-free: req, resp
+Conflicts: update
  
 Rule schedule
 -------------
@@ -467,4 +851,4 @@ Logical execution order: req,
 			 dataArray_serverAdapter_cnt_finalAdd,
 			 dataArray_serverAdapter_s1__dreg_update
 
-=====================================
+========================================
