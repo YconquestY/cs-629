@@ -18,6 +18,7 @@ module mkRouterTestBench();
   Reg#(Bool) sent <- mkReg(False);
   Reg#(Bool) passed <- mkReg(True);
   Reg#(Data) clkCount <- mkReg(0);
+  Reg#(Data) receive_done <- mkReg(0);
   Reg#(Data) flitCount <- mkReg(0);
   Vector#(NumPorts, FIFOF#(Flit))  verify_queue <- replicateM(mkBypassFIFOF);
 
@@ -247,11 +248,19 @@ module mkRouterTestBench();
         $finish;
       end
       $display("[0;34mGetFlits[0m \t from port: data=%0d", temp_receive_flit.flitData);
+      if(i==0)begin
+        receive_done <= receive_done + 1;
+      end
     endrule
   end
 
   rule done (clkCount == 19);
-    $fdisplay(stderr, "  [0;32mPASS[0m");
+    if (receive_done > 0) begin
+      $fdisplay(stderr, "  [0;32mPASS[0m");
+    end
+    else begin
+      $fdisplay(stderr, "  [0;31mFAIL[0m not receiving any messages");
+    end
     $finish;
   endrule
 
