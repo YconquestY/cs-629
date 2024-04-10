@@ -80,7 +80,7 @@ There is a potential mismatch of expectation on stores between the processor and
 
 ## Running tests
 
-We test your system in a very similar way to lab2_b.
+We test your system in a very similar way to previously.
 
 Run `make all` first. then....
 
@@ -102,7 +102,7 @@ You can also run all the tests with:
 
 All tests but `matmul32` typically take less than 2s to finish. `matmul32` is much slower (30s to 1mn).
 
-Note: The testbench `top_pipelined` has been modified from lab2_b to use the `CacheInterface` instead of the old BRAM. Please do not overwrite it with the version from lab2_b.
+Note: The testbench `top_pipelined` has been modified from the previous lab to use the `CacheInterface` instead of the old BRAM. Please do not overwrite it with the version from previous lab.
 
 You will also need `python3` installed and in your path (i.e. can run `python3` in terminal/command prompt) to run the tests. (For enrichment: we use an `arrange_mem.py` script to transfrom our previous `mem.vmh` files, which were used to populate 32-bit BRAM entries, into `memlines.vmh` files that are used to populate 512-bit entries in our main memory.)
 
