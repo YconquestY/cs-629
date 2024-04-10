@@ -1,10 +1,11 @@
-# Lab 3b -- Caches + Processor
+# Lab 4 -- Caches + Processor
 
-This section of the lab will involve connecting your caches into your processor from labs 2b and 3a.
+This section of the lab will involve connecting your caches into your processor.
 
-Start by copying `pipelined.bsv` from lab2_b into this lab. Then copy `Cache32.bsv`, `Cache512.bsv`, and your updated `MemTypes.bsv` from lab3_a into this lab.
+Start by copying `pipelined.bsv` from your pipelined processor into this lab. 
+Then copy `Cache32.bsv`, `Cache512.bsv`, and your updated `MemTypes.bsv` from lab3_a into this lab (and all potential new files you would have).
 
-Note: if you did not finish lab2_b, you can copy the contents of `multicycle.bsv` into `pipelined.bsv` instead (albeit renaming appropriate things). You will want to eventually finish `lab2_b` since the rest of the semester builds upon it (and this!).
+Note: if you did not finish  your processor lab, you can copy the contents of `multicycle.bsv` into `pipelined.bsv` instead (albeit renaming appropriate things). If you did not finish your cache, send me an email.
 
 ## Your goal
 
@@ -24,7 +25,7 @@ This should look like:
       Processor
 ```
 
-You want two L1 (32 bit) caches -- one for data and one for instructions. A single L2 (512 bit) is shared and main memory is connected to L2. We instantiate the main pieces of state in `CacheInterface`, but you will need to add some bookkeeping state elements and rules. These state elements will mostly be FIFOs and registers/EHRs. We expect to see no BRAMs other than the ones that already exist in your caches and main memory.
+You want two L1 (32 bit) caches -- one for data and one for instructions. A single L2 (512 bit) is shared and main memory is connected to L2. We instantiate the main pieces of state in `CacheInterface`, but you might need to add some bookkeeping state elements and rules. These state elements will mostly be FIFOs and registers/EHRs. We expect to see no BRAMs other than the ones that already exist in your caches and main memory.
 
 ```verilog
 module mkCacheInterface(CacheInterface);
@@ -48,16 +49,17 @@ endinterface
 
 The two L1 caches, the L2 cache, and the main memory live inside our `CacheInterface`. All four methods talk to the processor. We have one pair for data (`sendReqData` and `getRespData`) and one pair for instructions (`sendReqInstr` and `getRespInstr`). Our infrastructure in `top_pipelined` will drive the communication between the memory and the processor.
 
-Hint: You may want to use `BypassFIFO`s to support your methods in a similar way as your processor uses its `getIReq`, `getDReq`, etc. methods. Then you can do most of your logic inside your rules.
+Hint: You may want to use `BypassFIFO`s to support your methods in a similar way as your processor uses its `getIReq`, `getDReq`, etc. methods. Then you can do most of your logic inside your rules. (If you don t use BypassFIFOs, it might be tricky to properly pipeline the full system when you visualize with Konata).
+While proper pipelining is not required for the lab credit, you should try to do it, or understand why it is not pipelined.
 
-In lab2_b, your processor spoke to a really big two-ported BRAM. Now it speaks to the `CacheInterface`. You need to build the plumbing:
+In the processor lab, your processor spoke to a really big two-ported BRAM. Now it speaks to the `CacheInterface`. You need to build the plumbing:
 - between the processor and the two L1 caches. (easy)
-- between the two L1 caches and the L2 cache. (less easy)
+- between the two L1 caches and the L2 cache. (slightly less easy)
 - between the L2 cache and the main memory. (easy)
 
 You will not need to modify much, if any, of your L1 and L2 caches or your processor to complete this lab.
 
-Be aware that you have two L1 caches that share an L2 cache. Fortunately, all the addresses have always been in the same address space, even in lab2_b. If you look inside the old `top_pipelined.bsv`, and you will see your processor had been talking to a big BRAM for both instructions and data.
+Be aware that you have two L1 caches that share an L2 cache. Fortunately, all the addresses have always been in the same address space. If you look inside the old `top_pipelined.bsv`, and you will see your processor had been talking to a big BRAM for both instructions and data.
 
 The main challenge is that you must design logic to manage the flow of requests and responses between the L2 cache and the two L1 caches. It can be difficult to debug such logic, so be sure to use a healthy system of `$display` statements and to approach the problem systematically.
 
@@ -72,6 +74,9 @@ interface MainMem;
 endinterface
 ```
 `put` sends a request (address) to memory, `get` returns the resulting line of data. See the `MemTypes.bsv` for information on the types. Connecting the L2 cache to the main memory should be significantly easier than connecting the L1 caches to L2.
+
+# Root of evil of this lab: subtlety with store
+There is a potential mismatch of expectation on stores between the processor and the cache. In the processor lab, your processor expected an answer (just a bunch of zeros) on stores, but your cache typically *does not* currently produce an answer on stores. This will lead to deadlocks. You need to either make your processor not expect an answer on stores (easy), or make your cache produce an answer for stores (slightly more difficult).
 
 ## Running tests
 
@@ -117,7 +122,6 @@ If you *do* make your own tests, feel free to share the `hex` files on the Piazz
 # Submitting
 `make submit` will do it all for you :)
 
-Deadline: March 14, 2024 at 9:30am.
 
 # Discussion
 
@@ -125,10 +129,7 @@ In what ways do your Konata log look different, e.g., for a test like `thelie32`
 
 Why do we use a separate L1 caches for instructions and data? Why not just a single cache?
 
-Why do we use both an L1 and L2 cache? Which would be faster on a real processor?
-
 The L2 cache has only a single port for requests and a single port for responses. How significant would you expect this to be for performance since both L1 caches must share these ports? And in practice?
 
 What might happen in our current implementation if a program tries to modify the instructions? What if we try to execute instructions held in data?
 
-We use the same cache structure for Imem and Dmem. How might you simplify the Imem cache to make it more efficient in terms of hardware usage? Hint: think about how instruction accesses differ from data accesses.
