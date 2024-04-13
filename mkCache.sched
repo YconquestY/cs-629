@@ -1,0 +1,56 @@
+=== Generated schedule for mkCache ===
+
+Method schedule
+---------------
+Method: putFromProc
+Ready signal: (! (state == 2'd2)) && cau.RDY_req && currReqQ.i_notFull
+Conflict-free: getToMem, putFromMem
+Sequenced before (restricted): getToProc
+Conflicts: putFromProc
+ 
+Method: getToProc
+Ready signal: hitQ_rv.port1__read[512]
+Conflict-free: getToMem, putFromMem
+Sequenced after (restricted): putFromProc
+Conflicts: getToProc
+ 
+Method: getToMem
+Ready signal: lineReqQ.i_notEmpty
+Conflict-free: putFromProc, getToProc, putFromMem
+Conflicts: getToMem
+ 
+Method: putFromMem
+Ready signal: lineRespQ.i_notFull
+Conflict-free: putFromProc, getToProc, getToMem
+Conflicts: putFromMem
+ 
+Rule schedule
+-------------
+Rule: waitCAUResponse
+Predicate: cau.RDY_resp &&
+	   currReqQ.i_notEmpty && (! hitQ_rv.port0__read[512]) &&
+	   lineReqQ.i_notFull &&
+	   (state == 2'd0)
+Blocking rules: (none)
+ 
+Rule: sendL2Req
+Predicate: currReqQ.i_notEmpty && lineReqQ.i_notFull && (state == 2'd1)
+Blocking rules: (none)
+ 
+Rule: waitL2Resp
+Predicate: cau.RDY_update &&
+	   currReqQ.i_notEmpty &&
+	   lineRespQ.i_notEmpty &&
+	   (currReqQ.first[538] || (! hitQ_rv.port0__read[512])) &&
+	   (state == 2'd2)
+Blocking rules: (none)
+ 
+Logical execution order: putFromProc,
+			 getToMem,
+			 putFromMem,
+			 waitCAUResponse,
+			 sendL2Req,
+			 waitL2Resp,
+			 getToProc
+
+=======================================
