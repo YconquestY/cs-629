@@ -18,7 +18,7 @@ module mkRouterTestBench();
   Reg#(Bool) sent <- mkReg(False);
   Reg#(Bool) passed <- mkReg(True);
   Reg#(Data) clkCount <- mkReg(0);
-  Reg#(Data) receive_done <- mkReg(0);
+  Vector#(NumPorts, Reg#(Data))    receive_counter <- replicateM(mkReg(0));
   Reg#(Data) flitCount <- mkReg(0);
   Vector#(NumPorts, FIFOF#(Flit))  verify_queue <- replicateM(mkBypassFIFOF);
 
@@ -248,18 +248,26 @@ module mkRouterTestBench();
         $finish;
       end
       $display("[0;34mGetFlits[0m \t from port: data=%0d", temp_receive_flit.flitData);
-      if(i==0)begin
-        receive_done <= receive_done + 1;
-      end
+      receive_counter[i] <= receive_counter[i] + 1;
     endrule
   end
 
   rule done (clkCount == 19);
-    if (receive_done > 0) begin
+    if (receive_counter[0] > 0) begin
       $fdisplay(stderr, "  [0;32mPASS[0m");
+      $fdisplay(stderr, "Received %d flits from North-output port0, expected %d", receive_counter[0], 10);
+      $fdisplay(stderr, "Received %d flits from East-output port1, expected %d", receive_counter[1], 6);
+      $fdisplay(stderr, "Received %d flits from South-output port2, expected %d", receive_counter[2], 4);
+      $fdisplay(stderr, "Received %d flits from West-output port3, expected %d", receive_counter[3], 3);
+      $fdisplay(stderr, "Received %d flits from Local-output port4, expected %d", receive_counter[4], 2);
     end
     else begin
       $fdisplay(stderr, "  [0;31mFAIL[0m not receiving any messages");
+      $fdisplay(stderr, "Received %d flits from North-output port0, expected %d", receive_counter[0], 10);
+      $fdisplay(stderr, "Received %d flits from East-output port1, expected %d", receive_counter[1], 6);
+      $fdisplay(stderr, "Received %d flits from South-output port2, expected %d", receive_counter[2], 4);
+      $fdisplay(stderr, "Received %d flits from West-output port3, expected %d", receive_counter[3], 3);
+      $fdisplay(stderr, "Received %d flits from Local-output port4, expected %d", receive_counter[4], 2);
     end
     $finish;
   endrule
