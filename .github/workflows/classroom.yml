@@ -1,19 +1,59 @@
-name: GitHub Classroom Workflow
-
-on:
-  - push
-  - workflow_dispatch
-
+name: Autograding Tests
+'on':
+- push
+- workflow_dispatch
+- repository_dispatch
 permissions:
   checks: write
   actions: read
   contents: read
-
 jobs:
-  build:
-    name: Autograding
+  run-autograding-tests:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
     steps:
-      - uses: actions/checkout@v4
-      - uses: education/autograding@v1
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Functional correctness
+      id: functional-correctness
+      uses: education/autograding-io-grader@v1
+      with:
+        test-name: Functional correctness
+        command: cat output_submit.txt | grep -a "PASS" | wc -l
+        input: ''
+        expected-output: '11'
+        comparison-method: exact
+        timeout: 10
+        max-score: 4
+    - name: Performance thuemorse (< 20k cycles)
+      id: performance-thuemorse-20k-cycles
+      uses: education/autograding-io-grader@v1
+      with:
+        test-name: Performance thuemorse (< 20k cycles)
+        command: 'cat output_submit.txt | grep -a -A6 thuemorse | grep -a cycle |
+          tr -dc ''0-9'' | xargs expr 20000 \>= '
+        input: ''
+        expected-output: '1'
+        comparison-method: exact
+        timeout: 10
+        max-score: 1
+    - name: Performance reverse
+      id: performance-reverse
+      uses: education/autograding-io-grader@v1
+      with:
+        test-name: Performance reverse
+        command: 'cat output_submit.txt | grep -a -A6 reverse | grep -a cycle | tr
+          -dc ''0-9'' | xargs expr 18000 \>= '
+        input: ''
+        expected-output: '1'
+        comparison-method: exact
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: education/autograding-grading-reporter@v1
+      env:
+        FUNCTIONAL-CORRECTNESS_RESULTS: "${{steps.functional-correctness.outputs.result}}"
+        PERFORMANCE-THUEMORSE-20K-CYCLES_RESULTS: "${{steps.performance-thuemorse-20k-cycles.outputs.result}}"
+        PERFORMANCE-REVERSE_RESULTS: "${{steps.performance-reverse.outputs.result}}"
+      with:
+        runners: functional-correctness,performance-thuemorse-20k-cycles,performance-reverse
