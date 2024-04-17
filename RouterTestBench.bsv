@@ -253,7 +253,7 @@ module mkRouterTestBench();
   end
 
   rule done (clkCount == 19);
-    if (receive_counter[0] > 0) begin
+    if (receive_counter[0] == 10 && receive_counter[1] == 6 && receive_counter[2]==4 && receive_counter[3]==3 && receive_counter[4]==2) begin
       $fdisplay(stderr, "  [0;32mPASS[0m");
       $fdisplay(stderr, "Received %d flits from North-output port0, expected %d", receive_counter[0], 10);
       $fdisplay(stderr, "Received %d flits from East-output port1, expected %d", receive_counter[1], 6);
