@@ -1,5 +1,7 @@
 // Copyright Computer Structure Group, MIT 2018
 
+typedef Bit#(5) RIdx;
+
 typedef struct {
     Bit#(7) opcode;
     Bit#(3) funct3;

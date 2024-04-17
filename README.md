@@ -9,9 +9,9 @@ In the file `pipelined.bsv` fill out the `mkpipelined` module to implement a 4-s
 To start, we provide a multicycle pipelined implementation in `multicycle.bsv` with several useful code chunks which you will almost entirely re-use in your implementation (it is expected you copy/paste most of the rules as a starting point, no need to implement decode/execute yourself).
 At the beginning of `pipelined.bsv` we define structs for the data to store between stages. These should be useful for you but feel free to to change them if needed for your design.
 
-As a refresher, a pipelined processor has queues between each stage. Mispredictions should be identified  if program counter predictions do not match up with the actual next program counter, and dealt with by neither sending a memory operation nor pushing the instruction to Writeback (and so never update the register file). 
-Also, it is notable that a scoreboard must be implemented to deal with read-after-write and write-after-write data hazards. 
-Typically you can simply use 32 register (or EHRs) holding a single boolean tracking if there is any outstanding write the corresponding register.
+As a refresher, a pipelined processor has queues between each stage. Mispredictions should be identified  if program counter predictions do not match up with the actual next program counter, and dealt with by <font color="red">neither</font> sending a memory operation <font color="red">nor</font> pushing the instruction to Writeback (and so never update the register file). 
+Also, it is notable that a scoreboard must be implemented to deal with <font color="skyblue">read-after-write</font> and <font color="skyblue">write-after-write</font> data hazards. 
+Typically you can simply use 32 registers (or EHRs) holding a single boolean tracking if there is any outstanding write to the corresponding register.
 You may find the following diagram to be useful:
 
 Here is an overall picture of the design you should build:
@@ -28,9 +28,9 @@ Fetch should fetch the next instruction, with prediction of `pc+4`.
 Decode should run the given function decoder and push the decoded instruction and the value of the register read (when they can be read) to the next stage. Execute runs the execute function (ALU, branching, etc) to produce the next state value, and potentially send load/store to memory.
 Writeback writes the updated state back to the register file.
 
-Keep in mind that because of memory latency and other issues (dependencies for example), these stages can take multiple cycles and your code should include appropriate stalling logic to wait for results. You should also be keeping guards to make sure data hazards are checked. Appropriate bypassing can be used with the EHRs as registers.
+Keep in mind that because of memory latency and other issues (dependencies for example), these stages can take multiple cycles and your code should include appropriate stalling logic to wait for results. [~~You should also be keeping guards to make sure data hazards are checked.~~](https://piazza.com/class/lrgt0dgrtpz590/post/99) Appropriate bypassing can be used with the EHRs as registers.
 
-We provide a series of queues that are controlled with methods to send and recieve memory requests. These are `toImem/fromImem`, `toDmem/fromDmem`, and `toMMIO/fromMMIO`. The FIFO queue interface has three methods that can be used: `.enq(word)`, `.deq()` , and `.empty` (bool). These are connected to a BRAM-implemented small memory in the test bench, and you do not need to worry about. 
+We provide a series of queues that are controlled with methods to send and recieve memory requests. These are `toImem/fromImem`, `toDmem/fromDmem`, and `toMMIO/fromMMIO`. The FIFO queue interface has three methods that can be used: `.enq(word)`, `.deq()` , and `.empty` (bool). These are connected to a BRAM-implemented small memory in the test bench, and you do <font color="red">not</font> need to worry about. 
 
 We already provide the decode and execute functions. Reference `multicycle.bsv` for usage. 
 
@@ -63,10 +63,10 @@ You can also run all the tests with:
 ```
 
 All tests but `matmul32` typically take less than 2s to finish. `matmul32` is much slower (30s to 1mn).
-There is a known issue with WSL, where if the current repo is cloned on the windows filesystem and not on the linux one, things go much slower. 
+There is a known issue with WSL, where if the current repo is cloned on the windows filesystem and not on the linux one, things go much <font color="red">slower</font>. 
 Consider cloning in the linux filesystem if you are on WSL. 
 
-### How does testing work?
+### <font color="red">How does testing work?</font>
 (For enrichment)
 
 Your processor gets its instructions from its memory, and its memory is loaded from the `mem.vmh` file. Our test script moves a prebuilt RISC-V hex file from the `test/build` directory into `mem.vmh` and then calls the simulator that runs the `top` file that corresponds with whichever processor you're testing. If you're using the `run_<something>.sh` scripts, they also convert the intermediate Konata logs into a human-readable Konata log, which is how you see things like `li a0 0` in the Konata visualization.
@@ -130,7 +130,7 @@ These tests are programmed in C and are in the tests directory. If you really wa
 
 ## Collection of registers
 
-For the register file and the scoreboard, we advise you to use a vector of EHRs (or registers initially), like what you did in Lab 2a. Remember that EHRs will allow you to read in the same cycle that you write. This is crucial for bypassing in a pipelined processor when dealing with the hazards. You can see an example for how we initialize the register file in `multicycle.bsv`.
+For the register file and the scoreboard, we advise you to use a <font color="skyblue">vector of EHRs</font> (or registers initially), like what you did in [Lab 2a](https://github.com/6192-sp24/lab2_a). Remember that EHRs will allow you to read in the same cycle that you write. This is crucial for bypassing in a pipelined processor when dealing with the hazards. You can see an example for how we initialize the register file in `multicycle.bsv`.
 
 # Submitting
 
