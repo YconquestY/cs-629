@@ -94,14 +94,6 @@ module mkpipelined(RVIfc);
         end
 		konataTic(lfh);
 	endrule
-
-    Reg#(Bit#(32)) cnt <- mkReg(-1);
-    rule count;
-        cnt <= cnt + 1;
-        // if (cnt == 1000) begin
-        //     $finish;
-        // end
-    endrule
 		
     function Bit#(32) nap(Bit#(32) _pc);
         return _pc + 4;
