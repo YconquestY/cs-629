@@ -205,10 +205,6 @@ Rule: cache_iReq_canonicalize
 Predicate: True
 Blocking rules: (none)
  
-Rule: cache_tic
-Predicate: True
-Blocking rules: (none)
- 
 Rule: cache_proc2l1d
 Predicate: cache_toDataCache_rv.port1__read[68] &&
 	   cache_cacheD.RDY_putFromProc
@@ -257,7 +253,17 @@ Predicate: ((cache_dReq_readBeforeLaterWrites_1.read
 	       (cache_instrCacheToL2_rv.port1__read[539] &&
 		cache_cacheL2.RDY_putFromProc &&
 		cache_l2RespDest.i_notFull))) &&
-	   (! cache_l2State)
+	   (! cache_l2State) &&
+	   ((cache_dReq_readBeforeLaterWrites_1.read
+	     ? cache_dReq_port_0.whas
+	       ? cache_dReq_port_0.wget
+	       : cache_dReq_register
+	     : (_ :: Bit 1)) ||
+	    (cache_iReq_readBeforeLaterWrites_1.read
+	     ? cache_iReq_port_0.whas
+	       ? cache_iReq_port_0.wget
+	       : cache_iReq_register
+	     : (_ :: Bit 1)))
 Blocking rules: (none)
  
 Rule: cache_l2Outstanding
@@ -335,7 +341,6 @@ Logical execution order: requestI,
 			 bram_serverAdapterB_outData_dequeue,
 			 bram_serverAdapterB_cnt_finalAdd,
 			 bram_serverAdapterB_s1__dreg_update,
-			 cache_tic,
 			 cache_proc2l1d,
 			 cache_l1d2proc,
 			 responseD,
