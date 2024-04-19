@@ -40,6 +40,14 @@ module mkCacheInterface(CacheInterface);
     Reg#(L2State) l2State <- mkReg(Ready);
 
     FIFO#(L2RespDest) l2RespDest <- mkFIFO; // larger size?
+
+    Reg#(Bit#(32)) cnt <- mkReg(-1);
+    rule tic;
+        cnt <= cnt + 1;
+        // if (cnt == 50) begin
+        //     $finish;
+        // end
+    endrule
     // connect processor and L1D
     rule proc2l1d;
         let l1Req = toDataCache.first; toDataCache.deq;
@@ -65,12 +73,14 @@ module mkCacheInterface(CacheInterface);
         let l2Req <- cacheD.getToMem;
         dataCacheToL2.enq(l2Req);
         dReq[0] <= True;
+        $write();
     endrule
 
     rule l1iPropose (l2State == Ready);
         let l2Req <- cacheI.getToMem;
         instrCacheToL2.enq(l2Req);
         iReq[0] <= True;
+        //$write();
     endrule
     /* In an in-order pipeline, it is assumed that data are more frequently
      * requested than instructions. This may be different for an OoO pipeline.
@@ -118,12 +128,12 @@ module mkCacheInterface(CacheInterface);
     endrule
     // connect L2$ and memory
     rule l22mem;
-        let memReq <- cacheL2.getToMem();
+        let memReq <- cacheL2.getToMem;
         mainMem.put(memReq);
     endrule
 
     rule mem2l2;
-        let memResp <- mainMem.get();
+        let memResp <- mainMem.get;
         cacheL2.putFromMem(memResp);
     endrule
     // connect processor and L1D
