@@ -4,7 +4,7 @@
 This section of the lab will involve connecting your caches into your processor.
 
 Start by copying `pipelined.bsv` from your pipelined processor into this lab. 
-Then copy `Cache32.bsv`, `Cache512.bsv`, and your updated `MemTypes.bsv` from lab3_a into this lab (and all potential new files you would have).
+Then copy `Cache32.bsv`, `Cache512.bsv`, and your updated `MemTypes.bsv` from [lab3_a](https://github.com/VCA-EPFL/lab-4a-YconquestY) into this lab (and all potential new files you would have).
 
 Note: if you did not finish  your processor lab, you can copy the contents of `multicycle.bsv` into `pipelined.bsv` instead (albeit renaming appropriate things). If you did not finish your cache, send me an email.
 
@@ -26,7 +26,7 @@ This should look like:
       Processor
 ```
 
-You want two L1 (32 bit) caches -- one for data and one for instructions. A single L2 (512 bit) is shared and main memory is connected to L2. We instantiate the main pieces of state in `CacheInterface`, but you might need to add some bookkeeping state elements and rules. These state elements will mostly be FIFOs and registers/EHRs. We expect to see no BRAMs other than the ones that already exist in your caches and main memory.
+You want two L1 (32 bit) caches — one for data and the other for instructions. A single L2 (512 bit) is shared and main memory is connected to L2. We instantiate the main pieces of state in `CacheInterface`, but you might need to add some <font color="skyblue">bookkeeping</font> state elements and rules. These state elements will mostly be FIFOs and registers/EHRs. We expect to see <font color="red">no</font> BRAMs other than the ones that already exist in your caches and main memory.
 
 ```verilog
 module mkCacheInterface(CacheInterface);
@@ -48,19 +48,19 @@ interface CacheInterface;
 endinterface
 ```
 
-The two L1 caches, the L2 cache, and the main memory live inside our `CacheInterface`. All four methods talk to the processor. We have one pair for data (`sendReqData` and `getRespData`) and one pair for instructions (`sendReqInstr` and `getRespInstr`). Our infrastructure in `top_pipelined` will drive the communication between the memory and the processor.
+The two L1 caches, the L2 cache, and the main memory live inside our `CacheInterface`. All four methods talk to the <font color="skyblue">processor</font>. We have one pair for data (`sendReqData` and `getRespData`) and one pair for instructions (`sendReqInstr` and `getRespInstr`). Our infrastructure in `top_pipelined` will drive the communication between the memory and the processor.
 
-Hint: You may want to use `BypassFIFO`s to support your methods in a similar way as your processor uses its `getIReq`, `getDReq`, etc. methods. Then you can do most of your logic inside your rules. (If you don t use BypassFIFOs, it might be tricky to properly pipeline the full system when you visualize with Konata).
-While proper pipelining is not required for the lab credit, you should try to do it, or understand why it is not pipelined.
+Hint: You may want to use `BypassFIFO`s to support your methods in a similar way as your processor uses its `getIReq`, `getDReq`, etc. methods. Then you can do most of your logic inside your <font color="skyblue">`rule`s</font>. (If you don't use `BypassFIFO`s, it might be tricky to properly pipeline the full system when you visualize with Konata).
+While proper pipelining is <font color="red">not</font> required for the lab credit, you should try to do it, or understand <font color="skyblue">why</font> it is not pipelined.
 
 In the processor lab, your processor spoke to a really big two-ported BRAM. Now it speaks to the `CacheInterface`. You need to build the plumbing:
 - between the processor and the two L1 caches. (easy)
 - between the two L1 caches and the L2 cache. (slightly less easy)
 - between the L2 cache and the main memory. (easy)
 
-You will not need to modify much, if any, of your L1 and L2 caches or your processor to complete this lab.
+You will <font color="red">not</font> need to modify much, if any, of your L1 and L2 caches or your processor to complete this lab.
 
-Be aware that you have two L1 caches that share an L2 cache. Fortunately, all the addresses have always been in the same address space. If you look inside the old `top_pipelined.bsv`, and you will see your processor had been talking to a big BRAM for both instructions and data.
+Be aware that you have two L1 caches that share an L2 cache. Fortunately, all the addresses have always been in the <font color="skyblue">same</font> address space. If you look inside the old `top_pipelined.bsv`, and you will see your processor had been talking to a big BRAM for both instructions and data.
 
 The main challenge is that you must design logic to manage the flow of requests and responses between the L2 cache and the two L1 caches. It can be difficult to debug such logic, so be sure to use a healthy system of `$display` statements and to approach the problem systematically.
 
@@ -76,8 +76,9 @@ endinterface
 ```
 `put` sends a request (address) to memory, `get` returns the resulting line of data. See the `MemTypes.bsv` for information on the types. Connecting the L2 cache to the main memory should be significantly easier than connecting the L1 caches to L2.
 
-# Root of evil of this lab: subtlety with store
-There is a potential mismatch of expectation on stores between the processor and the cache. In the processor lab, your processor expected an answer (just a bunch of zeros) on stores, but your cache typically *does not* currently produce an answer on stores. This will lead to deadlocks. You need to either make your processor not expect an answer on stores (easy), or make your cache produce an answer for stores (slightly more difficult).
+## Root of evil of this lab: subtlety with store
+
+There is a potential mismatch of expectation on stores between the processor and the cache. In the processor lab, your processor expected an answer (just a bunch of zeros) on stores, but your cache typically does <font color="red">not</font> currently produce an answer on stores. This will lead to deadlocks. You need to either make your processor not expect an answer on stores (easy), or make your cache produce an answer for stores (slightly more difficult).
 
 ## Running tests
 
@@ -103,11 +104,12 @@ You can also run all the tests with:
 
 All tests but `matmul32` typically take less than 2s to finish. `matmul32` is much slower (30s to 1mn).
 
-Note: The testbench `top_pipelined` has been modified from the previous lab to use the `CacheInterface` instead of the old BRAM. Please do not overwrite it with the version from previous lab.
+Note: The testbench `top_pipelined` has been modified from the previous lab to use the `CacheInterface` instead of the old BRAM. Please do <font color="red">not</font> overwrite it with the version from previous lab.
 
 You will also need `python3` installed and in your path (i.e. can run `python3` in terminal/command prompt) to run the tests. (For enrichment: we use an `arrange_mem.py` script to transfrom our previous `mem.vmh` files, which were used to populate 32-bit BRAM entries, into `memlines.vmh` files that are used to populate 512-bit entries in our main memory.)
 
-### How does testing work?
+### <font color="red">How does testing work?</font>
+
 (For enrichment)
 
 Your processor gets its instructions from its memory, and its memory is loaded from the `mem.vmh` file. Our test script moves a prebuilt RISC-V hex file from the `test/build` directory into `mem.vmh` and then calls the simulator that runs the `top` file that corresponds with whichever processor you're testing. If you're using the `run_<something>.sh` scripts, they also convert the intermediate Konata logs into a human-readable Konata log, which is how you see things like `li a0 0` in the Konata visualization.
@@ -120,11 +122,11 @@ then convert that `elf` into a `hex` file, hence the `elf2hex` tool we have in t
 
 If you *do* make your own tests, feel free to share the `hex` files on the Piazza. We have a rather boring and minimal set of tests, and I'm sure your peers would be delighted to see whatever fun tests you cook up! But it is not necessary for the lab.
 
-# Submitting
+## Submitting
+
 `make submit` will do it all for you :)
 
-
-# Discussion
+## <font color="red">Discussion</font>
 
 In what ways do your Konata log look different, e.g., for a test like `thelie32`? Do you see any room for improvement?
 

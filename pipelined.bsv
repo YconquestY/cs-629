@@ -243,13 +243,16 @@ module mkpipelined(RVIfc);
     let data = tmp.data;
     let dInst = tmp.dinst;
     let fields = getInstFields(dInst.inst);
-    if (isMemoryInst(dInst)) begin // (* // write_val *)
+    if (isMemoryInst(dInst)) begin
       let resp = ?;
       if (tmp.mem_business.mmio) begin
         resp = fromMMIO.first(); fromMMIO.deq();
       end
       else begin
-        resp = fromDmem.first(); fromDmem.deq();
+        resp = fromDmem.first();
+        if (dInst.inst[5] == 0) begin // expect repsonse only on load
+          fromDmem.deq();
+        end
       end
       let mem_data = resp.data;
         mem_data = mem_data >> {tmp.mem_business.offset, 3'b0};

@@ -1,0 +1,382 @@
+=== Generated schedule for mktop_pipelined ===
+
+Rule schedule
+-------------
+Rule: bram_serverAdapterA_outData_enqueue
+Predicate: bram_serverAdapterA_outData_enqw.whas &&
+	   ((! bram_serverAdapterA_outData_dequeueing.whas) ||
+	    bram_serverAdapterA_outData_ff.i_notEmpty)
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterA_outData_dequeue
+Predicate: bram_serverAdapterA_outData_dequeueing.whas &&
+	   bram_serverAdapterA_outData_ff.i_notEmpty
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterA_cnt_finalAdd
+Predicate: bram_serverAdapterA_cnt_1.whas || bram_serverAdapterA_cnt_2.whas ||
+	   bram_serverAdapterA_cnt_3.whas
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterA_s1__dreg_update
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterA_stageReadResponseAlways
+Predicate: bram_serverAdapterA_writeWithResp.whas
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterA_moveToOutFIFO
+Predicate: ((! bram_serverAdapterA_s1[0]) ||
+	    bram_serverAdapterA_outData_ff.i_notFull) &&
+	   bram_serverAdapterA_s1[1]
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterA_overRun
+Predicate: bram_serverAdapterA_s1[1] &&
+	   ((! bram_serverAdapterA_outData_beforeEnq.read) ||
+	    (! bram_serverAdapterA_outData_beforeDeq.read) ||
+	    (! bram_serverAdapterA_outData_ff.i_notFull))
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterB_outData_enqueue
+Predicate: bram_serverAdapterB_outData_enqw.whas &&
+	   ((! bram_serverAdapterB_outData_dequeueing.whas) ||
+	    bram_serverAdapterB_outData_ff.i_notEmpty)
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterB_outData_dequeue
+Predicate: bram_serverAdapterB_outData_dequeueing.whas &&
+	   bram_serverAdapterB_outData_ff.i_notEmpty
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterB_cnt_finalAdd
+Predicate: bram_serverAdapterB_cnt_1.whas || bram_serverAdapterB_cnt_2.whas ||
+	   bram_serverAdapterB_cnt_3.whas
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterB_s1__dreg_update
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterB_stageReadResponseAlways
+Predicate: bram_serverAdapterB_writeWithResp.whas
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterB_moveToOutFIFO
+Predicate: ((! bram_serverAdapterB_s1[0]) ||
+	    bram_serverAdapterB_outData_ff.i_notFull) &&
+	   bram_serverAdapterB_s1[1]
+Blocking rules: (none)
+ 
+Rule: bram_serverAdapterB_overRun
+Predicate: bram_serverAdapterB_s1[1] &&
+	   ((! bram_serverAdapterB_outData_beforeEnq.read) ||
+	    (! bram_serverAdapterB_outData_beforeDeq.read) ||
+	    (! bram_serverAdapterB_outData_ff.i_notFull))
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_bram_serverAdapter_outData_enqueue
+Predicate: cache_mainMem_bram_serverAdapter_outData_enqw.whas &&
+	   ((! cache_mainMem_bram_serverAdapter_outData_dequeueing.whas) ||
+	    cache_mainMem_bram_serverAdapter_outData_ff.i_notEmpty)
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_bram_serverAdapter_outData_dequeue
+Predicate: cache_mainMem_bram_serverAdapter_outData_dequeueing.whas &&
+	   cache_mainMem_bram_serverAdapter_outData_ff.i_notEmpty
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_bram_serverAdapter_cnt_finalAdd
+Predicate: cache_mainMem_bram_serverAdapter_cnt_1.whas ||
+	   cache_mainMem_bram_serverAdapter_cnt_2.whas ||
+	   cache_mainMem_bram_serverAdapter_cnt_3.whas
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_bram_serverAdapter_s1__dreg_update
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_bram_serverAdapter_stageReadResponseAlways
+Predicate: cache_mainMem_bram_serverAdapter_writeWithResp.whas
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_bram_serverAdapter_moveToOutFIFO
+Predicate: ((! cache_mainMem_bram_serverAdapter_s1[0]) ||
+	    cache_mainMem_bram_serverAdapter_outData_ff.i_notFull) &&
+	   cache_mainMem_bram_serverAdapter_s1[1]
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_bram_serverAdapter_overRun
+Predicate: cache_mainMem_bram_serverAdapter_s1[1] &&
+	   ((! cache_mainMem_bram_serverAdapter_outData_beforeEnq.read) ||
+	    (! cache_mainMem_bram_serverAdapter_outData_beforeDeq.read) ||
+	    (! cache_mainMem_bram_serverAdapter_outData_ff.i_notFull))
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_1
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_2
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_3
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_4
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_5
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_6
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_7
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_8
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_9
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_10
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_11
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_12
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_13
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_14
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_15
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_16
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_17
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_dl_try_move_18
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_mainMem_deq
+Predicate: cache_mainMem_bram_serverAdapter_outData_beforeDeq.read &&
+	   (cache_mainMem_bram_serverAdapter_outData_ff.i_notEmpty ||
+	    cache_mainMem_bram_serverAdapter_outData_enqw.whas) &&
+	   (! cache_mainMem_dl_d_0_rv.port1__read[512])
+Blocking rules: (none)
+ 
+Rule: cache_dReq_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_iReq_canonicalize
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_tic
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: cache_proc2l1d
+Predicate: cache_toDataCache_rv.port1__read[68] &&
+	   cache_cacheD.RDY_putFromProc
+Blocking rules: (none)
+ 
+Rule: cache_l1d2proc
+Predicate: cache_cacheD.RDY_getToProc &&
+	   (! cache_fromDataCache_rv.port0__read[32])
+Blocking rules: (none)
+ 
+Rule: cache_proc2l1i
+Predicate: cache_toInstrCache_rv.port1__read[68] &&
+	   cache_cacheI.RDY_putFromProc
+Blocking rules: (none)
+ 
+Rule: cache_l1i2proc
+Predicate: cache_cacheI.RDY_getToProc &&
+	   (! cache_fromInstrCache_rv.port0__read[32])
+Blocking rules: (none)
+ 
+Rule: cache_l1dPropose
+Predicate: cache_cacheD.RDY_getToMem &&
+	   (! cache_dataCacheToL2_rv.port0__read[539]) &&
+	   (! cache_l2State)
+Blocking rules: (none)
+ 
+Rule: cache_l1iPropose
+Predicate: cache_cacheI.RDY_getToMem &&
+	   (! cache_instrCacheToL2_rv.port0__read[539]) &&
+	   (! cache_l2State)
+Blocking rules: (none)
+ 
+Rule: cache_l2Decide
+Predicate: ((cache_dReq_readBeforeLaterWrites_1.read
+	     ? cache_dReq_port_0.whas
+	       ? cache_dReq_port_0.wget
+	       : cache_dReq_register
+	     : (_ :: Bit 1))
+	    ? cache_dataCacheToL2_rv.port1__read[539] &&
+	      cache_cacheL2.RDY_putFromProc && cache_l2RespDest.i_notFull
+	    : ((cache_iReq_readBeforeLaterWrites_1.read
+		? cache_iReq_port_0.whas
+		  ? ! cache_iReq_port_0.wget
+		  : (! cache_iReq_register)
+		: (_ :: Bit 1)) ||
+	       (cache_instrCacheToL2_rv.port1__read[539] &&
+		cache_cacheL2.RDY_putFromProc &&
+		cache_l2RespDest.i_notFull))) &&
+	   (! cache_l2State)
+Blocking rules: (none)
+ 
+Rule: cache_l2Outstanding
+Predicate: cache_instrCacheToL2_rv.port1__read[539] &&
+	   cache_cacheL2.RDY_putFromProc && cache_l2RespDest.i_notFull &&
+	   cache_l2State
+Blocking rules: (none)
+ 
+Rule: cache_l22l1
+Predicate: cache_cacheL2.RDY_getToProc &&
+	   cache_l2RespDest.i_notEmpty &&
+	   (cache_l2RespDest.first
+	    ? cache_cacheI.RDY_putFromMem
+	    : cache_cacheD.RDY_putFromMem)
+Blocking rules: (none)
+ 
+Rule: cache_l22mem
+Predicate: cache_cacheL2.RDY_getToMem &&
+	   (cache_mainMem_bram_serverAdapter_cnt .< 3'd3)
+Blocking rules: (none)
+ 
+Rule: cache_mem2l2
+Predicate: cache_mainMem_dl_d_19_rv.port0__read[512] &&
+	   cache_cacheL2.RDY_putFromMem
+Blocking rules: (none)
+ 
+Rule: tic
+Predicate: True
+Blocking rules: (none)
+ 
+Rule: requestI
+Predicate: rv_core.RDY_getIReq &&
+	   ireq.i_notFull && (! cache_toInstrCache_rv.port0__read[68])
+Blocking rules: (none)
+ 
+Rule: responseI
+Predicate: cache_fromInstrCache_rv.port1__read[32] &&
+	   rv_core.RDY_getIResp && ireq.i_notEmpty
+Blocking rules: (none)
+ 
+Rule: requestD
+Predicate: rv_core.RDY_getDReq &&
+	   (! cache_toDataCache_rv.port0__read[68]) && dreq.i_notFull
+Blocking rules: (none)
+ 
+Rule: responseD
+Predicate: cache_fromDataCache_rv.port1__read[32] &&
+	   rv_core.RDY_getDResp && dreq.i_notEmpty
+Blocking rules: (none)
+ 
+Rule: requestMMIO
+Predicate: rv_core.RDY_getMMIOReq && mmioreq.i_notFull
+Blocking rules: (none)
+ 
+Rule: responseMMIO
+Predicate: rv_core.RDY_getMMIOResp && mmioreq.i_notEmpty
+Blocking rules: (none)
+ 
+Logical execution order: requestI,
+			 requestD,
+			 requestMMIO,
+			 tic,
+			 responseMMIO,
+			 bram_serverAdapterA_stageReadResponseAlways,
+			 bram_serverAdapterA_overRun,
+			 bram_serverAdapterA_moveToOutFIFO,
+			 bram_serverAdapterA_outData_enqueue,
+			 bram_serverAdapterA_outData_dequeue,
+			 bram_serverAdapterA_cnt_finalAdd,
+			 bram_serverAdapterA_s1__dreg_update,
+			 bram_serverAdapterB_stageReadResponseAlways,
+			 bram_serverAdapterB_overRun,
+			 bram_serverAdapterB_moveToOutFIFO,
+			 bram_serverAdapterB_outData_enqueue,
+			 bram_serverAdapterB_outData_dequeue,
+			 bram_serverAdapterB_cnt_finalAdd,
+			 bram_serverAdapterB_s1__dreg_update,
+			 cache_tic,
+			 cache_proc2l1d,
+			 cache_l1d2proc,
+			 responseD,
+			 cache_proc2l1i,
+			 cache_l1i2proc,
+			 responseI,
+			 cache_l1dPropose,
+			 cache_l1iPropose,
+			 cache_l2Decide,
+			 cache_l2Outstanding,
+			 cache_l22l1,
+			 cache_l22mem,
+			 cache_mem2l2,
+			 cache_mainMem_bram_serverAdapter_stageReadResponseAlways,
+			 cache_mainMem_bram_serverAdapter_overRun,
+			 cache_mainMem_bram_serverAdapter_moveToOutFIFO,
+			 cache_mainMem_bram_serverAdapter_s1__dreg_update,
+			 cache_mainMem_dl_try_move,
+			 cache_mainMem_dl_try_move_1,
+			 cache_mainMem_dl_try_move_2,
+			 cache_mainMem_dl_try_move_3,
+			 cache_mainMem_dl_try_move_4,
+			 cache_mainMem_dl_try_move_5,
+			 cache_mainMem_dl_try_move_6,
+			 cache_mainMem_dl_try_move_7,
+			 cache_mainMem_dl_try_move_8,
+			 cache_mainMem_dl_try_move_9,
+			 cache_mainMem_dl_try_move_10,
+			 cache_mainMem_dl_try_move_11,
+			 cache_mainMem_dl_try_move_12,
+			 cache_mainMem_dl_try_move_13,
+			 cache_mainMem_dl_try_move_14,
+			 cache_mainMem_dl_try_move_15,
+			 cache_mainMem_dl_try_move_16,
+			 cache_mainMem_dl_try_move_17,
+			 cache_mainMem_dl_try_move_18,
+			 cache_mainMem_deq,
+			 cache_mainMem_bram_serverAdapter_outData_enqueue,
+			 cache_mainMem_bram_serverAdapter_outData_dequeue,
+			 cache_mainMem_bram_serverAdapter_cnt_finalAdd,
+			 cache_dReq_canonicalize,
+			 cache_iReq_canonicalize
+
+===============================================
