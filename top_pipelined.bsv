@@ -45,7 +45,10 @@ module mktop_pipelined(Empty);
 
     rule requestD;
         let req <- rv_core.getDReq;
-        dreq.enq(req);
+        // expect response only on load
+        if (req.byte_en == 4'h0) begin
+            dreq.enq(req);
+        end
         if (debug) $display("Get DReq", fshow(req));
         // $display("DATA ",fshow(CacheReq{word_byte: req.byte_en, addr: req.addr, data: req.data}));
         cache.sendReqData(CacheReq{word_byte: req.byte_en, addr: req.addr, data: req.data});
