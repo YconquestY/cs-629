@@ -1,6 +1,7 @@
-# Lab 4 -- Basic multithreaidng	(SMT)
+# Lab 4 -- Basic multithreading
 
-Start by copying in `pipelined.bsv` from lab2b, `Cache32.bsv` and `Cache512.bsv` from lab3a, and `CacheInterface.bsv` from lab3b, replacing the templates in this repository. You may need to add in any other dependencies you added, as well, such as `*.hex` files.
+Start by copying in `pipelined.bsv`, `Cache32.bsv` and `Cache512.bsv` and `CacheInterface.bsv` from your previous lab, replacing the templates in this repository. You may need to add in any other dependencies you added and modify the `top_pipelined.bsv` as well if you used a cache that does not return on store.
+Notice that `top_pipelined.bsv` has been slightly updated in the MMIO section, so if you modify the data memory section, be careful to keep the updated MMIO section (feel free to reach out if you have issues).
 
 ## Two-threads machine
 
@@ -9,10 +10,9 @@ In this lab, you are first asked to build a simple processor that hosts two hard
 
 For this initial version of part a, you can use a simplified implementation where both threads fly through a single queue per stage of the processor, resulting in both threads potentially stalling each-other. 
 
-
 We are going to have two mutually exclusive Fetch stages that will fetch the appropriate instruction from each thread.
 
-Both threads will start at 0 and diverge. In each of your queues, you will want to keep track of which thread it is associated with. In this SMT processor, Decode, Execute, and Writeback will handle both.
+Both threads will start at pc 0 and at some point will diverge. In each of your queues, you will want to keep track of which thread the corresponding instruction is associated with. In this SMT processor, Decode, Execute, and Writeback will handle both.
 
 <img src="overview.png" alt="Design" width=600>
 
@@ -67,6 +67,8 @@ int main(int tid) {
   }
 }
 ```
+The test bench is updated to wait exactly two "exit", i.e., MMIO operation to the special exit location. Hopefully one from each thread, but in case of bug it can get confusing, if one software thread somehow generate multiple MMIO operation to the exit location.
+The software testbench is currently such that the mmio operation is sent after returning from main.
 
 Notice that if no argument is used in main, then both thread will run the same code.
 
@@ -115,13 +117,6 @@ Create the file at `/usr/local/include/elf.h`.
 e.g. `sudo vim /usr/local/include/elf.h`.
 Paste in the Mac version of the definitions file found here: https://gist.github.com/mlafeldt/3885346
 
-
-On athena, this is already installed in the 6.828/6.039 locker:
-```
-export PATH=$PATH:/afs/athena.mit.edu/course/6/6.828/amd64_ubuntu1804/bin
-```
-You can add this to your `.bashrc` if you don't want to have to keep reloading it on login.
-
 Then you can compile your test by doing 
 ```
 cd testMultiCore
@@ -137,7 +132,7 @@ To make your own ring buffer test, you will need to do the following:
 static volatile int input_data[8] = {0,1,2,3,4,5,6,7};
 static volatile int buffer_data[8] = {0,0,0,0,0,0,0,0};
 ```
-* You will also need a global variable called `flag` that will act as your semaphore, keeping track if inter-thread communication. This should look something like `static volatile int flag = 0;`
+* You will also need a global variable called `flag` that will act as your synchronization location, keeping track of inter-thread communication. This should look something like `static volatile int flag = 0;`
 * In program thread 0, you will need to copy all data from `input_data` into `buffer_data` in a loop.
 * Once we are done, we want to release our semaphore, setting our flag to 1. Once this is done, we can consider this thread to be successful and do `return 0`;
 * In program thread 1, we want to wait (loop) until our flag is 1.
@@ -192,14 +187,6 @@ Notice that now, it reports that two thread ran, with the number of cycle for ea
 Right now, for all those benchmarks, both thread run the same benchmark in parallel.
 
 
-We provided the (ungraded) RISC-V unit tests from 6.004 for convenience. See the `risc_v_tests` folder for a list of test types and included tests.
-```
-./run_6004.sh <test_type>/<test>
-```
-
-
 # Submitting
 `make submit` will do it all for you :)
-
-This lab is due April 2, 2024, right before class at 9:30am.
 
