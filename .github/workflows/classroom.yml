@@ -1,0 +1,62 @@
+name: Autograding Tests
+'on':
+- push
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Pass 24
+      id: pass-24
+      uses: education/autograding-io-grader@v1
+      with:
+        test-name: Pass 24
+        setup-command: ''
+        command: 'cat ./output_submit.txt | grep -a PASS | wc -l | xargs expr  24
+          \<= '
+        input: ''
+        expected-output: '1'
+        comparison-method: exact
+        timeout: 10
+        max-score: 2
+    - name: Pass 24
+      id: pass-24
+      uses: education/autograding-io-grader@v1
+      with:
+        test-name: Pass 24
+        setup-command: ''
+        command: 'cat ./output_submit.txt | grep -a PASS | wc -l | xargs expr  24
+          \<= '
+        input: ''
+        expected-output: '1'
+        comparison-method: exact
+        timeout: 10
+        max-score: 2
+    - name: Pass 26
+      id: pass-26
+      uses: education/autograding-io-grader@v1
+      with:
+        test-name: Pass 26
+        setup-command: ''
+        command: 'cat ./output_submit.txt | grep -a PASS | wc -l | xargs expr  26
+          \<= '
+        input: ''
+        expected-output: '1'
+        comparison-method: exact
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: education/autograding-grading-reporter@v1
+      env:
+        PASS-24_RESULTS: "${{steps.pass-24.outputs.result}}"
+        PASS-26_RESULTS: "${{steps.pass-26.outputs.result}}"
+      with:
+        runners: pass-24,pass-24,pass-26
