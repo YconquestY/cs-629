@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/_2UmsyHz)
 # Lab 4 -- Basic multithreading
 
 Start by copying in `pipelined.bsv`, `Cache32.bsv` and `Cache512.bsv` and `CacheInterface.bsv` from your previous lab, replacing the templates in this repository. You may need to add in any other dependencies you added and modify the `top_pipelined.bsv` as well if you used a cache that does not return on store.
