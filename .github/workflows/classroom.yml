@@ -14,14 +14,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Pass 24
-      id: pass-24
+    - name: Pass 16
+      id: pass-16
       uses: education/autograding-io-grader@v1
       with:
-        test-name: Pass 24
+        test-name: Pass 16
         setup-command: ''
-        command: 'cat ./output_submit.txt | grep -a PASS | wc -l | xargs expr  24
-          \<= '
+        command: cat ./output_submit.txt | grep -a PASS | wc -l | xargs expr 16 \<=
         input: ''
         expected-output: '1'
         comparison-method: exact
@@ -56,7 +55,8 @@ jobs:
     - name: Autograding Reporter
       uses: education/autograding-grading-reporter@v1
       env:
+        PASS-16_RESULTS: "${{steps.pass-16.outputs.result}}"
         PASS-24_RESULTS: "${{steps.pass-24.outputs.result}}"
         PASS-26_RESULTS: "${{steps.pass-26.outputs.result}}"
       with:
-        runners: pass-24,pass-24,pass-26
+        runners: pass-16,pass-24,pass-26
