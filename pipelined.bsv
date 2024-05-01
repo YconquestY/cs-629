@@ -68,7 +68,6 @@ module mkpipelined(RVIfc);
     ScoreboardIfc sb <- mkScoreboard;
 
     Reg#(Bit#(1)) epoch <- mkReg(0);
-    Reg#(Bool) stall <- mkReg(False);
 
     FIFO#(F2D) f2d <- mkFIFO;
     FIFO#(D2E) d2e <- mkFIFO;
