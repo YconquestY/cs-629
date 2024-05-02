@@ -36,6 +36,7 @@ typedef struct {
   Bit#(32) pc;
   Bit#(32) ppc;
   Bit#(1) epoch;
+  Bit#(1) thread_id;
   KonataId k_id; // logging: unique identifier per instruction
 } F2D deriving (Eq, FShow, Bits);
 
@@ -46,13 +47,16 @@ typedef struct {
   Bit#(1) epoch;
   Bit#(32) rv1; 
   Bit#(32) rv2;
+  Bit#(1) thread_id;
   KonataId k_id; // logging: unique identifier per instruction
 } D2E deriving (Eq, FShow, Bits);
 
 typedef struct { 
   MemBusiness mem_business;
   Bit#(32) data;
+  //Bit#(32) pc;
   DecodedInst dinst;
+  Bit#(1) thread_id;
   KonataId k_id; // unique identifier per instruction
 } E2W deriving (Eq, FShow, Bits);
 
@@ -67,11 +71,21 @@ module mkpipelined(RVIfc);
     FIFO#(Mem) fromMMIO <- mkBypassFIFO;
 
     // TODO copy over your whole implementation.
-    Ehr#(3, Bit#(32)) pc <- mkEhr(0);
-    Vector#(32, Ehr#(2, Bit#(32))) rf <- replicateM(mkEhr(0));
-    ScoreboardIfc sb <- mkScoreboard;
+    Ehr#(3, Bit#(32)) pc  <- mkEhr(0);
+    Ehr#(3, Bit#(32)) pc1 <- mkEhr(0);
+
+    Vector#(32, Ehr#(2, Bit#(32))) rf  <- replicateM(mkEhr(0));
+    Vector#(32, Ehr#(2, Bit#(32))) rf1;
+    for (Integer i = 0; i < 32; i = i + 1) begin
+      rf1[i] <- mkEhr(i == 10 ? 1 : 0);
+    end
+
+    ScoreboardIfc sb  <- mkScoreboard;
+    ScoreboardIfc sb1 <- mkScoreboard;
   
-    Reg#(Bit#(1)) epoch <- mkReg(0);
+    Reg#(Bit#(1)) epoch  <- mkReg(0);
+    Reg#(Bit#(1)) epoch1 <- mkReg(0);
+    Reg#(Bit#(1)) tid    <- mkReg(0);
   
     FIFO#(F2D) f2d <- mkFIFO;
     FIFO#(D2E) d2e <- mkFIFO;
@@ -102,9 +116,9 @@ module mkpipelined(RVIfc);
     endfunction
   
     rule fetch if (!starting);
-      Bit#(32) pc_fetched = pc[0];
+      Bit#(32) pc_fetched = unpack(tid) ? pc1[0] : pc[0];
       
-      let iid <- fetch1Konata(lfh, fresh_id, 0);
+      let iid <- fetch1Konata(lfh, fresh_id, extend(tid));
       labelKonataLeft(lfh, iid, $format("0x%x: ", pc_fetched));
   
       let req = Mem{byte_en: 0,
@@ -113,38 +127,52 @@ module mkpipelined(RVIfc);
       toImem.enq(req);
   
       let pc_predicted = nap(pc_fetched);
-      pc[0] <= pc_predicted;
+      if (unpack(tid))
+        pc1[0] <= pc_predicted;
+      else
+        pc[0] <= pc_predicted;
       f2d.enq(F2D{pc: pc_fetched,
                   ppc: pc_predicted,
-                  epoch: epoch,
+                  epoch: unpack(tid) ? epoch1 : epoch,
+                  thread_id: tid,
                   k_id: iid});
+      tid <= ~tid; // toggle thread ID
     endrule
   
     rule decode if (!starting);
       let resp = fromImem.first(); // `deq` called only if on stall occurred
       let instr = resp.data;
       let decodedInst = decodeInst(instr);
+
+      let tmp = f2d.first();
       
       let rd_idx = getInstFields(instr).rd;
-      let waw = sb.searchd(rd_idx) && decodedInst.valid_rd && (rd_idx != 0);
-      
+      let waw = (unpack(tmp.thread_id) ? sb1.searchd(rd_idx)
+                                       : sb.searchd(rd_idx)) && decodedInst.valid_rd && (rd_idx != 0);
       let rs1_idx = getInstFields(instr).rs1;
-      let rs1 = (rs1_idx == 0) ? 0 : rf[rs1_idx][1];
-      let raw1 = sb.search1(rs1_idx) && decodedInst.valid_rs1 && (rs1_idx != 0);
-  
+      let rs1 = (rs1_idx == 0) ? 0
+                               : unpack(tmp.thread_id) ? rf1[rs1_idx][1]
+                                                       : rf[rs1_idx][1];
+      let raw1 = (unpack(tmp.thread_id) ? sb1.search1(rs1_idx)
+                                        : sb.search1(rs1_idx)) && decodedInst.valid_rs1 && (rs1_idx != 0);
       let rs2_idx = getInstFields(instr).rs2;
-      let rs2 = (rs2_idx == 0) ? 0 : rf[rs2_idx][1];
-      let raw2 = sb.search2(rs2_idx) && decodedInst.valid_rs2 && (rs2_idx != 0);
-  
+      let rs2 = (rs2_idx == 0) ? 0
+                               : unpack(tmp.thread_id) ? rf1[rs2_idx][1]
+                                                       : rf[rs2_idx][1];
+      let raw2 = (unpack(tmp.thread_id) ? sb1.search2(rs2_idx)
+                                        : sb.search2(rs2_idx)) && decodedInst.valid_rs2 && (rs2_idx != 0);
       let stall = waw || raw1 || raw2;
       if (!stall) begin
         fromImem.deq();
-        let tmp = f2d.first(); f2d.deq();
+        f2d.deq();
   
         decodeKonata(lfh, tmp.k_id);
         labelKonataLeft(lfh, tmp.k_id, $format("DASM(%x)", instr));
         if (decodedInst.valid_rd && (rd_idx != 0)) begin
-          sb.insert(rd_idx);
+          if (unpack(tmp.thread_id))
+            sb1.insert(rd_idx);
+          else
+            sb.insert(rd_idx);
         end
         d2e.enq(D2E{dinst: decodedInst,
                     pc: tmp.pc,
@@ -152,6 +180,7 @@ module mkpipelined(RVIfc);
                     epoch: tmp.epoch,
                     rv1: rs1,
                     rv2: rs2,
+                    thread_id: tmp.thread_id,
                     k_id: tmp.k_id});  
       end
     endrule
@@ -165,7 +194,7 @@ module mkpipelined(RVIfc);
   
       let inEp = tmp.epoch;
       let dInst = tmp.dinst;
-      if (inEp == epoch) begin
+      if (inEp == (unpack(tmp.thread_id) ? epoch1 : epoch)) begin
         executeKonata(lfh, tmp.k_id);
   
         let imm = getImmediate(dInst);
@@ -213,8 +242,14 @@ module mkpipelined(RVIfc);
         let nextPc = controlResult.nextPC;
         
         if (tmp.ppc != nextPc) begin
-          pc[1] <= nextPc;
-          epoch <= next(epoch);
+          if (unpack(tmp.thread_id)) begin
+            pc1[1] <= nextPc;
+            epoch1 <= next(epoch1);
+          end
+          else begin
+            pc[1] <= nextPc;
+            epoch <= next(epoch);
+          end
         end
         
         e2w.enq(E2W{mem_business: MemBusiness{isUnsigned: unpack(isUnsigned),
@@ -223,12 +258,16 @@ module mkpipelined(RVIfc);
                                                     mmio: mmio},
                           data: data,
                           dinst: dInst,
+                          thread_id: tmp.thread_id,
                           k_id: tmp.k_id});
       end
       else begin // squash
         let rd_idx = getInstFields(dInst.inst).rd;
         if (dInst.valid_rd && rd_idx != 0) begin
-          sb.eRemove(rd_idx);
+          if (unpack(tmp.thread_id))
+            sb1.eRemove(rd_idx);
+          else
+            sb.eRemove(rd_idx);
         end
         squashed.enq(tmp.k_id);
       end
@@ -266,13 +305,22 @@ module mkpipelined(RVIfc);
         endcase
       end
       if (!dInst.legal) begin
-        pc[2] <= 0;
+        if (unpack(tmp.thread_id))
+          pc1[2] <= 0;
+        else
+          pc[2] <= 0;
       end
       if (dInst.valid_rd) begin
         let rd_idx = fields.rd;
         if (rd_idx != 0) begin
-          rf[rd_idx][0] <= data;
-          sb.wRemove(rd_idx);
+          if (unpack(tmp.thread_id)) begin
+            rf1[rd_idx][0] <= data;
+            sb1.wRemove(rd_idx);
+          end
+          else begin
+            rf[rd_idx][0] <= data;
+            sb.wRemove(rd_idx);
+          end
         end
       end
     endrule
