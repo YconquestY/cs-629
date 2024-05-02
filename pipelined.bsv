@@ -163,7 +163,7 @@ module mkpipelined(RVIfc);
     endrule
 
     function Bit#(1) next(Bit#(1) _epoch);
-        return ~epoch;
+        return ~_epoch;
     endfunction
 
     rule execute if (!starting);
