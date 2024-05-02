@@ -18,8 +18,10 @@ module mktop_pipelined(Empty);
     CacheInterface cache <- mkCacheInterface();
 
     RVIfc rv_core <- mkpipelined;
-    Reg#(Mem) ireq <- mkRegU;
-    FIFO#(Mem) dreq <- mkPipelineFIFO;
+    //Reg#(Mem) ireq <- mkRegU;
+    FIFO#(Mem) ireq <- mkFIFO;
+    //FIFO#(Mem) dreq <- mkPipelineFIFO;
+    FIFO#(Mem) dreq <- mkFIFO;
     FIFO#(Mem) mmioreq <- mkFIFO;
     let debug = False;
     Reg#(Bit#(32)) cycle_count <- mkReg(0);
@@ -32,8 +34,8 @@ module mktop_pipelined(Empty);
     rule requestI;
         let req <- rv_core.getIReq;
         if (debug) $display("Get IReq", fshow(req));
-        ireq <= req;
-
+        // ireq <= req;
+        ireq.enq(req);
         cache.sendReqInstr(CacheReq{word_byte: req.byte_en, addr: req.addr, data: req.data});
 
             // bram.portB.request.put(BRAMRequestBE{
@@ -46,7 +48,8 @@ module mktop_pipelined(Empty);
     rule responseI;
         let x <- cache.getRespInstr();
         // let x <- bram.portB.response.get();
-        let req = ireq;
+        //let req = ireq;
+        let req = ireq.first; ireq.deq;
         if (debug) $display("Get IResp ", fshow(req), fshow(x));
         req.data = x;
         rv_core.getIResp(req);
@@ -54,7 +57,9 @@ module mktop_pipelined(Empty);
 
     rule requestD;
         let req <- rv_core.getDReq;
-        dreq.enq(req);
+        // expect response only on load
+        if (req.byte_en == 4'h0)
+            dreq.enq(req);
         if (debug) $display("Get DReq", fshow(req));
         // $display("DATA ",fshow(CacheReq{word_byte: req.byte_en, addr: req.addr, data: req.data}));
         cache.sendReqData(CacheReq{word_byte: req.byte_en, addr: req.addr, data: req.data});
