@@ -6,6 +6,7 @@ import Vector::*;
 import KonataHelper::*;
 import Printf::*;
 import Ehr::*;
+import Scoreboard::*;
 
 import CacheInterface::*;
 
@@ -19,6 +20,7 @@ interface RVIfc;
     method ActionValue#(Mem) getMMIOReq();
     method Action getMMIOResp(Mem a);
 endinterface
+typedef struct { Bool isUnsigned; Bit#(2) size; Bit#(2) offset; Bool mmio; } MemBusiness deriving (Eq, FShow, Bits);
 
 function Bool isMMIO(Bit#(32) addr);
   Bool x = case (addr) 
@@ -33,7 +35,7 @@ endfunction
 typedef struct {
   Bit#(32) pc;
   Bit#(32) ppc;
-  Bit#(1) epoch; 
+  Bit#(1) epoch;
   KonataId k_id; // logging: unique identifier per instruction
 } F2D deriving (Eq, FShow, Bits);
 
@@ -43,7 +45,7 @@ typedef struct {
   Bit#(32) ppc;
   Bit#(1) epoch;
   Bit#(32) rv1; 
-  Bit#(32) rv2; 
+  Bit#(32) rv2;
   KonataId k_id; // logging: unique identifier per instruction
 } D2E deriving (Eq, FShow, Bits);
 
@@ -70,7 +72,6 @@ module mkpipelined(RVIfc);
     ScoreboardIfc sb <- mkScoreboard;
   
     Reg#(Bit#(1)) epoch <- mkReg(0);
-    Reg#(Bool) stall <- mkReg(False);
   
     FIFO#(F2D) f2d <- mkFIFO;
     FIFO#(D2E) d2e <- mkFIFO;
@@ -156,7 +157,7 @@ module mkpipelined(RVIfc);
     endrule
   
     function Bit#(1) next(Bit#(1) _epoch);
-      return ~epoch;
+      return ~_epoch;
     endfunction
   
     rule execute if (!starting);
