@@ -33,7 +33,7 @@ module mktop_pipelined(Empty);
 
     rule requestI;
         let req <- rv_core.getIReq;
-        if (debug) $display("Get IReq", fshow(req));
+        if (debug) $display("Get IReq  ", fshow(req));
         // ireq <= req;
         ireq.enq(req);
         cache.sendReqInstr(CacheReq{word_byte: req.byte_en, addr: req.addr, data: req.data});
@@ -60,7 +60,7 @@ module mktop_pipelined(Empty);
         // expect response only on load
         if (req.byte_en == 4'h0)
             dreq.enq(req);
-        if (debug) $display("Get DReq", fshow(req));
+        if (debug) $display("Get DReq  ", fshow(req));
         // $display("DATA ",fshow(CacheReq{word_byte: req.byte_en, addr: req.addr, data: req.data}));
         cache.sendReqData(CacheReq{word_byte: req.byte_en, addr: req.addr, data: req.data});
 
@@ -77,9 +77,9 @@ module mktop_pipelined(Empty);
 
         let req = dreq.first;
         dreq.deq();
-        if (debug) $display("Get IResp ", fshow(req), fshow(x));
+        if (debug) $display("Get DResp ", fshow(req), fshow(x));
         req.data = x;
-            rv_core.getDResp(req);
+        rv_core.getDResp(req);
     endrule
   
     rule requestMMIO;

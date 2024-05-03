@@ -8,7 +8,6 @@ import SpecialFIFOs::*;
 import Ehr::*;
 
 
-typedef enum { Ready, Busy } L2State deriving (Bits, Eq, FShow);
 typedef enum { L1D, L1I } L2RespDest deriving (Bits, Eq, FShow);
 
 interface CacheInterface;
@@ -37,7 +36,6 @@ module mkCacheInterface(CacheInterface);
 
     Ehr#(2, Bool) dReq <- mkEhr(False);
     Ehr#(2, Bool) iReq <- mkEhr(False);
-    Reg#(L2State) l2State <- mkReg(Ready);
 
     FIFO#(L2RespDest) l2RespDest <- mkFIFO; // larger size?
     // connect processor and L1D
@@ -61,51 +59,40 @@ module mkCacheInterface(CacheInterface);
         fromInstrCache.enq(l1Resp);
     endrule
     // connect L1$ and L2$
-    rule l1dPropose (l2State == Ready);
+    rule l1dPropose;
         let l2Req <- cacheD.getToMem;
         dataCacheToL2.enq(l2Req);
         dReq[0] <= True;
     endrule
-
-    rule l1iPropose (l2State == Ready);
+    /* In an in-order pipeline, it is assumed that data are more frequently
+     * requested than instructions. This may be different for an OoO pipeline.
+     */
+    rule l1iPropose (!dReq[1]);
         let l2Req <- cacheI.getToMem;
         instrCacheToL2.enq(l2Req);
         iReq[0] <= True;
     endrule
-    /* In an in-order pipeline, it is assumed that data are more frequently
-     * requested than instructions. This may be different for an OoO pipeline.
-     */
-    rule l2Decide (l2State == Ready && (dReq[1] || iReq[1]));
+    
+    rule l2Decide (dReq[1] || iReq[1]);
         if (dReq[1]) begin // handle L1D request first
-            l2RespDest.enq(L1D);
-
             let l2Req = dataCacheToL2.first; dataCacheToL2.deq;
             cacheL2.putFromProc(l2Req);
 
-            if (iReq[1]) begin   // If both L1D and L1I report a miss in the
-                l2State <= Busy; // same cycle, handle I$ miss in next cycle,
-            end                  // and stop accepting requests.
+            if (!unpack(l2Req.write))
+                l2RespDest.enq(L1D);
+
+            dReq[1] <= False;
         end
         else if (iReq[1]) begin // handle L1I request
-            l2RespDest.enq(L1I);
-
             let l2Req = instrCacheToL2.first; instrCacheToL2.deq;
             cacheL2.putFromProc(l2Req);
+
+            l2RespDest.enq(L1I);
+
+            iReq[1] <= False;
         end
-        // reset proposal
-        dReq[1] <= False;
-        iReq[1] <= False;
     endrule
-
-    rule l2Outstanding (l2State == Busy);
-        l2RespDest.enq(L1I);
-
-        let l2Req = instrCacheToL2.first; instrCacheToL2.deq;
-        cacheL2.putFromProc(l2Req);
-
-        l2State <= Ready;
-    endrule
-
+    
     rule l22l1;
         let l2Resp <- cacheL2.getToProc;
         let dest = l2RespDest.first; l2RespDest.deq;
