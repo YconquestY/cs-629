@@ -142,10 +142,7 @@ In this lab, we provide skeleton code inside `router.bsv`, and you will implemen
     - For switch traversal, you will reuse the crossbar you implemented in Part A
 - On/Off flow control: we already give the implementation of input buffers, where each input buffer is being implemented as the form of `SizedBypassFIFOF` with 4 available slots. You will need to disable new flits from coming in when the input buffer is full.
 
-Have fun! Enjoy XD
 
 # Submitting
 
 Please run `make submit`. Please remember to use Github to back up your code regularly.
-
-Due: Thursday, April 11, 2024 at 9:30am.
