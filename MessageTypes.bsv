@@ -1,8 +1,6 @@
 /*
  Message Types
-
  Author: Hyoukjun Kwon(hyoukjun@gatech.edu)
- 
 
 */
 
