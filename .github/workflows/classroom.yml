@@ -1,0 +1,46 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Part a
+      id: part-a
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Part a
+        setup-command: ''
+        command: cat ./output_submit1.txt | grep -a PASS | wc -l
+        input: ''
+        expected-output: '1'
+        comparison-method: exact
+        timeout: 10
+        max-score: 3
+    - name: Part b
+      id: part-b
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Part b
+        setup-command: ''
+        command: cat ./output_submit2.txt | grep -a PASS | wc -l
+        input: ''
+        expected-output: '1'
+        comparison-method: exact
+        timeout: 10
+        max-score: 3
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        PART-A_RESULTS: "${{steps.part-a.outputs.result}}"
+        PART-B_RESULTS: "${{steps.part-b.outputs.result}}"
+      with:
+        runners: part-a,part-b
