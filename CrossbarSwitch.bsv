@@ -21,6 +21,8 @@ module mkCrossbarSwitch(CrossbarSwitch);
   Vector#(NumPorts, Ehr#(TAdd#(NumPorts, 1), Flit)) crossbar
     <- replicateM(mkEhr(Flit{nextDir: null_,
                              flitData: 0}));
+  Vector#(NumPorts, Ehr#(TAdd#(NumPorts, 1), Bool)) valid
+    <- replicateM(mkEhr(False));
 /*
   implement the crossbar
 
@@ -32,10 +34,13 @@ module mkCrossbarSwitch(CrossbarSwitch);
       interface CrossbarPort
         method Action putFlit(Flit traverseFlit, DirIdx destDirn);
           //  body for your method putFlit[ports]
+          //$display("data=%d into port %d", traverseFlit.flitData, destDirn);
           crossbar[destDirn][ports] <= traverseFlit;
+          valid[destDirn][ports] <= True;
         endmethod
-        method ActionValue#(Flit) getFlit;
+        method ActionValue#(Flit) getFlit if (valid[ports][valueOf(NumPorts)]);
           //  body for your method getFlit[ports]
+          valid[ports][valueOf(NumPorts)] <= False;
           return crossbar[ports][valueOf(NumPorts)];
         endmethod
       endinterface;
