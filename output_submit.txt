@@ -1,0 +1,57 @@
+  [0;32mPASS[0m
+[0;33mInsertFlits[0m	 data=1 into North-input port0: target North-output port0
+[0;33mInsertFlits[0m	 data=2 into East-input port1: target East-output port1
+[0;33mInsertFlits[0m	 data=3 into South-input port2: target South-output port2
+[0;33mInsertFlits[0m	 data=4 into West-input port3: target West-output port3
+[0;33mInsertFlits[0m	 data=5 into Local-input port4: target Local-output port4
+[0;34mGetFlits[0m 	 from port: data=1
+[0;34mGetFlits[0m 	 from port: data=2
+[0;34mGetFlits[0m 	 from port: data=3
+[0;34mGetFlits[0m 	 from port: data=4
+[0;34mGetFlits[0m 	 from port: data=5
+[0;33mInsertFlits[0m	 data=6 into North-input port0: target East-output port1
+[0;33mInsertFlits[0m	 data=7 into East-input port1: target North-output port0
+[0;33mInsertFlits[0m	 data=8 into South-input port2: target Local-output port4
+[0;33mInsertFlits[0m	 data=9 into West-input port3: target South-output port2
+[0;33mInsertFlits[0m	 data=10 into Local-input port4: target West-output port3
+[0;34mGetFlits[0m 	 from port: data=7
+[0;34mGetFlits[0m 	 from port: data=6
+[0;34mGetFlits[0m 	 from port: data=9
+[0;34mGetFlits[0m 	 from port: data=10
+[0;34mGetFlits[0m 	 from port: data=8
+[0;33mInsertFlits[0m	 data=11 into North-input port0: target East-output port1
+[0;33mInsertFlits[0m	 data=12 into East-input port1: target East-output port1
+[0;33mInsertFlits[0m	 data=13 into South-input port2: target East-output port1
+[0;33mInsertFlits[0m	 data=14 into West-input port3: target South-output port2
+[0;33mInsertFlits[0m	 data=15 into Local-input port4: target West-output port3
+[0;34mGetFlits[0m 	 from port: data=13
+[0;34mGetFlits[0m 	 from port: data=14
+[0;34mGetFlits[0m 	 from port: data=15
+[0;34mGetFlits[0m 	 from port: data=12
+[0;34mGetFlits[0m 	 from port: data=11
+[0;33mInsertFlits[0m	 data=16 into North-input port0: target East-output port1
+[0;33mInsertFlits[0m	 data=17 into East-input port1: target North-output port0
+[0;33mInsertFlits[0m	 data=18 into South-input port2: target North-output port0
+[0;33mInsertFlits[0m	 data=19 into West-input port3: target South-output port2
+[0;33mInsertFlits[0m	 data=20 into Local-input port4: target North-output port0
+[0;34mGetFlits[0m 	 from port: data=18
+[0;34mGetFlits[0m 	 from port: data=16
+[0;34mGetFlits[0m 	 from port: data=19
+[0;34mGetFlits[0m 	 from port: data=20
+[0;34mGetFlits[0m 	 from port: data=17
+[0;33mInsertFlits[0m	 data=21 into North-input port0: target North-output port0
+[0;33mInsertFlits[0m	 data=22 into East-input port1: target North-output port0
+[0;33mInsertFlits[0m	 data=23 into South-input port2: target North-output port0
+[0;33mInsertFlits[0m	 data=24 into West-input port3: target North-output port0
+[0;33mInsertFlits[0m	 data=25 into Local-input port4: target North-output port0
+[0;34mGetFlits[0m 	 from port: data=24
+[0;34mGetFlits[0m 	 from port: data=21
+[0;34mGetFlits[0m 	 from port: data=23
+[0;34mGetFlits[0m 	 from port: data=25
+[0;34mGetFlits[0m 	 from port: data=22
+  [0;32mPASS[0m
+Received         10 flits from North-output port0, expected          10
+Received          6 flits from East-output port1, expected           6
+Received          4 flits from South-output port2, expected           4
+Received          3 flits from West-output port3, expected           3
+Received          2 flits from Local-output port4, expected           2
