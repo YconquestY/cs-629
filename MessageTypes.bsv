@@ -16,7 +16,7 @@ import RoutingTypes::*;
 
 //1. Sub-definitions for Flit class
   //Message class and Flit types
-  typedef Data FlitData;
+  typedef Data FlitData; // `Bit#(32)`
 
   // Flit Type
   typedef struct {

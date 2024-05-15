@@ -53,7 +53,7 @@ The red router shown above works in the following steps:
 
 The minimal data unit being transferred inside router is termed as `flit` , for which we have already provided the implementations inside the `MessageTypes.bsv`. A flit consists of the following fields.
 
-```bash
+```verilog
 // We define this flit type in MessagesTypes.bsv
 
   typedef struct {
@@ -66,7 +66,7 @@ where the `nextDir` records the target output port of this incoming input flit a
 
 The `Direction` consists of the following 5 possibilities
 
-```bash
+```verilog
 /* 1. Direction bits */
 typedef Bit#(NumPorts) Direction;
 
@@ -101,7 +101,7 @@ Crossbar supports all input to all output mapping in the same cycle, and we test
 
 Tips: we recommend implementing the input/output ports as a vector of interface with the template implementation shown below.
 
-```bash
+```verilog
 interface CrossbarPort;
   method Action putFlit(Flit traverseFlit, DirIdx destDirn);
   method ActionValue#(Flit) getFlit; 

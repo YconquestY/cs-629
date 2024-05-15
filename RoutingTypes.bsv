@@ -34,11 +34,11 @@ Direction null_  = zeroExtend(5'b00000); //It needs to be all zero due to Switch
 
 /* 2. Direction indice */
 typedef Bit#(3) DirIdx;
-DirIdx dIdxNorth = 3'b000; //0
-DirIdx dIdxEast  = 3'b001; //1
-DirIdx dIdxSouth = 3'b010; //2
-DirIdx dIdxWest  = 3'b011; //3
-DirIdx dIdxLocal = 3'b100; //4
+DirIdx dIdxNorth = 3'b000; // 0
+DirIdx dIdxEast  = 3'b001; // 1
+DirIdx dIdxSouth = 3'b010; // 2
+DirIdx dIdxWest  = 3'b011; // 3
+DirIdx dIdxLocal = 3'b100; // 4
 DirIdx dIdxNULL  = 3'b111;
 
 
