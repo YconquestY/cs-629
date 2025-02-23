@@ -2,10 +2,13 @@
 
 *Constructive Computer Architecture*
 
+## Project
+
+A [non-blocking cache](https://github.com/YconquestY/nbcache)
+
 ## Labs
 
 The course is co-run with [6.1920](https://canvas.mit.edu/courses/25337) *Constructive Computer Architecture* by [Massachusetts Institute of Technology](https://www.mit.edu/) in spring 2024. Below matches EPFL coursework with the MIT version. **Click on EPFL labs to check my implementation.**
-
 
 | EPFL | MIT | Content |
 | ---  | --- | ---     |
@@ -16,8 +19,8 @@ The course is co-run with [6.1920](https://canvas.mit.edu/courses/25337) *Constr
 | [Lab 3](https://github.com/YconquestY/cs-629/tree/lab3) | [Lab 2b](https://github.com/6192-sp24/lab2_b) | Processor |
 | [Lab 4<font color="gray">a</font>](https://github.com/YconquestY/cs-629/tree/lab4) | [Lab 3a](https://github.com/6192-sp24/lab3_a) | Cache |
 | [Lab 5](https://github.com/YconquestY/cs-629/tree/lab5) | [Lab 3b](https://github.com/6192-sp24/lab3_b) | Glue: processor and cache |
-|| [Lab 4a](https://github.com/6192-sp24/lab4_a) | SMT |
-|| [Lab 5](https://github.com/6192-sp24/lab5) | NOC router |
+| [Lab 6](https://github.com/YconquestY/cs-629/tree/lab6) | [Lab 4a](https://github.com/6192-sp24/lab4_a) | SMT |
+| [Lab 7](https://github.com/YconquestY/cs-629/tree/lab7) | [Lab 5](https://github.com/6192-sp24/lab5) | NOC router |
 
 ## Acknowledgement
 
